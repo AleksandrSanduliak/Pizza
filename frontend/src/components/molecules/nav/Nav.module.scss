@@ -1,0 +1,13 @@
+.categories {
+  display: flex;
+  &__list {
+    display: flex;
+    width: 100%;
+    gap: 1.25rem;
+  }
+  li {
+    a {
+      color: $black;
+    }
+  }
+}

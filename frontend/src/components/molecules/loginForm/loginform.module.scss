@@ -1,0 +1,12 @@
+.formlogin {
+  @include flex-column;
+  justify-content: flex-start;
+  &__desc {
+    color: $black;
+    text-align: center;
+    max-width: 20rem;
+    font-family: "Inter-regular";
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+  }
+}

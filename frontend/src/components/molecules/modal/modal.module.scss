@@ -1,0 +1,23 @@
+.modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  margin: 0 auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: $trnsn1;
+
+  @include flex-all-center;
+  &__content {
+    background-color: $white;
+    padding: 3.75rem 16.563rem;
+    border-radius: 1.5rem;
+  }
+}
+.modal.active__modal {
+  visibility: visible;
+  opacity: 1;
+}

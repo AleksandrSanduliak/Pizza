@@ -1,0 +1,42 @@
+.HeaderTop {
+  max-height: 2.5rem;
+  padding: 11px 0px;
+  &::after {
+    content: "";
+    display: flex;
+    position: absolute;
+    top: 40px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 1px;
+    background: $linegray;
+  }
+
+  .dropdown {
+    margin-right: 2.5rem;
+  }
+  @include flex-v-center;
+  &-leftblock,
+  &-rightblock {
+    @include flex-v-center;
+  }
+  &-leftblock {
+    justify-content: flex-start;
+    > p:not(:last-child) {
+      margin-right: 2.5rem;
+    }
+  }
+  &-rightblock {
+    justify-content: flex-end;
+    flex: 1;
+    > p {
+      margin-right: 2.5rem;
+    }
+  }
+}
+.account {
+  @include flex-v-center;
+  cursor: pointer;
+}

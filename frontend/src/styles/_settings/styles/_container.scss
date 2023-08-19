@@ -1,0 +1,11 @@
+:root {
+  --content-width: 78.75rem; //1290px
+  --container-offset: 0.938rem;
+  --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
+}
+
+[class*="_container"] {
+  margin: 0 auto;
+  max-width: var(--container-width);
+  padding: 0 var(--container-offset);
+}

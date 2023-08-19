@@ -1,0 +1,14 @@
+.header {
+  font-size: 0.875rem;
+  font-family: "Inter-regular";
+  line-height: 1.125rem;
+  background-color: $white;
+  &__middle {
+    @include flex-align;
+    padding: 1.25rem 0px;
+    position: sticky;
+    // top: 15px;
+    z-index: 8;
+    // width: 100%;
+  }
+}

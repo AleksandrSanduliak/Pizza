@@ -1,0 +1,17 @@
+.fade {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(25, 25, 25, 0.4);
+  z-index: -1;
+  backdrop-filter: blur(1rem);
+  transition: $trnsn1;
+  opacity: 0;
+  visibility: hidden;
+}
+.active {
+  opacity: 1;
+  visibility: visible;
+}

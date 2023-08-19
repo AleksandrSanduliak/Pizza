@@ -1,0 +1,33 @@
+.categoriesList {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-top: 30px;
+}
+.cartCategory {
+  width: 8.438rem;
+  height: 6.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid $linegray;
+  background: $white;
+  padding: 1.25rem;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 0.5rem;
+  }
+  p,
+  a {
+    font-family: "SF-regular";
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    color: $black;
+  }
+  a {
+  }
+}
