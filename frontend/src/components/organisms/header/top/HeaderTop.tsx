@@ -1,11 +1,8 @@
 import React, { Suspense } from "react";
-const LazyDropdown = React.lazy(
-  () => import("../../../molecules/dropdown/Dropdown")
-);
-
+const LazyDropdown = React.lazy(() => import("molecules/dropdown/Dropdown"));
 import "./HeaderTop.scss";
 import { HashLink } from "react-router-hash-link";
-import Account from "../../../molecules/account/Account";
+import Account from "molecules/account/Account";
 const HeaderTop = () => {
   // console.log(user, "user data account");
   // console.log(userdata, "user data account");

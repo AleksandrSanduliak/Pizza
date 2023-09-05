@@ -1,7 +1,7 @@
 import React from "react";
-import Modal from "../components/molecules/modal/Modal";
-import LoginForm from "../components/molecules/loginForm/LoginForm";
-import { useLoginUserMutation } from "../store/authApi";
+import Modal from "../molecules/modal/Modal";
+import LoginForm from "../molecules/loginForm/LoginForm";
+import { useLoginUserMutation } from "store/reducers/api/authApi";
 const LoginPage = () => {
   console.log("rendering login page");
   const [isClicked, setIsClicked] = React.useState(false);

@@ -3,8 +3,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Router from "./Router";
 import React from "react";
-import { dispatchApp } from "./store/store";
-import { useRefreshTokenMutation } from "./store/authApi";
+import { dispatchApp } from "store/store";
+import { useRefreshTokenMutation } from "store/reducers/api/authApi";
 
 function App() {
   const [refreshToken, { data, isLoading, isError, error, isSuccess }] =

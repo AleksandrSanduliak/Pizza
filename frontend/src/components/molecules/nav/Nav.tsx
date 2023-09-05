@@ -1,6 +1,6 @@
 import React from "react";
 import cl from "./Nav.module.scss";
-import { categories } from "../../../utils/data/categories";
+import { categories } from "utils/data/categories";
 import { HashLink } from "react-router-hash-link";
 const Nav = () => {
   console.log("nav render");

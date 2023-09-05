@@ -2,6 +2,7 @@ type categoriesType = {
   name: string;
   path: string;
 };
+
 export const categories: categoriesType[] = [
   {
     name: "Акции",

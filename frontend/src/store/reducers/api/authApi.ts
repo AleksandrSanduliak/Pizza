@@ -1,12 +1,12 @@
-import type { FormLogin } from "../components/molecules/loginForm/LoginForm";
+import type { FormLogin } from "molecules/loginForm/LoginForm";
 import {
   FetchBaseQueryError,
   createApi,
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
 
-import { RootState, dispatchApp } from "./store";
-import { logout, setUser } from "./authSlice";
+import { RootState, dispatchApp } from "store";
+import { logout, setUser } from "store/slices/authSlice";
 // import { RootState } from "./reducers/rootReducer";
 
 export interface IGenericResponse {

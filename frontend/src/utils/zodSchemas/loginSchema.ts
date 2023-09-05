@@ -1,5 +1,5 @@
 import { z, ZodType } from "zod";
-import { FormLogin } from "../types";
+import { FormLogin } from "../types/types";
 export const loginSchema: ZodType<FormLogin> = z.object({
   email: z.string().trim().email({
     message: "Почта должна соответствовать виду - emailname@mail.com",

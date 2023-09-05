@@ -1,15 +1,15 @@
 import React from "react";
 import "./header.scss";
 import HeaderTop from "./top/HeaderTop";
-import Nav from "../../molecules/nav/Nav";
-import ShoppingBag from "../../molecules/shoppingBag/ShoppingBag";
-import Logo from "../../atoms/logo/Logo";
-import Burger from "../burger/Burger";
-import Account from "../../molecules/account/Account";
-import cl from "../burger/burger.module.scss";
-import { selectorApp } from "../../../store/store";
-import Contacts from "../../molecules/contacts/Contacts";
-import { BurgerCategories } from "../../../utils/data/burgerCategories";
+import Nav from "molecules/nav/Nav";
+import ShoppingBag from "molecules/shoppingBag/ShoppingBag";
+import Logo from "atoms/logo/Logo";
+import Burger from "organisms/burger/Burger";
+import Account from "molecules/account/Account";
+import cl from "organisms/burger/burger.module.scss";
+import { selectorApp } from "store/store";
+import Contacts from "molecules/contacts/Contacts";
+import { BurgerCategories } from "utils/data/burgerCategories";
 const Header = () => {
   console.log("header render");
   const isOpen = selectorApp((state) => state.reducer.isOpen.isOpen);

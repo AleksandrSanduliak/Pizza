@@ -95,16 +95,13 @@ class UserService {
     if (!refreshToken) throw APIError.UnauthError();
     const userData = tokenService.validateRefreshToken(refreshToken);
     const tokenFromDB = await tokenService.findToken(refreshToken);
-    // console.log(refreshToken);
-    // console.log(userData, "userData 2");
-    // console.log(tokenFromDB, "token from db");
+
     if (!tokenFromDB || !userData) throw APIError.UnauthError();
     const findEmail = await db.collection("users").doc(tokenFromDB.userId);
     const doc = await findEmail.get();
     const emailDB = doc.data().email;
-    // console.log(emailDB);
-    if (!emailDB) throw APIError.UnauthError();
 
+    if (!emailDB) throw APIError.UnauthError();
     const dto = { id: userData.id, email: emailDB };
     const token = tokenService.generateToken({ ...dto });
     const saveToken = tokenService.saveToken(dto.id, token.refreshToken);

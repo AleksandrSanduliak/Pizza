@@ -1,18 +1,17 @@
 import React from "react";
-import AccImg from "../../../assets/icons/isAccount.svg";
-import Modal from "../modal/Modal";
-import LoginForm from "../loginForm/LoginForm";
-import { useAppSelector } from "../../../utils/hooks/redux";
-import { stopBubling } from "../../../utils/funcs/stopBubling";
-import RegisterForm from "../registerForm/RegisterForm";
+import AccImg from "assets/icons/isAccount.svg";
+import Modal from "molecules/modal/Modal";
+import LoginForm from "molecules/loginForm/LoginForm";
+import RegisterForm from "molecules/registerForm/RegisterForm";
+import { useAppSelector } from "utils/hooks/redux";
+import { stopBubling } from "utils/funcs/stopBubling";
 import cl from "./account.module.scss";
+
 const Account = () => {
   const user = useAppSelector((state) => state.reducer.auth.isAuth);
-  console.log(useAppSelector((state) => state.reducer));
   const [isClicked, setIsClicked] = React.useState(false);
   const [isRegisterClicked, setIsRegisterClicked] = React.useState(false);
-  // console.log(isRegisterClicked, "register clicked");
-  // console.log(isClicked, "isClicked Modal");
+
   const onClickAuth = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
     setIsClicked((prev) => !prev);
@@ -21,7 +20,6 @@ const Account = () => {
   };
   const onClickRegister = () => {
     setIsRegisterClicked((prev) => !prev);
-    console.log("reg FN check");
   };
 
   return (

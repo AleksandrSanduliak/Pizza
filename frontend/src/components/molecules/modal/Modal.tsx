@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Fade from "../../atoms/fade/Fade";
 import cl from "./modal.module.scss";
-import { stopBubling } from "../../../utils/funcs/stopBubling";
+import { stopBubling } from "utils/funcs/stopBubling";
 
 type modal = {
   children: React.ReactNode;

@@ -1,4 +1,4 @@
-import { FormRegister } from "./../types";
+import { FormRegister } from "../types/types";
 import { z, ZodType } from "zod";
 
 export const registerSchema: ZodType<FormRegister> = z

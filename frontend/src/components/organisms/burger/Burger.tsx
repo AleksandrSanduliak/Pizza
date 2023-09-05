@@ -1,11 +1,11 @@
 import React from "react";
 import cl from "./burger.module.scss";
-import { BurgerCategories } from "../../../utils/data/burgerCategories";
-// import Account from "../../molecules/account/Account";
-// import { stopBubling } from "../../../utils/funcs/stopBubling";
-// import Contacts from "../../molecules/contacts/Contacts";
-import { setCloseBurger, setOpenBurger } from "../../../store/burgerSlice";
-import { dispatchApp, selectorApp } from "../../../store/store";
+import { BurgerCategories } from "utils/data/burgerCategories";
+// import Account from "molecules/account/Account";
+// import { stopBubling } from "utils/funcs/stopBubling";
+// import Contacts from "molecules/contacts/Contacts";
+import { setCloseBurger, setOpenBurger } from "store/slices/burgerSlice";
+import { dispatchApp, selectorApp } from "store/store";
 import { useDispatch } from "react-redux";
 const Burger = React.memo(() => {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Iuser } from "./types";
-import { IGenericResponse } from "./authApi";
+import { Iuser } from "store/types";
+import { IGenericResponse } from "store/reducers/api/authApi";
 interface IuserState {
   user: Iuser | null;
   accesToken: string | null;

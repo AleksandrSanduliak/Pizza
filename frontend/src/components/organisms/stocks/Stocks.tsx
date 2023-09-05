@@ -1,7 +1,7 @@
 import React from "react";
 import cl from "./stockCard.module.scss";
-import onePizza from "../../../assets/stocks/pizzaBcg.webp";
-import threePizzas from "../../../assets/stocks/threePizzaBackgroud.webp";
+import onePizza from "assets/stocks/pizzaBcg.webp";
+import threePizzas from "assets/stocks/threePizzaBackgroud.webp";
 const Stocks = () => {
   return (
     <section className={cl.stockcard}>

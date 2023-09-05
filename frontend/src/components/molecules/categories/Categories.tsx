@@ -1,8 +1,8 @@
 import React from "react";
 import cl from "./cartCategory.module.scss";
-import stock from "../../../assets/icons/categories/stock.svg";
+import Stocks from "organisms/stocks/Stocks";
 import { HashLink } from "react-router-hash-link";
-import { categories } from "../../../utils/data/categories";
+import { categories } from "utils/data/categories";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";

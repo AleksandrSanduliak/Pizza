@@ -1,6 +1,6 @@
 import React from "react";
 import cl from "./checkadress.module.scss";
-import { Button } from "../../atoms/button/Button";
+import { Button } from "atoms/button/Button";
 import { YMaps, Map } from "@pbe/react-yandex-maps";
 const CheckAdress = () => {
   console.log("CheckAdres render");

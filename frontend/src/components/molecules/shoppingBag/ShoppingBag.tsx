@@ -1,4 +1,4 @@
-import { Button } from "../../atoms/button/Button";
+import { Button } from "atoms/button/Button";
 import cl from "./shoppingbag.module.scss";
 const ShoppingBag = () => {
   console.log("shopping render");

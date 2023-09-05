@@ -56,7 +56,6 @@ class tokenService {
           throw APIError.UnauthError();
         }
         const snap = querySnapshot.docs[0];
-        // console.log(snap + "snap");
         return snap.data();
       })
       .catch(function (error) {

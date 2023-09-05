@@ -1,13 +1,12 @@
 import React from "react";
+import { Button } from "atoms/button/Button";
+import { FormLogin } from "utils/types/types";
+import { loginSchema } from "utils/zodSchemas/loginSchema";
+import { useLoginUserMutation } from "store/reducers/api/authApi";
+import { toast } from "react-toastify";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Button } from "../../atoms/button/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import cl from "./loginform.module.scss";
-import { FormLogin } from "../../../utils/types";
-import { loginSchema } from "../../../utils/zodSchemas/loginSchema";
-import { useLoginUserMutation } from "../../../store/authApi";
-import { toast } from "react-toastify";
-
 type LoginForm = {
   isClicked: boolean;
   setClick: React.Dispatch<React.SetStateAction<boolean>>;

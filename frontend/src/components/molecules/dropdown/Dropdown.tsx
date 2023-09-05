@@ -1,8 +1,6 @@
 import React, { FC } from "react";
 import "./dropdown.scss";
-import Loc from "../../../assets/icons/isLogo.svg";
-
-import "./dropdown.scss";
+import Loc from "assets/icons/isLogo.svg";
 import Select from "react-select";
 // import Icons from "../../atoms/icons/Icons";
 type itemObj = {

@@ -14,13 +14,24 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
+      
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths":{
+    "assets/*": ["src/assets/*"],
+    "atoms/*": ["src/components/atoms/*"],
+    "molecules/*": ["src/components/molecules/*"],
+    "organisms/*": ["src/components/organisms/*"],
+    "pages/*": ["src/components/pages/*"],
+    "utils/*": ["src/utils/*"],
+    "store/*": ["src/store/*"],
+  }
   },
-  "include": ["src"],
+ 
+  "include": [ "src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

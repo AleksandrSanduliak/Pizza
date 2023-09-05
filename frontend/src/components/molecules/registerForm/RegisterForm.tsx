@@ -1,14 +1,13 @@
 import React from "react";
-import cl from "./registerform.module.scss";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRegisterUserMutation } from "../../../store/authApi";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Button } from "../../atoms/button/Button";
-import { MaskedInput, createDefaultMaskGenerator } from "react-hook-mask";
+import { useRegisterUserMutation } from "store/reducers/api/authApi";
+import { Button } from "atoms/button/Button";
+import { registerSchema } from "utils/zodSchemas/registerSchema";
+import { FormRegister } from "utils/types/types";
 import { toast } from "react-toastify";
-import { registerSchema } from "../../../utils/zodSchemas/registerSchema";
-import { FormRegister } from "../../../utils/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { MaskedInput, createDefaultMaskGenerator } from "react-hook-mask";
+import cl from "./registerform.module.scss";
 
 const dateBrithMask = createDefaultMaskGenerator("99-99-9999");
 const phoneMask = createDefaultMaskGenerator("(+7) (999) 99 99");

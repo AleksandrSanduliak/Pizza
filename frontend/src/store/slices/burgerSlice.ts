@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { isOpen } from "./types";
+import { isOpen } from "store/types";
 
 const initialState: isOpen = { isOpen: false };
 

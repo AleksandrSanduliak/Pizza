@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "../components/organisms/header/Header";
-import { useLogoutUserMutation } from "../store/authApi";
-import Categories from "../components/molecules/categories/Categories";
-import Stocks from "../components/organisms/stocks/Stocks";
-import CheckAdress from "../components/organisms/checkAdress/CheckAdress";
-import { useAppSelector } from "../utils/hooks/redux";
-import CatExample from "../components/molecules/categories/CatExample";
+import Header from "organisms/header/Header";
+import { useLogoutUserMutation } from "store/reducers/api/authApi";
+import Categories from "molecules/categories/Categories";
+import Stocks from "organisms/stocks/Stocks";
+import CheckAdress from "organisms/checkAdress/CheckAdress";
+import { useAppSelector } from "../../utils/hooks/redux";
+import CatExample from "molecules/categories/CatExample";
 const MainPage = () => {
   const [logout] = useLogoutUserMutation();
   const user = useAppSelector((state) => state.reducer);
