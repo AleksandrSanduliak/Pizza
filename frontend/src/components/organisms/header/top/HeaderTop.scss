@@ -1,42 +1,98 @@
 .HeaderTop {
   max-height: 2.5rem;
-  padding: 11px 0px;
+  padding: 0.688rem 0;
+  transition: $trnsn1;
+
+  @media (max-width: 950px) {
+    max-height: 3.5rem;
+  }
+  @media (max-width: 768.98px) {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 12;
+  }
   &::after {
     content: "";
     display: flex;
     position: absolute;
-    top: 40px;
+    top: 2.5rem;
     bottom: 0;
     left: 0;
     right: 0;
     width: 100vw;
-    height: 1px;
+    height: 0.063rem;
     background: $linegray;
+    @media (max-width: 950px) {
+      top: 3.438rem;
+    }
   }
-
   .dropdown {
     margin-right: 2.5rem;
+    @media (max-width: 1050px) {
+      margin-right: 1rem;
+    }
   }
   @include flex-v-center;
   &-leftblock,
   &-rightblock {
     @include flex-v-center;
+    @media (max-width: 1050px) {
+      font-size: 0.813rem;
+    }
+    @media (max-width: 425.98px) {
+      font-size: 0.75rem;
+    }
   }
   &-leftblock {
-    justify-content: flex-start;
-    > p:not(:last-child) {
+    &--delivery {
+      @media (max-width: 950px) {
+        max-width: 8.75rem;
+      }
+      @media (max-width: 768.98px) {
+        max-width: none;
+        flex: 1;
+      }
+      @media (max-width: 425.98px) {
+        max-width: 8.125rem;
+      }
+    }
+    &--checkaddress {
       margin-right: 2.5rem;
+      @media (max-width: 1050px) {
+        margin-right: 1rem;
+      }
+      @media (max-width: 768.98px) {
+        @include visually-hidden;
+      }
     }
   }
   &-rightblock {
     justify-content: flex-end;
     flex: 1;
-    > p {
+    @media (max-width: 768.98px) {
+      @include visually-hidden;
+    }
+
+    &--text {
       margin-right: 2.5rem;
+      @media (max-width: 1050px) {
+        margin-right: 1rem;
+      }
+      @media (max-width: 950px) {
+        max-width: 6.563rem;
+      }
+    }
+  }
+  .account {
+    cursor: pointer;
+    @media (max-width: 768.98px) {
+      @include visually-hidden;
     }
   }
 }
 .account {
   @include flex-v-center;
-  cursor: pointer;
 }

@@ -1,8 +1,8 @@
-import React from "react";
 import logo from "../../../assets/icons/pizzaLogo.svg";
 import cl from "./logo.module.scss";
 import { NavLink } from "react-router-dom";
 const Logo = () => {
+  console.log("logo render");
   return (
     <NavLink to="/" className={cl.logoWrapper}>
       <img
@@ -11,7 +11,6 @@ const Logo = () => {
         src={logo}
         alt="Логотип ToTo Pizza"
       />
-      {/* <h1>Куда Пицца</h1> */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="97"

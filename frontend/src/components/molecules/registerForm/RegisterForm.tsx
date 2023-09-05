@@ -1,58 +1,24 @@
 import React from "react";
 import cl from "./registerform.module.scss";
-import { z, ZodType } from "zod";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRegisterUserMutation } from "../../../store/authApi";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Button } from "../../atoms/button/Button";
 import { MaskedInput, createDefaultMaskGenerator } from "react-hook-mask";
 import { toast } from "react-toastify";
-export type FormRegister = {
-  name: string;
-  email: string | null;
-  phone: number;
-  dateBrith: Date;
-  // login: string;
-  password: string;
-  confirmPassword: string;
-};
+import { registerSchema } from "../../../utils/zodSchemas/registerSchema";
+import { FormRegister } from "../../../utils/types";
+
 const dateBrithMask = createDefaultMaskGenerator("99-99-9999");
 const phoneMask = createDefaultMaskGenerator("(+7) (999) 99 99");
-const schema2: ZodType<FormRegister> = z
-  .object({
-    name: z
-      .string()
-      .trim()
-      .min(4, { message: "Имя должно быть 4 или более символов" })
-      .max(14, { message: "Имя должно быть менее 14 символов" }),
-    email: z
-      .string()
-      .trim()
-      .email({
-        message: "Почта должна соответствовать виду - emailname@mail.com",
-      })
-      .optional(),
-    phone: z
-      .string()
-      .trim()
-      .regex(
-        /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
-        "Номер телефона должен соответствовать виду - 8-123-456-78-99"
-      ),
-    dateBrith: z.string(),
-    password: z.string().trim(),
-    confirmPassword: z.string().trim(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Введенные пароли не соответствуют",
-    path: ["confirmPassword"],
-  });
+
 const RegisterForm = () => {
   console.log("rendering register page");
   const [registerUser, { data, isLoading, isError, error, isSuccess }] =
     useRegisterUserMutation();
   if (isError) {
-    console.log("Ошибка регистрации");
+    // console.log("Ошибка регистрации");
     toast.error("Ошибка регистрации", {
       position: "top-right",
       autoClose: 5000,
@@ -80,13 +46,14 @@ const RegisterForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormRegister>({ resolver: zodResolver(schema2) });
+  } = useForm<FormRegister>({ resolver: zodResolver(registerSchema) });
 
   const onSubmit: SubmitHandler<FormRegister> = (data) => {
     console.log(data);
     registerUser(data);
   };
 
+  console.log("register render");
   return (
     <form className={cl.registerform} onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="name">

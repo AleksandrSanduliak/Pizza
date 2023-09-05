@@ -1,6 +1,7 @@
 import React from "react";
 import "./button.scss";
 import loading from "./btn-items/loading.svg";
+
 interface ButtonProps {
   primary?: boolean;
   backgroundColor?: string;
@@ -18,7 +19,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const mode = primary ? "button-primary" : "button-secondary";
-  // const bcg = primary? '#FF7010' : null
+  console.log("button render");
   return (
     <button
       type={isSubmit ? "submit" : "button"}
@@ -26,7 +27,12 @@ export const Button = ({
       {...props}
     >
       {isLoading ? (
-        <img className="button-loading" src={loading} alt="Загрузка..." />
+        <img
+          loading="lazy"
+          className="button-loading"
+          src={loading}
+          alt="Загрузка..."
+        />
       ) : null}
 
       {children}

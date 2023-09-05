@@ -12,14 +12,23 @@
       padding: 0;
       cursor: pointer;
     }
+    .dropdown-select {
+      z-index: 20;
+    }
     .dropdown-select__menu {
       min-width: 9.375rem;
+      // position: relative;
+      z-index: 25;
     }
     .dropdown-select__value-container {
       // padding: 0;
+      // z-index: 9;
     }
     .dropdown-select__indicator {
       padding: 0;
+      @media (max-width: 425.98px) {
+        @include visually-hidden;
+      }
     }
     .dropdown-select__indicator-separator {
       display: none;

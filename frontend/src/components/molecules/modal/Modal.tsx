@@ -7,23 +7,18 @@ type modal = {
   children: React.ReactNode;
   isClicked: boolean;
 };
-const Modal: FC<modal> = ({ isClicked, children }) => {
-  const [isClickeds, setIsClicked] = React.useState(false);
-  const onClickModal = () => {
-    console.log("click modal");
-    setIsClicked(true);
-  };
+
+const Modal: FC<modal> = React.memo(({ isClicked, children }) => {
+  console.log(isClicked, "isClicked");
+  console.log("modal render");
   return (
-    <div
-      onClick={onClickModal}
-      className={cl.modal + ` ${isClicked ? cl.active__modal : ""}`}
-    >
+    <div className={`${cl.modal} ${isClicked ? cl.activeModal : ""}`}>
       <Fade isClicked={isClicked} />
       <div onClick={stopBubling} className={cl.modal__content}>
         {children}
       </div>
     </div>
   );
-};
+});
 
-export default Modal;
+export default React.memo(Modal);

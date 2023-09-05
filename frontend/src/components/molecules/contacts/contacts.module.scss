@@ -1,0 +1,28 @@
+.contacts {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  color: $black;
+  font-family: "Inter-regular";
+  font-size: 0.875rem;
+  line-height: normal;
+  max-width: 31.25rem;
+  &__block {
+    display: flex;
+    flex-wrap: wrap;
+    &_content {
+      display: flex;
+      margin-right: 1.25rem;
+      padding-bottom: 0.313rem;
+    }
+    &_content + &_content {
+      margin-right: 1.5rem;
+    }
+  }
+
+  svg,
+  img {
+    margin-right: 0.75rem;
+  }
+}

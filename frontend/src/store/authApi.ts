@@ -27,8 +27,6 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     headers.set("Access-Control-Allow-Credentials", "*");
     const accessToken = document.cookie.split("accesToken=")[1];
-    // const accessToken = getState().reducer.auth.accessToken;
-    // console.log(getState());
     console.log(accessToken, "accesToken for api");
     if (accessToken) {
       headers.set("Authorization", `Bearer ${accessToken}`);
@@ -94,6 +92,14 @@ export const authApi = createApi({
           method: "POST",
         };
       },
+      async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(logout());
+        } catch (e) {
+          console.log(e);
+        }
+      },
     }),
     refreshToken: builder.mutation<IGenericResponse, FetchBaseQueryError>({
       query: () => ({
@@ -104,9 +110,7 @@ export const authApi = createApi({
       }),
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
-          console.log("await");
           const { data } = await queryFulfilled;
-          console.log(data, "data query fullfil");
           dispatch(setUser(data));
         } catch (e) {
           console.log(e);

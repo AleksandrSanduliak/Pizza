@@ -6,3 +6,7 @@ export interface Iuser {
   id: number;
   phone: string;
 }
+
+export type isOpen = {
+  isOpen: boolean;
+};

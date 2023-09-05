@@ -14,6 +14,7 @@ interface Dropdown {
   items?: itemObj[] | null | undefined;
 }
 const Dropdown: FC<Dropdown> = ({ isIcon = true }) => {
+  console.log("dropdown render");
   const [items, setItems] = React.useState([
     { value: "Москва", label: "Москва" },
     { value: "Санкт-Петербург", label: "Санкт-Петербург" },
@@ -25,7 +26,7 @@ const Dropdown: FC<Dropdown> = ({ isIcon = true }) => {
   ]);
   const Selected: FC<Dropdown> = ({ items }) => {
     if (!items) {
-      console.log(new Error("Ошибка отсутствие городов"));
+      console.log(new Error("Ошибка отсутствия городов"));
       const alert = "Города не найдены";
       return (
         <Select
@@ -43,7 +44,6 @@ const Dropdown: FC<Dropdown> = ({ isIcon = true }) => {
         ) : (
           false
         )}
-        {/* <Icons isLogo={true} /> */}
         <Select
           defaultValue={items[0]}
           className="dropdown-select"
@@ -61,4 +61,4 @@ const Dropdown: FC<Dropdown> = ({ isIcon = true }) => {
   );
 };
 
-export default Dropdown;
+export default React.memo(Dropdown);

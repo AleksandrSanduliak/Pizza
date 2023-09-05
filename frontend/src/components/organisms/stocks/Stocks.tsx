@@ -6,7 +6,7 @@ const Stocks = () => {
   return (
     <section className={cl.stockcard}>
       <div className={cl.stockcard__red}>
-        <img src={onePizza} alt="Пицца на фоне блока" />
+        <img loading="lazy" src={onePizza} alt="Пицца на фоне блока" />
         <div>
           <p>
             Кэшбек 10% на<br></br>самовывоз (доставка)
@@ -14,7 +14,7 @@ const Stocks = () => {
         </div>
       </div>
       <div className={cl.stockcard__orange}>
-        <img src={threePizzas} alt="Три пиццы на фоне блока" />
+        <img loading="lazy" src={threePizzas} alt="Три пиццы на фоне блока" />
         <div>
           <p>
             3 средние пиццы<br></br>от 999 рублей
@@ -22,7 +22,7 @@ const Stocks = () => {
         </div>
       </div>
       <div className={cl.stockcard__red}>
-        <img src={onePizza} alt="Пицца на фоне блока" />
+        <img loading="lazy" src={onePizza} alt="Пицца на фоне блока" />
         <div>
           <p>
             Кэшбек 10% на<br></br>самовывоз (доставка)
@@ -30,7 +30,7 @@ const Stocks = () => {
         </div>
       </div>
       <div className={cl.stockcard__orange}>
-        <img src={threePizzas} alt="Три пиццы на фоне блока" />
+        <img loading="lazy" src={threePizzas} alt="Три пиццы на фоне блока" />
         <div>
           <p>
             3 средние пиццы<br></br>от 999 рублей

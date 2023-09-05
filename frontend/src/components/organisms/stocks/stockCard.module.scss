@@ -1,37 +1,34 @@
 .stockcard {
-  margin-top: 30px;
+  margin-top: 1.875rem;
   display: flex;
-  gap: 30px;
+  gap: 1.875rem;
 
   &__red,
   &__orange {
-    width: 300px;
-    height: 343px;
+    width: 18.75rem;
+    height: 21.438rem;
     border-radius: 0.25rem;
     div {
       font-family: "Inter-semibold";
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 28px;
-      width: 270px;
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+      width: 16.875rem;
 
-      padding: 20px;
+      padding: 1.25;
       margin: auto 0 0;
       color: $white;
     }
   }
   &__red {
     background-color: $red;
-
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
     img {
       object-fit: contain;
-      width: 278.571px;
-      height: 115.545px;
-      margin-top: 70px;
+      width: 17.375rem;
+      height: 7.188rem;
+      margin-top: 4.375rem;
     }
   }
   &__orange {

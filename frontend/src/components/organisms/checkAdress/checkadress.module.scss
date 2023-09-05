@@ -1,14 +1,15 @@
 .checkadress {
   border-radius: 0.5rem;
-  border: 1px solid $linegray;
+  border: 0.063rem solid $linegray;
   background: $white;
   padding: 1rem 2rem;
-  margin-top: 30px;
+  margin-top: 1.875rem;
 
   display: flex;
   align-items: center;
   input {
-    width: 783px;
-    height: 48px;
+    width: 48.938rem;
+    height: 3rem;
+    margin-bottom: 0;
   }
 }
