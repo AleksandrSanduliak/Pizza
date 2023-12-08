@@ -5,7 +5,7 @@ import loading from "./btn-items/loading.svg";
 interface ButtonProps {
   primary?: boolean;
   backgroundColor?: string;
-  children: string;
+  children: string | React.ReactNode;
   isLoading?: boolean;
   isSubmit?: boolean;
   onClick?: () => void;
@@ -26,15 +26,14 @@ export const Button = ({
       className={["button", mode].join(" ")}
       {...props}
     >
-      {isLoading ? (
+      {isLoading && (
         <img
           loading="lazy"
-          className="button-loading"
+          className={`button-loading-img  ${isLoading ? "button-loading" : ""}`}
           src={loading}
           alt="Загрузка..."
         />
-      ) : null}
-
+      )}
       {children}
     </button>
   );

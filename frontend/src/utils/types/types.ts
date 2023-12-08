@@ -16,3 +16,18 @@ export type FormRegister = {
   password: string;
   confirmPassword: string;
 };
+
+export type pizzaItem = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+  category: number;
+  rating?: number;
+  desc?: string;
+};
+export type foodType = {
+  food: pizzaItem;
+};

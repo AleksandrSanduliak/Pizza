@@ -1,17 +1,41 @@
 .header {
-  font-family: "Inter-regular";
+  font-family: "Inter";
   font-size: 0.875rem;
   line-height: 1.125rem;
-
   background-color: $white;
 
   position: relative;
   z-index: 11;
+  &__navWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: sticky;
+    z-index: 10;
+    top: 0;
+  }
+  &__nav {
+    background-color: $white;
+    transition: $trnsn2;
+    display: flex;
+    flex: 1;
+    // @include flex-align;
+    // padding: 1.25rem 0;
+    // justify-content: space-between;
+    // position: relative;
+    // z-index: 29;
+    // transition: $trnsn1;
+    // flex: 1;
+  }
   &__middle {
     @include flex-align;
-    padding: 1.25rem 0px;
+    padding: 1.25rem 0;
     justify-content: space-between;
     position: relative;
+    z-index: 29;
+    transition: $trnsn1;
+    flex: 1;
   }
 }
 .fixed-header {

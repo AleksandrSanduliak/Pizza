@@ -1,16 +1,21 @@
 import React from "react";
+
+import { toast } from "react-toastify";
+// import { withMask, useHookFormMask } from "use-mask-input";
+import { SubmitHandler, useForm } from "react-hook-form";
+
 import { Button } from "atoms/button/Button";
 import { FormLogin } from "utils/types/types";
-import { loginSchema } from "utils/zodSchemas/loginSchema";
-import { useLoginUserMutation } from "store/reducers/api/authApi";
-import { toast } from "react-toastify";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLoginUserMutation } from "store/api/authApi";
+import { loginSchema } from "utils/zodSchemas/loginSchema";
+
 import cl from "./loginform.module.scss";
 type LoginForm = {
   isClicked: boolean;
   setClick: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
 const LoginForm: React.FC<LoginForm> = ({ isClicked, setClick }) => {
   console.log("rendering login page");
   const {
@@ -23,9 +28,7 @@ const LoginForm: React.FC<LoginForm> = ({ isClicked, setClick }) => {
   const onSubmit: SubmitHandler<FormLogin> = (data) => {
     loginUser(data);
   };
-  const onClickAuth = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-  };
+  // const registerWithMask = useHookFormMask(register);
   React.useLayoutEffect(() => {
     if (isSuccess) {
       toast.success("Вы зашли в систему", {
@@ -54,30 +57,38 @@ const LoginForm: React.FC<LoginForm> = ({ isClicked, setClick }) => {
       });
     }
   }, [isLoading]);
-  console.log(isLoading, "isLoading");
+
   return (
     <form className={cl.formlogin} onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="email">
         {errors.email ? (
-          <span style={{ color: "red" }}>{errors.email.message}</span>
+          <span className={cl.formlogin__error}>{errors.email.message}</span>
         ) : (
-          <>Email</>
+          <p className="mini">Email</p>
         )}
       </label>
-      <input id="email" {...register("email")} className="input" />
+      <input
+        // ref={withMask("9999-9999")}
+        id="email"
+        {...register("email")}
+        // {...registerWithMask("email", ["+9 999 999-99-99"], {
+        //   required: true,
+        // })}
+        className="input"
+      />
 
       <label htmlFor="password">
         {errors.password ? (
           <span style={{ color: "red" }}>{errors.password.message}</span>
         ) : (
-          <>Пароль</>
+          <p className="mini">Пароль</p>
         )}
       </label>
       <input id="password" {...register("password")} className="input" />
       <Button isSubmit={true} isLoading={isLoading ? true : false}>
         Отправить
       </Button>
-      <p className={cl.formlogin__desc}>
+      <p className={`${cl.formlogin__desc} mini`}>
         Продолжая, вы соглашаетесь со сбором и обработкой персональных данных и
         пользовательским соглашением
       </p>

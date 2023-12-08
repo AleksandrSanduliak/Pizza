@@ -20,11 +20,17 @@ export const registerSchema: ZodType<FormRegister> = z
       .trim()
       .regex(
         /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
-        "Номер телефона должен соответствовать виду - 8-123-456-78-99"
+        "Номер телефона должен соответствовать виду - +7-123-456-78-99"
       ),
     dateBrith: z.string(),
-    password: z.string().trim(),
-    confirmPassword: z.string().trim(),
+    password: z
+      .string()
+      .trim()
+      .min(8, { message: "Пароль должен быть более 8 символов" }),
+    confirmPassword: z
+      .string()
+      .trim()
+      .min(8, { message: "Пароль должен быть более 8 символов" }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Введенные пароли не соответствуют",

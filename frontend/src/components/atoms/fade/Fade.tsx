@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import "./fade.scss";
 
 const Fade: FC<fade> = ({ isClicked }) => {

@@ -1,0 +1,112 @@
+.swiper-slide {
+  max-width: 8.438rem;
+  max-height: 6.5rem;
+}
+.cart {
+  background-color: none;
+  // position: absolute;
+  // top: 136px;
+  transition: $trnsn1;
+  background-color: $bcg-gray;
+  &__list {
+    margin-top: 2rem;
+    @media (max-width: 425.98px) {
+      margin-top: 1.25rem;
+    }
+  }
+  &__category {
+    @include flex-align-column;
+    justify-content: center;
+    // @include adaptiv-value(width, 135, 100, 1);
+    // @include adaptiv-value(height, 104, 40, 1);
+    @include adaptiv-value(padding-top, 20, 8, 1);
+    @include adaptiv-value(padding-bottom, 20, 8, 1);
+    @include adaptiv-value(padding-left, 40, 12, 1);
+    @include adaptiv-value(padding-right, 40, 12, 1);
+    border-radius: 0.75rem;
+    border: 0.063rem solid $linegray;
+    background: $white;
+
+    // font-family: "SF";
+    // font-weight: 400;
+    max-width: 8.438rem;
+    max-height: 6.5rem;
+    cursor: pointer;
+    // position: absolute;
+    // top: 250px;
+    // z-index: 30;
+    // width: 100%;
+    svg,
+    p,
+    svg path {
+      transition: $trnsn2;
+    }
+
+    &:hover {
+      svg path {
+        fill: $red;
+      }
+      p {
+        color: $red;
+      }
+    }
+
+    &__image {
+      margin-bottom: 0.5rem;
+      @include adaptiv-value(width, 32, 24, 1);
+      @include adaptiv-value(height, 32, 24, 1);
+      @media (max-width: 768.98px) {
+        margin-bottom: 0;
+      }
+      @media (max-width: 425.98px) {
+        margin-right: 0.5rem;
+      }
+    }
+    p,
+    a {
+      font-family: "SF";
+      font-weight: 400;
+      @include adaptiv-value(font-size, 18, 14, 1);
+      @include adaptiv-value(line-height, 24, 18, 1);
+      color: $black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      @media (max-width: 425.98px) {
+        flex-direction: row;
+      }
+    }
+  }
+  // &__link {
+  // }
+}
+.activelink {
+  p {
+    color: $red;
+  }
+  svg path {
+    transition: $trnsn2;
+    fill: $red;
+  }
+}
+.notVisible {
+  position: fixed;
+  z-index: 99;
+  top: 30.5px;
+  width: 750px;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  margin-left: 170px;
+
+  &__block {
+  }
+  svg {
+    display: none;
+  }
+  div {
+    div {
+      width: 100px !important;
+    }
+  }
+}

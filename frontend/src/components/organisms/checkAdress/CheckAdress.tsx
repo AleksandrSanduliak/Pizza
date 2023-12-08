@@ -1,16 +1,34 @@
 import React from "react";
+
+// import { Button } from "atoms/button/Button";
 import cl from "./checkadress.module.scss";
-import { Button } from "atoms/button/Button";
-import { YMaps, Map } from "@pbe/react-yandex-maps";
-const CheckAdress = () => {
-  console.log("CheckAdres render");
-  return (
-    <section className={cl.checkadress} id="checkaddress">
-      <p>Проверить адрес доставки</p>
-      <input placeholder="Адрес" className="input" />
-      <Button primary={true}>Проверить</Button>
-    </section>
-  );
+
+import { YMaps, withYMaps } from "react-yandex-maps";
+
+const Button = (props) => {
+  const { ymaps } = props;
+  const onClick = async () => {
+    if (ymaps) {
+      const data = await ymaps.SuggestView("1671141286");
+      console.log(data);
+    }
+  };
+
+  return <button onClick={onClick}> get </button>;
 };
 
+const ButtonWithYMap = withYMaps(Button, true);
+const CheckAdress = () => {
+  return (
+    <>
+      <YMaps
+        query={{
+          apikey: "ca13e5b7-6cd4-430e-9943-3a37419ee06e",
+        }}
+      >
+        <ButtonWithYMap />
+      </YMaps>
+    </>
+  );
+};
 export default CheckAdress;

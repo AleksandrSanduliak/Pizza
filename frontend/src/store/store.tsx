@@ -1,7 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { rootReducers } from "store/rootReducer";
-import { authApi } from "store/reducers/api/authApi";
 import { useDispatch, useSelector } from "react-redux";
+
+import { authApi } from "store/api/authApi";
+import { rootReducers } from "store/rootReducer";
+import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
   reducer: {

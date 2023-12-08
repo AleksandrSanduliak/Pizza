@@ -29,6 +29,8 @@
     "pages/*": ["src/components/pages/*"],
     "utils/*": ["src/utils/*"],
     "store/*": ["src/store/*"],
+    "styles/*": ["src/styles/_settings/*"],
+    "fonts/*": ["src/assets/fonts/*"],
   }
   },
  

@@ -4,9 +4,7 @@ const PORT = 3000;
 const router = require("./Router/Router");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-
 const ErrorMiddleware = require("./middleware/errorMiddleware");
-
 require("dotenv").config();
 
 app.use(

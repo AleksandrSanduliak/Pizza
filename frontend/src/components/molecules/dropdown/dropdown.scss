@@ -13,16 +13,16 @@
       cursor: pointer;
     }
     .dropdown-select {
-      z-index: 20;
+      z-index: 32;
     }
     .dropdown-select__menu {
       min-width: 9.375rem;
       // position: relative;
-      z-index: 25;
+      z-index: 32;
     }
     .dropdown-select__value-container {
       // padding: 0;
-      // z-index: 9;
+      // z-index: 30;
     }
     .dropdown-select__indicator {
       padding: 0;

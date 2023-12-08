@@ -1,8 +1,45 @@
 .shoppingbag {
   display: flex;
+  // margin-left: auto;
+  justify-content: flex-end;
+  flex: 1;
+  position: relative;
   @media (max-width: 768.98px) {
     position: fixed;
+    z-index: 22;
     bottom: 2rem;
     right: 1rem;
+  }
+  svg {
+    margin-right: 0.5rem;
+    @media (max-width: 768.98px) {
+      margin-right: 0;
+    }
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    @media (max-width: 768.98px) {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 1.75rem;
+      padding: 0;
+    }
+  }
+  &__cardSummary {
+    @media (max-width: 768.98px) {
+      position: absolute;
+      top: -0.7rem;
+      right: 0;
+      width: 1.7rem;
+      height: 1.7rem;
+      border-radius: 0.781rem;
+      border: 1px solid $primary;
+      background-color: white;
+      color: $primary;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }

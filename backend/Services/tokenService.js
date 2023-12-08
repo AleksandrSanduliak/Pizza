@@ -3,12 +3,14 @@ const { db } = require("../Firebase/firebaseConntect");
 const APIError = require("../exeptions/apiError");
 class tokenService {
   generateToken(user) {
+    console.log("generate token");
     const refreshToken = jwt.sign(user, process.env.JWT_REFRESH, {
       expiresIn: "30d",
     });
     const accesToken = jwt.sign(user, process.env.JWT_ACCES, {
       expiresIn: "15m",
     });
+    console.log(refreshToken);
     return {
       refreshToken,
       accesToken,
@@ -20,6 +22,7 @@ class tokenService {
       .where("refreshToken", "==", refreshToken)
       .get();
     if (!uniqueToken.empty) {
+      console.log("unique token");
       const writeToken = await db
         .collection("tokens")
         .doc(userId, refreshToken);
@@ -28,6 +31,7 @@ class tokenService {
       .collection("tokens")
       .doc(userId)
       .set({ userId: userId, refreshToken: refreshToken });
+    console.log(userId, "token");
     return token;
   }
   async removeToken(refreshToken) {
@@ -45,6 +49,7 @@ class tokenService {
     return token;
   }
   async findToken(refreshToken) {
+    if (!refreshToken) throw APIError.TokenError();
     console.log(refreshToken, "refreshToken find token");
     const token = await db
       .collection("tokens")

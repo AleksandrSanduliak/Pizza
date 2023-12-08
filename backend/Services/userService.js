@@ -4,20 +4,18 @@ const uuid = require("uuid");
 const tokenService = require("./tokenService");
 const MailService = require("./mailService");
 const APIError = require("../exeptions/apiError");
+const CheckEmail = require("../helpers/checkEmailRegi");
+const CheckActivationLink = require("../helpers/checkActivationLink");
+const CheckEmailLogin = require("../helpers/checkEmailLogin");
+const CheckEmailRegi = require("../helpers/checkEmailRegi");
+const { cookieSettings } = require("../helpers/cookieSettings");
 require("dotenv").config();
 
 class UserService {
   async registration(data) {
-    const uniqueUser = await db
-      .collection("users")
-      .where("email", "==", data.email)
-      .get();
-    if (!uniqueUser.empty) {
-      throw APIError.BadReq("Пользователь с таким email уже зарегистрирован");
-    }
-
+    const checkmail = CheckEmailRegi(data.email);
     const hashPassword = await bcrypt.hash(data.password, 10);
-    const activationLink = uuid.v4();
+    const generateActivationLink = uuid.v4();
     const user = await db.collection("users").add({
       name: data.name,
       email: data.email.toLowerCase(),
@@ -25,68 +23,48 @@ class UserService {
       dateBrith: data.dateBrith,
       password: hashPassword,
       isActivated: false,
-      activationLink,
+      generateActivationLink,
     });
     const dto = { id: user.id, email: data.email };
     const token = tokenService.generateToken({ ...dto });
     const saveToken = tokenService.saveToken(user.id, token.refreshToken);
     const mailService = MailService.sendMail(
       data.email,
-      `${process.env.EMAIL_API}/api/auth/activate/` + activationLink
+      `${process.env.EMAIL_API}/api/auth/activate/` + generateActivationLink
     );
     return { ...token, user: dto, saveToken };
   }
   async activate(activationLink) {
-    const user = await db
-      .collection("users")
-      .where("activationLink", "==", activationLink)
-      .get()
-      .then(async function (querySnapshot) {
-        if (querySnapshot.size === 1) {
-          const snap = querySnapshot.docs[0];
-          await snap.ref.update({ isActivated: true });
-          res.redirect(process.env.CLIENT_URL);
-          return;
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    if (!user.empty) {
-      console.log("Ошибка доступа к БД");
-      throw APIError.BadReq("Не корректная ссылка для активации пользователя");
-    }
+    console.log(activationLink);
+    const checkLink = CheckActivationLink(activationLink);
+    console.log(checkLink, "checklink");
   }
-  async login(email, password) {
-    console.log(email, password);
-    const user = await db
-      .collection("users")
-      .where("email", "==", email)
-      .get()
-      .then(async function (querySnapshot) {
-        if (!querySnapshot.size) {
-          console.log("Пользователь с таким email не существует");
-          throw APIError.BadReq("Пользователь с таким email не существует");
-        }
-        const snap = querySnapshot.docs[0];
-        if (!snap.data()) {
-          console.log("Пользователь с таким email не существует");
-          throw APIError.BadReq("Пользователь с таким email не существует");
-        }
-        const checkHashPassword = await bcrypt.compare(
-          password,
-          snap.data().password
-        );
-        if (!checkHashPassword) {
-          console.log("Неверный пароль");
-          throw APIError.BadReq("Неверный пароль");
-        }
-        const dto = { id: snap.id, email: email };
-        const token = tokenService.generateToken({ ...dto });
-        const saveToken = tokenService.saveToken(dto.id, token.refreshToken);
-        return { ...token, user: dto };
-      });
-    return user;
+  async login(email, password, res) {
+    const user = CheckEmailLogin(email);
+    const LoginLogic = user.then(async function (querySnapshot) {
+      if (!querySnapshot.size) {
+        console.log("Пользователь с таким email не существует");
+        throw APIError.BadReq("Пользователь с таким email не существует");
+      }
+      const snap = querySnapshot.docs[0];
+      if (!snap.data()) {
+        console.log("Пользователь с таким email не существует");
+        throw APIError.BadReq("Пользователь с таким email не существует");
+      }
+      const checkHashPassword = await bcrypt.compare(
+        password,
+        snap.data().password
+      );
+      if (!checkHashPassword) {
+        console.log("Неверный пароль");
+        throw APIError.BadReq("Неверный пароль");
+      }
+      const dto = { id: snap.id, email: email };
+      const token = tokenService.generateToken({ ...dto });
+      const saveToken = tokenService.saveToken(dto.id, token.refreshToken);
+      return { ...token, user: dto };
+    });
+    return LoginLogic;
   }
   async logout(refToken) {
     const token = await tokenService.removeToken(refToken);
@@ -97,7 +75,7 @@ class UserService {
     const tokenFromDB = await tokenService.findToken(refreshToken);
 
     if (!tokenFromDB || !userData) throw APIError.UnauthError();
-    const findEmail = await db.collection("users").doc(tokenFromDB.userId);
+    const findEmail = db.collection("users").doc(tokenFromDB.userId);
     const doc = await findEmail.get();
     const emailDB = doc.data().email;
 
@@ -106,6 +84,20 @@ class UserService {
     const token = tokenService.generateToken({ ...dto });
     const saveToken = tokenService.saveToken(dto.id, token.refreshToken);
     return { ...token, user: dto };
+  }
+  async user(data) {
+    // console.log(data);
+    const findUser = db.collection("users").doc(data.id);
+    const user = await findUser.get();
+    // console.log(user.data());
+    const dto = {
+      email: user.data().email,
+      dateBrith: user.data().dateBrith,
+      phone: user.data().phone,
+      name: user.data().name,
+    };
+    // console.log(dto);
+    return dto;
   }
 }
 module.exports = new UserService();

@@ -1,4 +1,4 @@
-import logo from "../../../assets/icons/pizzaLogo.svg";
+import logo from "assets/icons/pizzaLogo.svg";
 import cl from "./logo.module.scss";
 import { NavLink } from "react-router-dom";
 const Logo = () => {

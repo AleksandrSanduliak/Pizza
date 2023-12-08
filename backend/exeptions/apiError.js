@@ -12,4 +12,7 @@ module.exports = class APIError extends Error {
   static BadReq(message, errors = []) {
     return new APIError(400, message, errors);
   }
+  static TokenError() {
+    return new APIError(401, "Токен не найден");
+  }
 };

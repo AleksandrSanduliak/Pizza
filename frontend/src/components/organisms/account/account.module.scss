@@ -1,0 +1,97 @@
+.account {
+  &__inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  &__text {
+    font-family: "Inter";
+    pointer-events: none;
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    position: relative;
+    @media (max-width: 768.98px) {
+      font-size: 1rem;
+      line-height: 1.25rem;
+      padding: 1.25rem 0;
+    }
+  }
+  &__cabinet {
+    display: none;
+    width: 17.813rem;
+    // height: 12.875rem;
+    position: absolute;
+    top: 3rem;
+    right: 1vw;
+
+    border-radius: 0.75rem;
+    border: 1px solid $linegray;
+    background: white;
+    box-shadow: 0 0.125rem 0.5rem 0 rgba(25, 25, 25, 0.1);
+    @media (max-width: 950px) {
+      top: 4rem;
+    }
+    @media (max-width: 768.98px) {
+      position: relative;
+      width: 100%;
+      top: 0;
+      right: 0;
+      border-radius: 0;
+      box-shadow: none;
+      border: none;
+    }
+    &::after,
+    &::before {
+      content: "";
+      position: absolute;
+      left: 130px;
+      top: -14px;
+      border: 8px solid transparent;
+      border-bottom: 6px solid $linegray;
+      @media (max-width: 768.98px) {
+        display: none;
+      }
+    }
+    &::after {
+      border-bottom: 6px solid white;
+      top: -13px;
+    }
+    &_text {
+      padding: 1rem 1.25rem;
+      width: 100%;
+      text-align: left;
+    }
+
+    &_logout {
+      color: $gray-text;
+    }
+    &_content {
+      width: 100%;
+    }
+    &_bonus,
+    &_content {
+      border-bottom: 1px solid $linegray;
+      @media (max-width: 768.98px) {
+        border: 0;
+      }
+    }
+    &_bonus {
+      color: $primary;
+      @media (max-width: 768.98px) {
+        border-top: 1px solid $linegray;
+        display: inline;
+      }
+    }
+  }
+  // > .icon {
+  //   pointer-events: none;
+  // }
+}
+.activeCabinet {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  // justify-content: center;
+}

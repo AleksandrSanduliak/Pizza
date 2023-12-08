@@ -1,9 +1,10 @@
 .categories {
   display: flex;
+  justify-content: flex-start;
   &__list {
     display: flex;
-    width: 100%;
     gap: 1.25rem;
+    transition: $trnsn2;
   }
   li {
     a {

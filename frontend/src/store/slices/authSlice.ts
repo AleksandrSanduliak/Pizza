@@ -1,14 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { Iuser } from "store/types";
-import { IGenericResponse } from "store/reducers/api/authApi";
+import { IGenericResponse } from "store/api/authApi";
 interface IuserState {
   user: Iuser | null;
+  userData: any | null;
   accesToken: string | null;
   isAuth: boolean;
 }
 const initialState: IuserState = {
   user: null,
+  userData: null,
   accesToken: null,
   isAuth: false,
 };
@@ -20,6 +22,7 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuth = false;
       state.accesToken = null;
+      // state.userData = null;
     },
     setUser: (state, action: PayloadAction<IuserState | IGenericResponse>) => {
       console.log(action.payload, "payload");
@@ -33,7 +36,10 @@ const authSlice = createSlice({
         state.isAuth = false;
       }
     },
+    setUserData: (state, action) => {
+      state.userData = action.payload;
+    },
   },
 });
 export default authSlice.reducer;
-export const { logout, setUser } = authSlice.actions;
+export const { logout, setUser, setUserData } = authSlice.actions;

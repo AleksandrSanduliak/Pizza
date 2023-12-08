@@ -24,6 +24,8 @@ export default defineConfig({
       pages: path.resolve(__dirname, "src/components/pages"),
       utils: path.resolve(__dirname, "src/utils"),
       store: path.resolve(__dirname, "src/store"),
+      styles: path.resolve(__dirname, "src/styles/_settings"),
+      fonts: path.resolve(__dirname, "src/assets/fonts"),
     },
   },
 });

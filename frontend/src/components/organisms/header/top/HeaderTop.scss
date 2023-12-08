@@ -11,8 +11,8 @@
     line-height: 1rem;
     display: flex;
     justify-content: space-between;
-    position: relative;
-    z-index: 12;
+    // position: relative;
+    // z-index: 12;
   }
   &::after {
     content: "";
@@ -86,10 +86,14 @@
       }
     }
   }
-  .account {
+  .account,
+  .account > div > .icon {
     cursor: pointer;
+    display: flex;
     @media (max-width: 768.98px) {
-      @include visually-hidden;
+      // @include visually-hidden;
+      display: none;
+      // flex: 0;
     }
   }
 }
