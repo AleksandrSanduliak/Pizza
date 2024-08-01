@@ -1,10 +1,61 @@
-.logoWrapper {
+.wrapper {
   @include flex-align;
-  margin-right: 4rem;
   cursor: pointer;
-  &__img {
-    width: 2rem;
-    height: 2rem;
+}
+
+.img {
+  margin-right: 0.75rem;
+  min-width: 2rem;
+  min-height: 2rem;
+}
+
+.svg {
+  opacity: 1;
+  visibility: visible;
+  width: auto;
+  object-fit: contain;
+}
+
+.hiddenSvg {
+  @media (max-width: 991.98px) {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+  }
+
+  @media (max-width: 425.98px) {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+  }
+}
+
+.footerWrapper {
+  @media (max-width: 991.98px) {
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 768.98px) {
+    margin-bottom: 0;
+  }
+}
+
+.footerImg {
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  margin-right: 1rem;
+
+  @media (max-width: 768.98px) {
     margin-right: 0.75rem;
+  }
+}
+
+.footerSvg {
+  width: 7.5rem;
+  min-height: 2.5rem;
+  object-fit: contain;
+
+  @media (max-width: 768.98px) {
+    min-height: 1.7rem;
   }
 }

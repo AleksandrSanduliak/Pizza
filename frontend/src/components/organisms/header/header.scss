@@ -6,6 +6,8 @@
 
   position: relative;
   z-index: 11;
+  border: 1px solid $linegray;
+
   &__navWrapper {
     display: flex;
     align-items: center;
@@ -14,30 +16,30 @@
     position: sticky;
     z-index: 10;
     top: 0;
+    background-color: $white;
+    border-bottom: 1px solid $linegray;
   }
   &__nav {
-    background-color: $white;
-    transition: $trnsn2;
+    transition: $fastBcgTransition;
     display: flex;
+    flex-direction: column;
     flex: 1;
-    // @include flex-align;
-    // padding: 1.25rem 0;
-    // justify-content: space-between;
-    // position: relative;
-    // z-index: 29;
-    // transition: $trnsn1;
-    // flex: 1;
+    overflow-y: auto;
   }
   &__middle {
     @include flex-align;
-    padding: 1.25rem 0;
     justify-content: space-between;
+    padding: 1.25rem 0;
     position: relative;
     z-index: 29;
-    transition: $trnsn1;
+    transition: $mediumBcgTransition;
     flex: 1;
+    @media (max-width: 768.98px) {
+      padding: 0.75rem 0;
+    }
   }
 }
+
 .fixed-header {
   @media (max-width: 768.98px) {
     position: fixed;
@@ -47,4 +49,9 @@
     top: 0;
     overflow-y: auto;
   }
+}
+
+.logoWrapper {
+  display: flex;
+  align-items: center;
 }

@@ -5,11 +5,11 @@ const CheckEmailRegi = async (email) => {
     .collection("users")
     .where("email", "==", email)
     .get();
-  console.log(email, uniqueUser, "fdsfds");
+
   if (!uniqueUser.empty) {
-    console.log("EmailCheck error");
     throw APIError.BadReq("Пользователь с таким email уже зарегистрирован");
   }
+
   return uniqueUser;
 };
 module.exports = CheckEmailRegi;

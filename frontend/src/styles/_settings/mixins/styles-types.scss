@@ -18,24 +18,39 @@
   justify-content: center;
 }
 
+@mixin flex-center-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 @mixin flex-all-sb {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
+@mixin flex-sb {
+  display: flex;
+  justify-content: space-between;
+}
+
 @mixin flex-column {
   display: flex;
   flex-direction: column;
 }
+
 @mixin flex-align-column {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
+
 @mixin flex-align {
   display: flex;
   align-items: center;
 }
+
 @mixin visually-hidden {
   position: absolute;
   overflow: hidden;
@@ -46,6 +61,7 @@
   height: 1px;
   clip: rect(0 0 0 0);
 }
+
 @mixin visually-visible {
   overflow: hidden;
   margin: -1px;

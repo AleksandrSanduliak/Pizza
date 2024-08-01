@@ -1,4 +1,4 @@
-import type { FormLogin } from "molecules/loginForm/LoginForm";
+import type { FormLogin } from "molecules/forms/loginForm/LoginForm";
 import {
   BaseQueryApi,
   FetchBaseQueryError,
@@ -7,6 +7,7 @@ import {
 } from "@reduxjs/toolkit/query/react";
 import { logout, setUser, setUserData } from "store/slices/authSlice";
 import { Args } from "@storybook/react";
+import { setItems } from "store/slices/cartSlice";
 export type tokensData = {
   accessToken: string;
   refreshToken: string;
@@ -44,13 +45,13 @@ const baseQuery = fetchBaseQuery({
 });
 const baseQueryReAuth = async (args, api, extraOptions) => {
   const result = await baseQuery(args, api, extraOptions);
-  console.log(result, "RESULT");
+  // console.log(result, "RESULT");
   if ((result.error as Record<string, unknown>)?.originalStatus === 401) {
     const refreshRes = await baseQuery("/refresh", api, extraOptions);
-    console.log(refreshRes, "refreshRes");
+    // console.log(refreshRes, "refreshRes");
     if (refreshRes?.data) {
       const user = api.getState().auth.user;
-      console.log(api.getState());
+      // console.log(api.getState());
       api.dispatch(setUser(user));
     } else {
       api.dispatch(logout());
@@ -82,11 +83,10 @@ export const authApi = createApi({
         mode: "cors",
       }),
       async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
-        // console.log(data);
-        // dispatch(setUser(data));
         try {
           const { data } = await queryFulfilled;
-          dispatch(setUser(data));
+          dispatch(setUser(data.user));
+          dispatch(setItems(data.userCard));
         } catch (e) {
           console.log(e);
         }
@@ -94,7 +94,6 @@ export const authApi = createApi({
     }),
     logoutUser: builder.mutation<void, void>({
       query(data) {
-        console.log(data);
         return {
           url: "logout",
           credentials: "include",
@@ -120,28 +119,9 @@ export const authApi = createApi({
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log(data, "data");
-          dispatch(setUser(data));
-        } catch (e) {
-          console.log(e);
-        } finally {
-        }
-      },
-    }),
-    getUser: builder.mutation<IGenericResponse, FetchBaseQueryError>({
-      query() {
-        return {
-          credentials: "include",
-          url: "user",
-          method: "GET",
-          mode: "cors",
-        };
-      },
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          console.log(data, "data getUser");
-          dispatch(setUserData(data));
+          console.log("data", data);
+          dispatch(setUser(data.user));
+          dispatch(setItems(data.userCard));
         } catch (e) {
           console.log(e);
         }
@@ -155,5 +135,4 @@ export const {
   useLoginUserMutation,
   useLogoutUserMutation,
   useRefreshTokenMutation,
-  useGetUserMutation,
 } = authApi;

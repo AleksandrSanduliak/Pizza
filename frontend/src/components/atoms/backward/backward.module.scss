@@ -1,0 +1,6 @@
+.wrapper {
+  @include flex-all-center;
+  margin-right: 0.75rem;
+  height: 2rem;
+  cursor: pointer;
+}

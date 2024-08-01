@@ -1,5 +1,7 @@
 const UserService = require("../Services/userService");
+const OrderService = require("../Services/orderService");
 const { cookieSettings } = require("../helpers/cookieSettings");
+
 class UserController {
   async register(req, res, next) {
     try {
@@ -7,21 +9,22 @@ class UserController {
       res.cookie("refreshToken", user.refreshToken, cookieSettings);
       return res.json(user);
     } catch (error) {
-      console.log("error register");
       next(error);
     }
   }
+
   async login(req, res, next) {
     try {
-      console.log(req.body.email);
       const { email, password } = req.body;
       const user = await UserService.login(email, password);
       res.cookie("refreshToken", user.refreshToken, cookieSettings);
-      return res.json(user);
+      const userCard = await OrderService.getUserCard(user.user.id);
+      return res.json({ user: user, userCard: userCard });
     } catch (error) {
       next(error);
     }
   }
+
   async logout(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
@@ -33,18 +36,21 @@ class UserController {
       next(error);
     }
   }
+
   async refresh(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
       const user = await UserService.refresh(refreshToken);
+      const userCard = await OrderService.getUserCard(user.user.id);
       res.cookie("refreshToken", user.refreshToken, cookieSettings);
-      return res.json(user);
+      return res.json({ user: user, userCard: userCard });
     } catch (error) {
       res.clearCookie("accesToken");
       res.clearCookie("refreshToken");
       next(error);
     }
   }
+
   async activate(req, res, next) {
     try {
       const activate = await UserService.activate(req.params.link);
@@ -53,11 +59,14 @@ class UserController {
       next(error);
     }
   }
+
   async user(req, res, next) {
-    // console.log();
-    const user = await UserService.user(req.user);
-    console.log(user);
-    return res.json(user);
+    try {
+      const user = await UserService.user(req.user);
+      return res.json(user);
+    } catch (error) {
+      next(error);
+    }
   }
 }
 module.exports = new UserController();

@@ -1,0 +1,100 @@
+.modal {
+  @include flex-center-end;
+  width: 100vw;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 31;
+  transition: $mediumBcgTransition;
+  // background: rgba(25, 25, 25, 0.4);
+  // backdrop-filter: blur(0.025rem);
+}
+
+.content {
+  display: flex;
+  background-color: $white;
+  padding: 1.25rem 0 0 0;
+  height: 100vh;
+  width: 420px;
+  position: absolute;
+  z-index: 31;
+  overflow-y: auto;
+  @media (max-width: 768.98px) {
+    width: 100vw;
+    position: unset;
+  }
+}
+
+.card {
+  @include flex-column;
+  width: 100%;
+}
+.img {
+  position: absolute;
+  z-index: 32;
+  top: calc(50% - 12px);
+  right: 425px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+  &:hover {
+    transition: transform 0.5s ease;
+    transform: rotate(180deg);
+  }
+  @media (max-width: 768.98px) {
+    top: 1rem;
+    right: 1rem;
+  }
+  svg,
+  path {
+    fill: white;
+    @media (max-width: 768.98px) {
+      fill: black;
+    }
+  }
+}
+
+.pizzas {
+  flex: 1;
+  padding: 0 1rem;
+}
+
+.header {
+  @include flex-all-sb;
+  margin: 1rem 1rem 1.5rem 1rem;
+}
+
+.headerTitle {
+  margin: 0;
+}
+
+.results {
+  color: $primary;
+  @include flex-all-sb;
+  padding: 1.2rem 1rem 1rem 1rem;
+  margin-top: 1rem;
+  border-top: 2px solid $linegray;
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  z-index: 33;
+}
+
+.empty {
+  text-align: center;
+  @include flex-all-center;
+  flex-flow: column;
+  width: 100%;
+}
+
+.emptyText {
+  max-width: 300px;
+}

@@ -1,0 +1,57 @@
+@mixin slide {
+  // transition: $mediumBcgTransition;
+  @include flex-align-column;
+  justify-content: center;
+
+  @include adaptiv-value(padding-top, 20, 8, 1);
+  @include adaptiv-value(padding-bottom, 20, 8, 1);
+  @include adaptiv-value(padding-left, 40, 12, 1);
+  @include adaptiv-value(padding-right, 40, 12, 1);
+
+  border-radius: 0.75rem;
+  border: 0.106rem solid $linegray;
+  background: $white;
+  height: auto;
+  cursor: pointer;
+
+  // coloring svg
+  svg,
+  p,
+  svg path {
+    transition: $fastBcgTransition;
+  }
+
+  &:hover {
+    svg path {
+      fill: $red;
+    }
+    p {
+      color: $red;
+    }
+  }
+  // coloring svg
+}
+@mixin slide__img {
+  margin-bottom: 0.5rem;
+  @include adaptiv-value(width, 32, 24, 1);
+  @include adaptiv-value(height, 32, 24, 1);
+  @media (max-width: 768.98px) {
+    margin-bottom: 0;
+  }
+  @media (max-width: 425.98px) {
+    margin-right: 0.5rem;
+  }
+}
+@mixin slide__text {
+  @include adaptiv-value(font-size, 18, 14, 1);
+  @include adaptiv-value(line-height, 24, 18, 1);
+}
+@mixin slide__link {
+  color: $black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media (max-width: 425.98px) {
+    flex-direction: row;
+  }
+}

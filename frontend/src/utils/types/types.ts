@@ -1,20 +1,31 @@
-type fade = {
-  isClicked: boolean;
-};
-
 // FORMS
 export type FormLogin = {
-  email: string;
+  email: string | null;
   password: string;
 };
 
 export type FormRegister = {
   name: string;
-  email: string | null;
   phone: number;
   dateBrith: Date;
-  password: string;
   confirmPassword: string;
+} & FormLogin;
+
+export type orderForm = {
+  name: string;
+  phone: string | null;
+  email: number;
+  deliveryType: string;
+
+  street: string;
+  house: string;
+  entrance: number;
+  floor: number;
+  apartment: number;
+  intercom: number;
+  whenOrderBeFilled: string;
+  payment: string;
+  shortChange: string; // сдача
 };
 
 export type pizzaItem = {
@@ -24,9 +35,13 @@ export type pizzaItem = {
   types: number[];
   sizes: number[];
   price: number;
+  oldprice?: number;
+  labeltype?: number | undefined;
   category: number;
   rating?: number;
   desc?: string;
+  count?: number;
+  totalPrice?: number;
 };
 export type foodType = {
   food: pizzaItem;

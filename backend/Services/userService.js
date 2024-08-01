@@ -8,8 +8,8 @@ const CheckEmail = require("../helpers/checkEmailRegi");
 const CheckActivationLink = require("../helpers/checkActivationLink");
 const CheckEmailLogin = require("../helpers/checkEmailLogin");
 const CheckEmailRegi = require("../helpers/checkEmailRegi");
-const { cookieSettings } = require("../helpers/cookieSettings");
 require("dotenv").config();
+const obj = require("../helpers/cardItems");
 
 class UserService {
   async registration(data) {
@@ -39,22 +39,22 @@ class UserService {
     const checkLink = CheckActivationLink(activationLink);
     console.log(checkLink, "checklink");
   }
-  async login(email, password, res) {
+  async login(email, password) {
     const user = CheckEmailLogin(email);
     const LoginLogic = user.then(async function (querySnapshot) {
       if (!querySnapshot.size) {
-        console.log("Пользователь с таким email не существует");
         throw APIError.BadReq("Пользователь с таким email не существует");
       }
       const snap = querySnapshot.docs[0];
+
       if (!snap.data()) {
-        console.log("Пользователь с таким email не существует");
         throw APIError.BadReq("Пользователь с таким email не существует");
       }
       const checkHashPassword = await bcrypt.compare(
         password,
         snap.data().password
       );
+
       if (!checkHashPassword) {
         console.log("Неверный пароль");
         throw APIError.BadReq("Неверный пароль");
@@ -62,6 +62,30 @@ class UserService {
       const dto = { id: snap.id, email: email };
       const token = tokenService.generateToken({ ...dto });
       const saveToken = tokenService.saveToken(dto.id, token.refreshToken);
+
+      const addToFirebase = (data) => {
+        console.log(data.goods);
+        // let result = [...data];
+        data.goods?.map((good) => {
+          // console.log(good);
+          // good.items.map((goodItem) => {
+          //   console.log(goodItem);
+          // });
+          db.collection("goods").doc(good.name).set(good, { merge: true });
+        });
+        //   for (let item of data.items) {
+        //     const generateID = uuid.v4();
+        //     let newObject = Object.assign({}, { ...item, generateID });
+        //     // console.log("item", item);
+        //     // console.log("result.item", result.items);
+        //     result.items[item.id] = { ...newObject, productId: generateID };
+        //     delete newObject.id;
+        //   }
+        //   console.log("res", result);
+        //   db.collection("goods").doc("pizza").set(result, { merge: true });
+      };
+      addToFirebase(obj);
+
       return { ...token, user: dto };
     });
     return LoginLogic;
@@ -83,20 +107,20 @@ class UserService {
     const dto = { id: userData.id, email: emailDB };
     const token = tokenService.generateToken({ ...dto });
     const saveToken = tokenService.saveToken(dto.id, token.refreshToken);
+
     return { ...token, user: dto };
   }
   async user(data) {
-    // console.log(data);
     const findUser = db.collection("users").doc(data.id);
     const user = await findUser.get();
-    // console.log(user.data());
+
     const dto = {
       email: user.data().email,
       dateBrith: user.data().dateBrith,
       phone: user.data().phone,
       name: user.data().name,
     };
-    // console.log(dto);
+
     return dto;
   }
 }

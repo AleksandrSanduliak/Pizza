@@ -13,12 +13,14 @@ module.exports = function (req, res, next) {
     }
 
     const userData = tokenService.validateAccesToken(accesToken);
-
+    console.log("userData", userData);
     if (!userData) {
       return next(APIError.UnauthError());
     }
-    // console.log(userData, "header");
+
     req.user = userData;
     next();
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 };

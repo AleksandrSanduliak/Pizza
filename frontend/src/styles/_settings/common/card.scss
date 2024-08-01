@@ -1,0 +1,14 @@
+.price {
+  &__actual {
+    color: $primary;
+  }
+  &__old {
+    color: rgb(92, 99, 112);
+    text-decoration: line-through;
+    text-align: center;
+    padding: 3px;
+    @media (max-width: 768.98px) {
+      padding: 7px;
+    }
+  }
+}

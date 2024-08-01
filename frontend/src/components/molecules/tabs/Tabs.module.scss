@@ -1,0 +1,14 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+
+    button {
+        // width: 165px;
+        flex: 1 1 100%;
+    }
+}
+
+.text {
+    white-space: nowrap;
+}

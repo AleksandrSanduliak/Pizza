@@ -1,0 +1,136 @@
+.button {
+  @include flex-all-center;
+
+  padding: 0.813rem 2.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  transition: $mediumBcgTransition;
+  position: relative;
+}
+
+.primary {
+  background-color: $primary;
+  color: $white;
+
+  &:hover {
+    background-color: $primary-dark;
+    box-shadow: $shadow;
+    color: white;
+  }
+}
+
+.secondary {
+  border: 0.063rem solid $primary;
+  color: $primary;
+}
+
+// Loader
+.loading__img {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 30%;
+  left: 27%;
+}
+
+.loading {
+  animation: 1.3s load infinite ease-in-out;
+  opacity: 1;
+  visibility: visible;
+  margin-right: 0.5rem;
+  transition: $mediumBcgTransition;
+}
+
+@keyframes load {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Loader
+
+// button types
+.cardBtn {
+  @media (max-width: 1280.98px) {
+    padding: 0.625rem 1.25rem;
+  }
+
+  @media (max-width: 768.98px) {
+    background: $light-primary;
+    color: $primary;
+    padding: 0.438rem 1rem;
+    border: none;
+  }
+}
+
+.shoppingBtn {
+  padding: 0.5rem 1rem;
+
+  @media (max-width: 768.98px) {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 1.75rem;
+    padding: 0;
+  }
+}
+
+.filterBtn {
+  padding: 0.563rem 1rem;
+  border-radius: 0.375rem;
+  border: 0.063rem solid $linegray;
+  background: #fff;
+  color: black;
+
+  svg {
+    margin-right: 0.5rem;
+  }
+
+  &:hover {
+    background-color: white;
+    box-shadow: none;
+    border-color: $gray-text;
+  }
+}
+
+.checkAdressBtn {
+  padding: 0.813rem 2rem;
+
+  @media (max-width: 768.98px) {
+    font-size: 0;
+    line-height: 0;
+    padding: 0.875rem;
+  }
+}
+
+.order {
+  @include flex-all-center;
+  padding: 0.719rem;
+  border-radius: 4rem;
+  vertical-align: middle;
+
+  @media(max-width:768.98px) {
+    display: none;
+  }
+}
+
+.orderLeft {
+  margin-right: 1.875rem;
+
+  @media(max-width:768.98px) {
+    margin-right: 1rem;
+  }
+}
+
+.orderRight {
+  margin-left: 1.875rem;
+
+  @media(max-width:768.98px) {
+    margin-left: 1rem;
+  }
+}
+
+// button types

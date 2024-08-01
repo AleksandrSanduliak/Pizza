@@ -1,18 +1,21 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import MainPage from "pages/MainPage";
-import Layout from "pages/Layout";
+import Layout from "src/components/templates/Layout";
 import NotFound from "pages/NotFound";
 import RequireAuth from "utils/hoc/RequireAuth";
 import Settings from "pages/Settings";
 import OrderHistory from "pages/OrderHistory";
+import Order from "pages/Order/Order";
+
 const Router = () => {
+  const location = useLocation();
+
   return (
-    <Routes>
+    <Routes location={location}>
       <Route path="/" element={<Layout />}>
         <Route index element={<MainPage />} />
         <Route
-          path="/settings"
+          path="settings"
           element={
             <RequireAuth>
               <Settings />
@@ -20,10 +23,18 @@ const Router = () => {
           }
         />
         <Route
-          path="/orderhistory"
+          path="orderhistory"
           element={
             <RequireAuth>
               <OrderHistory />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="order"
+          element={
+            <RequireAuth>
+              <Order />
             </RequireAuth>
           }
         />

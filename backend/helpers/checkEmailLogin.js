@@ -4,6 +4,7 @@ const CheckEmailLogin = async (email) => {
     .collection("users")
     .where("email", "==", email)
     .get();
+
   return uniqueUser;
 };
 module.exports = CheckEmailLogin;

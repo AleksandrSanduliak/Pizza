@@ -1,0 +1,13 @@
+.wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  z-index: 21;
+  background: rgba(25, 25, 25, 0.4);
+  backdrop-filter: blur(0.025rem);
+  transition: $mediumBcgTransition;
+  max-width: none;
+}

@@ -1,0 +1,24 @@
+.formlogin {
+  @include flex-column;
+  justify-content: flex-start;
+  font-family: "Inter";
+  width: 100%;
+
+  &__desc {
+    text-align: center;
+    margin-top: 0.75rem;
+    max-width: 19rem;
+    opacity: 0.4;
+    color: $black;
+
+    @media (max-width: 768.98px) {
+      max-width: none;
+    }
+  }
+
+  &__error {
+    color: red;
+    display: block;
+    max-width: 20rem;
+  }
+}

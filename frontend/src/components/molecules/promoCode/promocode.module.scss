@@ -1,0 +1,18 @@
+.promo {
+    display: flex;
+    align-items: center;  
+
+    @media(max-width:620.98px){
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}
+
+.promoInput {
+    margin: 0;
+    width: 20rem;
+    padding-left: 1rem;
+    @media(max-width:620.98px){
+        width: 100%;
+    }
+}

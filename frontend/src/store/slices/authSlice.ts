@@ -25,7 +25,7 @@ const authSlice = createSlice({
       // state.userData = null;
     },
     setUser: (state, action: PayloadAction<IuserState | IGenericResponse>) => {
-      console.log(action.payload, "payload");
+      console.log("setUser", action.payload);
       const { user, accesToken } = action.payload;
       state.user = user;
       state.accesToken = accesToken;

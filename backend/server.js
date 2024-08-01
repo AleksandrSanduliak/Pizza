@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
 const PORT = 3000;
-const router = require("./Router/Router");
+const authRouter = require("./Router/authRouter");
+const orderRouter = require("./Router/orderRouter");
+const goodsRouter = require("./Router/goodsRouter");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const ErrorMiddleware = require("./middleware/errorMiddleware");
@@ -19,16 +21,21 @@ app.use(express.json());
 app.use(ErrorMiddleware);
 
 app.get("/", function (req, res) {
-  res.send("<h2>server start test response</h2>");
+  res.send("<h2>server</h2>");
 });
-app.use("/api/auth", router);
+
+app.use("/api/auth", authRouter);
+app.use("/api/order", orderRouter);
+app.use("/api/goods", goodsRouter);
+
 const start = async () => {
   try {
     app.listen(PORT, () => {
       console.log(`Сервер запущен на порту ${PORT}`);
     });
   } catch (err) {
-    console.log(err);
+    throw new Error("Ошибка запуска сервера");
   }
 };
+
 start();

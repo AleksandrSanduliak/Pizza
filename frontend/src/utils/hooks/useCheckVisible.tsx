@@ -1,18 +1,41 @@
-import { useEffect, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
+import useAccount from "./useAccount";
+import useMediaQuery from "./useMediaQuery";
+import { useLocation, useNavigate } from "react-router-dom";
+export default function useCheckVisible(
+  ref?: RefObject<HTMLElement>,
+  rootMargin = "0px"
+) {
+  const loc = useLocation();
+  const { isBurgerClick } = useAccount();
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isMobile] = useMediaQuery();
 
-export default function useCheckVisible(ref, rootMargin = "0px") {
-  const [isVisible, setIsVisible] = useState(false);
+  console.log("loc", loc);
   useEffect(() => {
-    if (ref.current == null) return;
+    if (loc.pathname !== "/") {
+      setIsVisible((prev) => (prev = true));
+      console.log("hook", isVisible);
+      return;
+    }
+    if (isMobile && isBurgerClick) return;
+    if (ref?.current == null) return;
+
     const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
+      ([entry]) => {
+        console.log(entry.isIntersecting);
+        setIsVisible(entry.isIntersecting);
+      },
       { rootMargin }
     );
     observer.observe(ref.current);
+
     return () => {
       if (ref.current == null) return;
-      observer.unobserve(ref.current);
+
+      observer.unobserve(ref?.current);
     };
-  }, [ref.current, rootMargin]);
-  return isVisible;
+  }, [rootMargin, isBurgerClick, ref, isMobile, loc.pathname, isVisible]);
+
+  return [isVisible, setIsVisible];
 }

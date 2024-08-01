@@ -1,0 +1,17 @@
+.registerform {
+  @include flex-column;
+  justify-content: flex-start;
+}
+.wrapper {
+  width: 100%;
+  @media (max-width: 768.98px) {
+    height: 100vh;
+  }
+}
+.title {
+  text-align: center;
+}
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+}

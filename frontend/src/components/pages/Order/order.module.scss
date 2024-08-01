@@ -1,0 +1,55 @@
+.orderList {
+    margin-bottom: 1.25rem;
+}
+
+.priceBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background-color: white;
+    border: 1px solid $linegray;
+    margin-bottom: 1.25rem;
+
+    @media(max-width:620.98px) {
+        flex-flow: column;
+        background: inherit;
+        border-left-style: none;
+        border-right-style: none;
+    }
+}
+
+.oldprice {
+    padding: 0;
+}
+
+.totalPrice {
+    color: $primary;
+}
+
+.calcPrice {
+    @media(max-width:620.98px) {
+        display: flex;
+        flex-flow: column;
+    }
+}
+
+.succesBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 500px;
+    padding: 0 25px;
+    text-align: center;
+}
+.succesText {
+    margin-bottom: 2.313rem;
+}
+
+.loaderWrapper{
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

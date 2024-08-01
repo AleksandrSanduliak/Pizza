@@ -1,0 +1,54 @@
+.aboutYou {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1.8px solid $linegray;
+    gap: 20px;
+
+    @media(max-width: 991.98px) {
+        flex-flow: column;
+        align-items: flex-start;
+    }
+}
+
+.column {
+    display: flex;
+    flex-flow: column;
+}
+
+.row {
+    display: flex;
+    flex-flow: row;
+}
+
+.delivery {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.clientAddress {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.rowsWrapper {
+    display: flex;
+    align-items: center;
+    .row+.row {
+        margin-left: 20px;
+    }
+
+    padding-bottom: 20px;
+    border-bottom: 1.8px solid $linegray;
+}
+.formFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}

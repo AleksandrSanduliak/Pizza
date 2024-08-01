@@ -1,7 +1,7 @@
-type BurgCat = {
+type TBurgerCategories = {
   name: string;
 };
-export const BurgerCategories: BurgCat[] = [
+export const BurgerCategories: TBurgerCategories[] = [
   {
     name: "Акции",
   },
