@@ -11,8 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
-firebaseConnect.js
-firebaseData.json
+Firebase/firebaseConnect.js
+Firebase/firebaseData.json
 
 # Editor directories and files
 .vscode/*
