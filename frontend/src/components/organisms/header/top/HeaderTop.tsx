@@ -1,9 +1,11 @@
-import cl from "./HeaderTop.module.scss";
-import { HashLink } from "react-router-hash-link";
-import Account from "organisms/account/Account";
-import CityModal from "molecules/select/CityModal";
+import cl from './HeaderTop.module.scss';
+import { HashLink } from 'react-router-hash-link';
+import Account from 'organisms/account/Account';
+import CityModal from 'molecules/CityModal/CityModal';
+import useMediaQuery from 'utils/hooks/useMediaQuery';
 
 const HeaderTop = () => {
+  const [isMobile] = useMediaQuery();
   return (
     <div className="HeaderTop">
       <div className="header__container">
@@ -13,8 +15,7 @@ const HeaderTop = () => {
             <HashLink
               className={cl.HeaderTop_leftblock__checkaddress}
               smooth
-              to={`/#checkaddress`}
-            >
+              to={`/#checkaddress`}>
               Проверить адрес
             </HashLink>
             <p className={cl.HeaderTop_leftblock__delivery}>
@@ -27,7 +28,7 @@ const HeaderTop = () => {
               Время работы: с 11:00 до 23:00
             </p>
           </div>
-          <Account />
+          {!isMobile && <Account />}
         </div>
       </div>
     </div>

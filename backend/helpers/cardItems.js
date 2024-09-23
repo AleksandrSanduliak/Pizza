@@ -1,4 +1,4 @@
-const goods = [
+const gooods = [
   {
     title: "Пиццы",
     name: "pizza",
@@ -186,4 +186,4 @@ const goods = [
   },
 ];
 
-module.exports = { goods };
+module.exports =  gooods ;

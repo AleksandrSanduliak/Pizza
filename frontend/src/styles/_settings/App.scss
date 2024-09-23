@@ -1,4 +1,4 @@
-@import "../_settings/global.scss";
+@import '../_settings/global.scss';
 
 html {
   box-sizing: border-box;
@@ -138,3 +138,6 @@ ul {
   transition: $fastBcgTransition;
 }
 
+.overflow-hidden {
+  overflow-y: hidden;
+}

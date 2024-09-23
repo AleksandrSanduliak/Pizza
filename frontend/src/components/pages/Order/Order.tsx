@@ -1,25 +1,25 @@
-import ShoppingItem from "molecules/shoppingItem/ShoppingItem";
-import { useAppSelector } from "utils/hooks/redux";
-import cl from "./order.module.scss";
-import { Button } from "atoms/button/Button";
-import { useGetPromoMutation, useSaveOrderMutation } from "store/api/orderApi";
-import React from "react";
-import PromoCode from "molecules/promoCode/PromoCode";
-import OrderSwiper from "molecules/orderSwiper/OrderSwiper";
-import { orderFood, orderSauces } from "utils/data/orderItems";
-import OrderForm from "molecules/forms/orderForm/OrderForm";
-import SuccesDelivery from "assets/imgs/order/succesDelivery.webp";
-import { toast } from "react-toastify";
-import Loader from "atoms/loader/Loader";
+import ShoppingItem from 'molecules/shoppingItem/ShoppingItem';
+import { useAppSelector } from 'utils/hooks/redux';
+import cl from './order.module.scss';
+import { Button } from 'atoms/button/Button';
+import { useGetPromoMutation, useSaveOrderMutation } from 'store/api/orderApi';
+import React from 'react';
+import PromoCode from 'molecules/promoCode/PromoCode';
+import OrderSwiper from 'molecules/orderSwiper/OrderSwiper';
+import { orderFood, orderSauces } from 'utils/data/orderItems';
+import OrderForm from 'molecules/forms/orderForm/OrderForm';
+import SuccesDelivery from 'assets/imgs/order/succesDelivery.webp';
+import { toast } from 'react-toastify';
+import Loader from 'atoms/loader/Loader';
 const Order = () => {
   const { totalPrice, discountPrice } = useAppSelector(
-    (state) => state.reducer.cartShopSlice
+    (state) => state.reducer.cartShopSlice,
   );
   const orderId = useAppSelector(
-    (state) => state.reducer.cartShopSlice.orderId
+    (state) => state.reducer.cartShopSlice.orderId,
   );
-  console.log("orderId", orderId);
-  console.log("totalPrice", typeof totalPrice);
+  console.log('orderId', orderId);
+  console.log('totalPrice', typeof totalPrice);
   const items = useAppSelector((state) => state.reducer.cartShopSlice.items);
   const [saveOrder, { data, isLoading, isError, error, isSuccess }] =
     useSaveOrderMutation();
@@ -34,19 +34,19 @@ const Order = () => {
   }
 
   if (isError) {
-    toast.error("Ошибка! Перезагрузите страницу или повторите попытку позже", {
-      position: "top-right",
+    toast.error('Ошибка! Перезагрузите страницу или повторите попытку позже', {
+      position: 'top-right',
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: 'light',
     });
   }
   if (isSuccess) {
-    console.log("isSucces", isSuccess);
+    console.log('isSucces', isSuccess);
     window.scrollTo(0, 0);
     return (
       <div className={cl.succesBlock}>

@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice, current } from '@reduxjs/toolkit';
 
 const initialState = {
   isAccountClick: false,
@@ -6,8 +6,9 @@ const initialState = {
   isBurgerClick: false,
   isShoppingBagClick: false,
 };
+
 const accountSlice = createSlice({
-  name: "account",
+  name: 'account',
   initialState,
   reducers: {
     setAccount: (state) => {

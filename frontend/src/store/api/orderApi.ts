@@ -1,18 +1,18 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IGenericResponse } from "./authApi";
-import { setDiscountPrice, setItems, setOrderId } from "../slices/cartSlice";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { IGenericResponse } from './authApi';
+import { setDiscountPrice, setItems, setOrderId } from '../slices/cartSlice';
 const baseUrl = `${import.meta.env.VITE_SERVER_URL}/api/order`;
 
 export const orderApi = createApi({
-  reducerPath: "orderApi",
+  reducerPath: 'orderApi',
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
-    mode: "cors",
+    mode: 'cors',
     prepareHeaders: (headers) => {
-      headers.set("Access-Control-Allow-Credentials", "*");
-      const accessToken = document.cookie.split("accesToken=")[1];
+      headers.set('Access-Control-Allow-Credentials', '*');
+      const accessToken = document.cookie.split('accesToken=')[1];
       if (accessToken) {
-        headers.set("Authorization", `Bearer ${accessToken}`);
+        headers.set('Authorization', `Bearer ${accessToken}`);
       }
       return headers;
     },
@@ -21,16 +21,16 @@ export const orderApi = createApi({
     getPromo: builder.mutation<IGenericResponse, unknown>({
       query(data) {
         return {
-          url: "getPromo",
-          method: "POST",
+          url: 'getPromo',
+          method: 'POST',
           body: data,
-          mode: "cors",
+          mode: 'cors',
         };
       },
       async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log("onQueryStarted data", data);
+          console.log('onQueryStarted data', data);
           dispatch(setDiscountPrice({ ...data, isPromoCodeActive: true }));
         } catch (e) {
           console.log(e);
@@ -39,58 +39,39 @@ export const orderApi = createApi({
     }),
     saveCard: builder.mutation<IGenericResponse, unknown>({
       query(data) {
-        console.log("saveCard data", data);
+        console.log('saveCard data', data);
         return {
-          credentials: "include",
-          url: "saveCard",
-          method: "PATCH",
+          credentials: 'include',
+          url: 'saveCard',
+          method: 'PATCH',
           body: data,
-          mode: "cors",
+          mode: 'cors',
         };
       },
       async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log("onQueryStarted data", data);
+          console.log('onQueryStarted data', data);
           dispatch(setItems(data));
         } catch (e) {
           console.log(e);
         }
       },
     }),
-    // currentCard: builder.query<IGenericResponse, unknown>({
-    //   query() {
-    //     return {
-    //       credentials: "include",
-    //       url: "currentCard",
-    //       method: "GET",
-    //       mode: "cors",
-    //     };
-    //   },
-    //   async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
-    //     try {
-    //       const { data } = await queryFulfilled;
-    //       console.log("onQueryStarted data", data);
-    //       dispatch(setItems(data));
-    //     } catch (e) {
-    //       console.log(e);
-    //     }
-    //   },
-    // }),
     incrementCardItem: builder.mutation<IGenericResponse, unknown>({
       query(data) {
         return {
-          credentials: "include",
-          url: "incrementItem",
-          method: "PATCH",
-          mode: "cors",
+          credentials: 'include',
+          url: 'incrementItem',
+          method: 'PATCH',
+          mode: 'cors',
           body: data,
         };
       },
       async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log("onQueryStarted data", data);
+          console.log('onQueryStarted data', data);
           dispatch(setItems(data));
         } catch (e) {
           console.log(e);
@@ -100,17 +81,17 @@ export const orderApi = createApi({
     decrementCardItem: builder.mutation<IGenericResponse, unknown>({
       query(data) {
         return {
-          credentials: "include",
-          url: "decrementItem",
-          method: "PATCH",
-          mode: "cors",
+          credentials: 'include',
+          url: 'decrementItem',
+          method: 'PATCH',
+          mode: 'cors',
           body: data,
         };
       },
       async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log("onQueryStarted data", data);
+          console.log('onQueryStarted data', data);
           dispatch(setItems(data));
         } catch (e) {
           console.log(e);
@@ -120,17 +101,17 @@ export const orderApi = createApi({
     deleteCardItem: builder.mutation<IGenericResponse, unknown>({
       query(data) {
         return {
-          credentials: "include",
-          url: "deleteItem",
-          method: "DELETE",
-          mode: "cors",
+          credentials: 'include',
+          url: 'deleteItem',
+          method: 'DELETE',
+          mode: 'cors',
           body: data,
         };
       },
       async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log("onQueryStarted data", data);
+          console.log('onQueryStarted data', data);
           dispatch(setItems(data));
         } catch (e) {
           console.log(e);
@@ -140,20 +121,20 @@ export const orderApi = createApi({
     saveOrder: builder.mutation<IGenericResponse, unknown>({
       query(data) {
         return {
-          credentials: "include",
-          url: "saveOrder",
-          method: "POST",
-          mode: "cors",
+          credentials: 'include',
+          url: 'saveOrder',
+          method: 'POST',
+          mode: 'cors',
           body: data,
         };
       },
       async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log("onQueryStarted data", data.orderId);
+          console.log('onQueryStarted data', data.orderId);
           dispatch(setOrderId({ orderId: data.orderId }));
           dispatch(
-            setItems({ items: [], cardInfo: { totalPrice: 0, totalCount: 0 } })
+            setItems({ items: [], cardInfo: { totalPrice: 0, totalCount: 0 } }),
           );
         } catch (e) {
           console.log(e);

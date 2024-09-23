@@ -7,22 +7,21 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import { configureStore } from "@reduxjs/toolkit";
-import { useDispatch, useSelector } from "react-redux";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { configureStore } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { authApi } from "store/api/authApi";
-import { orderApi } from "store/api/orderApi";
-import { goodsApi } from "./api/goodsApi";
+import { authApi } from 'store/api/authApi';
+import { orderApi } from 'store/api/orderApi';
+import { goodsApi } from './api/goodsApi';
 
-import { rootReducers } from "store/rootReducer";
-import { PersistorOptions } from "redux-persist/es/types";
+import { rootReducers } from 'store/rootReducer';
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
-  whitelist: ["cartShopSlice"],
+  whitelist: ['cartShopSlice'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);

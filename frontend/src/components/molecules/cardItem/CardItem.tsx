@@ -1,20 +1,19 @@
-import React from "react";
-import cl from "./CardItem.module.scss";
-import { Button } from "atoms/button/Button";
-import { useAppSelector } from "utils/hooks/redux";
-import { useAppDispatch } from "utils/hooks/redux";
-import { addItem, setItems } from "store/slices/cartSlice";
-import { foodType } from "utils/types/types";
-import useMediaQuery from "utils/hooks/useMediaQuery";
-import { Slide, toast } from "react-toastify";
-import CardItemModal from "molecules/modals/CardItemModal/CardItemModal";
-import { stopBubling } from "utils/funcs/stopBubling";
-import Label from "atoms/label/Label";
-import { useSaveCardMutation } from "store/api/orderApi";
-import { pizzaTypes } from "utils/data/pizzaData";
+import React from 'react';
+import cl from './CardItem.module.scss';
+import { Button } from 'atoms/button/Button';
+import { useAppSelector } from 'utils/hooks/redux';
+import { useAppDispatch } from 'utils/hooks/redux';
+import { addItem, setItems } from 'store/slices/cartSlice';
+import { foodType } from 'utils/types/types';
+import useMediaQuery from 'utils/hooks/useMediaQuery';
+import { Slide, toast } from 'react-toastify';
+import CardItemModal from 'molecules/modals/CardItemModal/CardItemModal';
+import { stopBubling } from 'utils/funcs/stopBubling';
+import Label from 'atoms/label/Label';
+import { useSaveCardMutation } from 'store/api/orderApi';
+import { pizzaTypes } from 'utils/data/pizzaData';
 
 const CardItem = ({ food }: foodType) => {
-  // console.log("food2", food);
   const isAuth = useAppSelector((store) => store.reducer.auth.isAuth);
   const [showModal, setIsShowModal] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -25,7 +24,7 @@ const CardItem = ({ food }: foodType) => {
   const toastId = React.useRef<string | number>(0);
 
   const notifyToast = () =>
-    (toastId.current = toast.loading("Добавление товара...", {
+    (toastId.current = toast.loading('Добавление товара...', {
       autoClose: false,
       toastId: toastId.current,
     }));
@@ -49,7 +48,7 @@ const CardItem = ({ food }: foodType) => {
       closeButton: true,
       isLoading: false,
     });
-  // console.log("toastId", toastId);
+
   const ButtonComp = () => {
     return isMobile ? (
       <div className={cl.btn__wrapper}>
@@ -59,8 +58,7 @@ const CardItem = ({ food }: foodType) => {
           onClick={(e: React.MouseEvent<Element, MouseEvent>): void => {
             e.preventDefault();
             addToCart(e);
-          }}
-        >
+          }}>
           <p className="subtitle">от {food.price?.[1] ?? food.price} ₽</p>
         </Button>
         {food.oldprice && (
@@ -74,9 +72,8 @@ const CardItem = ({ food }: foodType) => {
           btnType="card"
           onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
             addToCart(e)
-          }
-        >
-          {food?.sizes?.length > 1 ? "Выбрать" : "В корзину"}
+          }>
+          {food?.sizes?.length > 1 ? 'Выбрать' : 'В корзину'}
         </Button>
         <div className={cl.price}>
           <p className="subtitle">от {food.price?.[1] ?? food.price} ₽</p>
@@ -108,11 +105,11 @@ const CardItem = ({ food }: foodType) => {
     } else {
       dispatch(addItem(food));
       toast.info(`Добавлено: ${food.title}`, {
-        position: "top-right",
+        position: 'top-right',
         autoClose: 1000,
         hideProgressBar: true,
         closeOnClick: true,
-        theme: "light",
+        theme: 'light',
         transition: Slide,
       });
     }
@@ -129,9 +126,11 @@ const CardItem = ({ food }: foodType) => {
   }
 
   return (
-    <div onClick={() => setIsShowModal((prev) => !prev)} className={cl.item}>
+    <div
+      onClick={() => setIsShowModal((prev) => !prev)}
+      className={`${cl.item} ${food.disabled ? cl.disabled : ''}`}>
       {showModal && <CardItemModal food={food} />}
-      {/* <Label labelType={food.labeltype} /> */}
+      <Label labelType={food.labeltype} />
       <div className={cl.img__wrapper}>
         <img
           src={food.imageUrl}
@@ -153,7 +152,7 @@ const CardItem = ({ food }: foodType) => {
             <p className={`${cl.text__desc} normal`}>{food.desc}</p>
           </div>
         )}
-        <ButtonComp />
+        {!food.disabled && <ButtonComp />}
       </div>
     </div>
   );

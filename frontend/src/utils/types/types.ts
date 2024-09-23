@@ -42,7 +42,9 @@ export type pizzaItem = {
   desc?: string;
   count?: number;
   totalPrice?: number;
+  disabled?: boolean;
 };
+
 export type foodType = {
   food: pizzaItem;
 };

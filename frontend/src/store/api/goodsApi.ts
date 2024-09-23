@@ -1,31 +1,21 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const baseUrl = `${import.meta.env.VITE_SERVER_URL}/api/goods`;
-const baseQuery = fetchBaseQuery({
-  baseUrl,
-  credentials: "include",
-  mode: "cors",
-  redirect: "follow",
-  prepareHeaders: (headers) => {
-    headers.set("Access-Control-Allow-Credentials", "*");
-    const accessToken = document.cookie.split("accesToken=")[1];
-    if (accessToken) {
-      headers.set("Authorization", `Bearer ${accessToken}`);
-    }
-    return headers;
-  },
-});
+
 export const goodsApi = createApi({
-  reducerPath: "goodsApi",
-  baseQuery: baseQuery,
+  reducerPath: 'goodsApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl,
+    credentials: 'include',
+  }),
   endpoints: (builder) => ({
-    getGoods: builder.query<any, void>({
+    getGoods: builder.query<any, any>({
       query: () => ({
         url: `getGoods`,
-        method: "GET",
+        method: 'GET',
       }),
     }),
   }),
 });
 
-export const { useGetGoodsQuery } = goodsApi;
+export const { useLazyGetGoodsQuery } = goodsApi;
