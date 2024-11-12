@@ -1,5 +1,5 @@
-import { pizzaItem } from "utils/types/types";
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice, current } from '@reduxjs/toolkit';
+import { pizzaItem } from 'utils/types/types';
 
 type initialState = {
   totalPrice: number;
@@ -20,12 +20,12 @@ const initialState: initialState = {
 };
 
 const cartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState,
   reducers: {
     addItem(state, action: { payload: pizzaItem }) {
       const findItem = state.items.find(
-        (item) => item.id === action.payload.id
+        (item) => item.id === action.payload.id,
       );
 
       if (findItem) {
@@ -74,7 +74,7 @@ const cartSlice = createSlice({
       state.totalPrice = action.payload.totalPrice;
       state.discountPrice = action.payload.discountPrice;
       state.isPromoCodeActive = action.payload.isPromoCodeActive;
-      console.log("current", current(state));
+      // console.log('current', current(state));
     },
     setItems(state, action) {
       state.items = action.payload.card;
@@ -82,7 +82,7 @@ const cartSlice = createSlice({
       state.totalCount = action.payload.cardInfo.totalCount;
     },
     setOrderId(state, action) {
-      console.log("current", current(state));
+      // console.log('current', current(state));
       state.orderId = action.payload.orderId;
     },
   },

@@ -1,32 +1,32 @@
 // FORMS
-export type FormLogin = {
-  email: string | null;
-  password: string;
+export type TLoginFormFields = {
+  name: string;
+  title: string;
 };
 
-export type FormRegister = {
-  name: string;
-  phone: number;
-  dateBrith: Date;
-  confirmPassword: string;
-} & FormLogin;
+export interface IRegisterFormFields extends TLoginFormFields {
+  isRegisterMask?: boolean;
+  maskOptions?: object;
+  mask?: string | string[];
+  type?: string;
+}
 
-export type orderForm = {
-  name: string;
-  phone: string | null;
-  email: number;
-  deliveryType: string;
+// export type orderForm = {
+//   name: string;
+//   phone: string | null;
+//   email: number;
+//   deliveryType: string;
 
-  street: string;
-  house: string;
-  entrance: number;
-  floor: number;
-  apartment: number;
-  intercom: number;
-  whenOrderBeFilled: string;
-  payment: string;
-  shortChange: string; // сдача
-};
+//   street: string;
+//   house: string;
+//   entrance: number;
+//   floor: number;
+//   apartment: number;
+//   intercom: number;
+//   whenOrderBeFilled: string;
+//   payment: string;
+//   shortChange: string; // сдача
+// };
 
 export type pizzaItem = {
   id: number;

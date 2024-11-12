@@ -1,5 +1,5 @@
 .cityModal {
-  margin-right: 1rem;
+  // margin-right: 1rem;
 }
 
 .modalWrapper {
@@ -46,11 +46,11 @@
   cursor: pointer;
   font-family: $secondary-font;
 
-  max-width: 7.813rem;
-  width: 7.813rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  // max-width: 7.813rem;
+  // width: 7.813rem;
+  // white-space: nowrap;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
   transition: $fastColorTransition;
 
   &:hover {

@@ -1,5 +1,5 @@
 .header {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-size: 0.875rem;
   line-height: 1.125rem;
   background-color: $white;
@@ -19,6 +19,7 @@
     background-color: $white;
     border-bottom: 1px solid $linegray;
   }
+
   &__nav {
     transition: $fastBcgTransition;
     display: flex;
@@ -26,6 +27,7 @@
     flex: 1;
     overflow-y: auto;
   }
+
   &__middle {
     @include flex-align;
     justify-content: space-between;
@@ -34,6 +36,7 @@
     z-index: 29;
     transition: $mediumBcgTransition;
     flex: 1;
+
     @media (max-width: 768.98px) {
       padding: 0.75rem 0;
     }

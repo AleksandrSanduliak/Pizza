@@ -1,6 +1,7 @@
 const { db } = require("../Firebase/firebaseConntect");
 const APIError = require("../exeptions/apiError");
-const CheckEmailRegi = async (email) => {
+
+const CheckEmailRegistration = async (email) => {
   const uniqueUser = await db
     .collection("users")
     .where("email", "==", email)
@@ -12,4 +13,4 @@ const CheckEmailRegi = async (email) => {
 
   return uniqueUser;
 };
-module.exports = CheckEmailRegi;
+module.exports = CheckEmailRegistration;

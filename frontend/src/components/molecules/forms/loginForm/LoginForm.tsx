@@ -1,104 +1,78 @@
-import React from "react";
-
-import { toast } from "react-toastify";
-import {
-  FormProvider,
-  SubmitHandler,
-  useForm,
-  useFormContext,
-} from "react-hook-form";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, CompoundButton } from "atoms/button/Button";
-import { useLoginUserMutation } from "store/api/authApi";
-import { FormLogin } from "utils/types/types";
-import { loginSchema } from "utils/zodSchemas/loginSchema";
-
-import useAccount from "utils/hooks/useAccount";
-import cl from "./loginform.module.scss";
-import FormLabel from "atoms/formLabel/FormLabel";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CompoundButton } from 'atoms/button/Button';
+import cn from 'classnames';
+import FormItem from 'molecules/forms/FormItem/FormItem';
+import React from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { useLoginUserMutation } from 'store/api/authApi';
+import { loginFormList } from 'utils/consts/forms/forms';
+import useAccount from 'utils/hooks/useAccount';
+import { loginSchema, TFormLogin } from 'utils/zodSchemas/loginSchema';
+import cl from './loginform.module.scss';
 
 const LoginForm: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setFocus,
-    reset,
-  } = useForm<FormLogin>({ resolver: zodResolver(loginSchema) });
-  const methods = useFormContext();
-  const [loginUser, { data, isLoading, isError, error, isSuccess }] =
-    useLoginUserMutation();
-  const onSubmit: SubmitHandler<FormLogin> = (data) => {
-    loginUser(data);
-    // reset();
-  };
+  const [loginUser, { isLoading, isError, isSuccess }] = useLoginUserMutation();
   const { onClickAuth } = useAccount();
 
+  const form = useForm<TFormLogin>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit: SubmitHandler<TFormLogin> = (data) => {
+    loginUser(data);
+  };
+
   React.useEffect(() => {
-    setFocus("email");
-  }, [setFocus]);
+    form.setFocus('email');
+  }, [form, form.setFocus]);
 
   React.useEffect(() => {
     if (isSuccess) {
-      toast.success("Вы зашли в систему", {
-        position: "top-right",
+      toast.success('Вы зашли в систему', {
+        position: 'top-right',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: 'light',
       });
-      document.cookie = `accesToken=${data.accesToken}`;
       onClickAuth();
     }
     if (isError) {
-      toast.error("Ошибка входа, проверьте введенную почту и пароль", {
-        position: "top-right",
+      toast.error('Ошибка входа, проверьте введенную почту и пароль', {
+        position: 'top-right',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: 'light',
       });
     }
-  }, [data?.accesToken, isError, isSuccess, onClickAuth]);
+  }, [isError, isSuccess, onClickAuth]);
 
   return (
-    <form className={cl.formlogin} onSubmit={handleSubmit(onSubmit)}>
-      {/* <label htmlFor="email" className="label">
-        {errors.email ? (
-          <span className={`${cl.formlogin__error} mini`}>
-            {errors.email.message}
-          </span>
-        ) : (
-          <p className="mini">Email</p>
-        )}
-      </label> */}
-      <FormLabel htmlFor="email" title="Email" errors={errors} />
-      <input id="email" {...register("email")} className="input" />
-      <label htmlFor="password" className="label">
-        {errors.password ? (
-          <span className="mini" style={{ color: "red" }}>
-            {errors.password.message}
-          </span>
-        ) : (
-          <p className="mini">Пароль</p>
-        )}
-      </label>
-      <input id="password" {...register("password")} className="input" />
-      <CompoundButton isSubmit={true} isLoading={isLoading ? true : false}>
-        Отправить
-      </CompoundButton>
-      <p className={`${cl.formlogin__desc} mini`}>
-        Продолжая, вы соглашаетесь со сбором и обработкой персональных данных и
-        пользовательским соглашением
-      </p>
-    </form>
+    <FormProvider {...form}>
+      <form className={cl.formlogin} onSubmit={form.handleSubmit(onSubmit)}>
+        {loginFormList.map((item) => (
+          <FormItem key={item.name} name={item.name} title={item.title} />
+        ))}
+        <CompoundButton
+          onClick={form.handleSubmit(onSubmit)}
+          isSubmit={true}
+          isLoading={isLoading ? true : false}>
+          Отправить
+        </CompoundButton>
+        <p className={cn(cl.formlogin__desc, 'mini')}>
+          Продолжая, вы соглашаетесь со сбором и обработкой персональных данных
+          и пользовательским соглашением
+        </p>
+      </form>
+    </FormProvider>
   );
 };
 export default LoginForm;

@@ -1,5 +1,5 @@
-$primary-font: "Roboto", sans-serif;
-$secondary-font: "Inter", sans-serif;
+$primary-font: 'Roboto', sans-serif;
+$secondary-font: 'Inter', sans-serif;
 
 $primary: #ff7010;
 $primary-dark: #ff7010f6;
@@ -16,10 +16,10 @@ $green: #24d17e;
 $mediumBcgTransition: 0.4s background-color ease-in;
 $fastBcgTransition: 0.2s background-color ease-in 0s;
 
-$mediumColorTransition: 0.4s color ease-in;
-$fastColorTransition: 0.2s color ease-in 0s;
+$mediumColorTransition: 0.4s color ease;
+$fastColorTransition: 0.2s color ease 0s;
 
-
-
+$mediumBorderTransition: 0.4s border ease;
+$fastBorderTransition: 0.2s border ease 0s;
 
 $shadow: 0px 0.5px 1px 0.5px rgba(0, 0, 0, 0.5);

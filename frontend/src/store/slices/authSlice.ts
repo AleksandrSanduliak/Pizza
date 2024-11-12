@@ -1,41 +1,50 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Iuser } from "store/types";
-import { IGenericResponse } from "store/api/authApi";
+import { IGenericResponse } from 'store/api/authApi';
+import { Iuser } from 'store/types';
+import { eraseCookie, setCookie } from 'utils/funcs/cookie';
 interface IuserState {
   user: Iuser | null;
   userData: any | null;
-  accesToken: string | null;
+  accessToken: string | null;
   isAuth: boolean;
+  bonuses: number;
 }
 const initialState: IuserState = {
   user: null,
   userData: null,
-  accesToken: null,
+  accessToken: null,
   isAuth: false,
+  bonuses: 0,
 };
+
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     logout: (state) => {
       state.user = null;
       state.isAuth = false;
-      state.accesToken = null;
-      // state.userData = null;
+      state.accessToken = null;
+
+      eraseCookie('accessToken');
     },
+
     setUser: (state, action: PayloadAction<IuserState | IGenericResponse>) => {
-      console.log("setUser", action.payload);
-      const { user, accesToken } = action.payload;
+      const { user, accessToken, bonuses } = action.payload;
+
       state.user = user;
-      state.accesToken = accesToken;
-      if (accesToken) {
-        document.cookie = `accesToken=${accesToken}`;
-        state.isAuth = true;
-      } else {
+      state.accessToken = accessToken;
+
+      if (!accessToken) {
         state.isAuth = false;
       }
+
+      setCookie('accessToken', accessToken as string, 15, 'minutes');
+      state.isAuth = true;
+      state.bonuses = bonuses;
     },
+
     setUserData: (state, action) => {
       state.userData = action.payload;
     },

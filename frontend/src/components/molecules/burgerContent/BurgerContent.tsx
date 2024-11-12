@@ -1,6 +1,6 @@
-import Contacts from "molecules/contacts/Contacts";
-import { BurgerCategories } from "utils/data/burgerCategories";
-import cl from "molecules/burger/burger.module.scss";
+import Contacts from 'molecules/contacts/Contacts';
+import { BurgerCategories } from 'utils/data/burgerCategories';
+import cl from 'molecules/burger/burger.module.scss';
 
 const BurgerContent = () => {
   return (

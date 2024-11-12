@@ -14,40 +14,40 @@ interface IfooterCat {
 }
 export const footerCategories: IfooterCat = {
   Kudapizza: {
-    title: "Куда Пицца",
+    title: 'Куда Пицца',
     data: [
       {
-        anchor: "about",
-        text: "О компании",
+        anchor: 'about',
+        text: 'О компании',
       },
       {
-        anchor: "agreement",
-        text: "Пользовательское соглашение",
+        anchor: 'agreement',
+        text: 'Пользовательское соглашение',
       },
       {
-        anchor: "guarantees",
-        text: "Условия гарантии",
+        anchor: 'guarantees',
+        text: 'Условия гарантии',
       },
     ],
   },
   Help: {
-    title: "Помощь",
+    title: 'Помощь',
     data: [
       {
-        anchor: "restaurant",
-        text: "Ресторан",
+        anchor: 'restaurant',
+        text: 'Ресторан',
       },
       {
-        anchor: "contacts",
-        text: "Контакты",
+        anchor: 'contacts',
+        text: 'Контакты',
       },
       {
-        anchor: "help",
-        text: "Поддержка",
+        anchor: 'help',
+        text: 'Поддержка',
       },
       {
-        anchor: "trackorder",
-        text: "Отследить заказ",
+        anchor: 'trackorder',
+        text: 'Отследить заказ',
       },
     ],
   },

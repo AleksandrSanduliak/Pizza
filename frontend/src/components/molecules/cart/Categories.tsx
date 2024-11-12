@@ -1,28 +1,28 @@
-import React from "react";
+import React from 'react';
 
-import SVG from "react-inlinesvg";
-import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { NavHashLink } from "react-router-hash-link";
+import SVG from 'react-inlinesvg';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { NavHashLink } from 'react-router-hash-link';
 
-import { categories } from "utils/data/categories";
-import { Swiper, SwiperSlide } from "swiper/react";
-import useCheckVisible from "utils/hooks/useCheckVisible";
-import { visibleStatus } from "store/slices/categoriesSlice";
-import "swiper/css";
-import cl from "./cartCategory.module.scss";
-import useAccount from "utils/hooks/useAccount";
+import { visibleStatus } from 'store/slices/categoriesSlice';
+import 'swiper/css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { categories } from 'utils/data/categories';
+import useAccount from 'utils/hooks/useAccount';
+import useCheckVisible from 'utils/hooks/useCheckVisible';
+import cl from './cartCategory.module.scss';
 
 const Categories = () => {
   const childRef = React.useRef<HTMLElement>(null);
 
-  const [visible, setIsVisible] = useCheckVisible(childRef, "-100px");
+  const [visible, setIsVisible] = useCheckVisible(childRef, '-100px');
   const dispatch = useDispatch();
   const { isBurgerClick } = useAccount();
-  console.log("Categories visible", visible);
+  // console.log('Categories visible', visible);
   React.useEffect(() => {
-    if (location.pathname !== "/") {
-      console.log('location.pathname !== "/"', location.pathname !== "/");
+    if (location.pathname !== '/') {
+      // console.log('location.pathname !== "/"', location.pathname !== '/');
       setIsVisible(true);
       return;
     }
@@ -38,7 +38,7 @@ const Categories = () => {
   const actualLocation = `${location.hash}`.slice(1);
   return (
     <>
-      {location.pathname === "/" && (
+      {location.pathname === '/' && (
         <section className={cl.swiper__container}>
           <div>
             <Swiper
@@ -76,8 +76,7 @@ const Categories = () => {
                 1440: {
                   slidesPerView: categoriesSlicedLastElem.length,
                 },
-              }}
-            >
+              }}>
               {categoriesSlicedLastElem.map((category) => {
                 return (
                   <SwiperSlide key={category.name} className={cl.slide}>
@@ -85,9 +84,8 @@ const Categories = () => {
                       smooth
                       to={`/#${category.path}`}
                       className={`${cl.slide__link} ${
-                        actualLocation === category.path ? cl.activelink : ""
-                      }`}
-                    >
+                        actualLocation === category.path ? cl.activelink : ''
+                      }`}>
                       <SVG
                         description={`Иконка категории ${category.name}`}
                         onError={(error) => console.log(error.message)}
@@ -104,7 +102,7 @@ const Categories = () => {
               })}
             </Swiper>
           </div>
-          <div ref={childRef as React.RefObject<HTMLDivElement>}></div>
+          <div ref={childRef as React.RefObject<HTMLDivElement>} />
         </section>
       )}
     </>

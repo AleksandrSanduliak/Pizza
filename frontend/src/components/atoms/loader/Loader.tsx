@@ -1,7 +1,7 @@
-import cl from "./loader.module.scss";
+import cl from './loader.module.scss';
 
 type TLoaderVariants = {
-  type: "absolute" | "static";
+  type?: 'absolute' | 'static';
 };
 
 const LoaderVariants = {
@@ -9,7 +9,7 @@ const LoaderVariants = {
   static: cl.loader_static,
 };
 
-const Loader = ({ type = "static" }): { type: TLoaderVariants } => {
+const Loader = (type = 'static'): { type: TLoaderVariants } => {
   return (
     <div
       className={`${cl.loader} ${

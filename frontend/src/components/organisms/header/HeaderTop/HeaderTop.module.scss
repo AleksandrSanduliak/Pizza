@@ -1,0 +1,84 @@
+.headerTop {
+  @include flex-v-center;
+  max-height: 2.5rem;
+  padding: 0.688rem 0;
+  transition: $mediumBcgTransition;
+  justify-content: space-between;
+
+  @media (max-width: 950px) {
+    max-height: 3.5rem;
+  }
+
+  @media (max-width: 768.98px) {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+// LEFT BLOCK
+.leftBlock {
+  @media (max-width: 859.98px) {
+    margin-right: 1rem;
+  }
+
+  @media (max-width: 768.98px) {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 0;
+  }
+}
+
+.delivery {
+  br {
+    display: none;
+  }
+
+  @media (max-width: 950px) {
+    max-width: 8.75rem;
+  }
+
+  @media (max-width: 768.98px) {
+    max-width: unset;
+  }
+
+  @media (max-width: 450.98px) {
+    max-width: min-content;
+  }
+
+  @media (max-width: 400.98px) {
+    br {
+      display: block;
+    }
+  }
+}
+// LEFT BLOCK
+
+// RIGHT BLOCK
+.rightBlock {
+  justify-content: flex-end;
+  margin-right: 1rem;
+
+  @media (max-width: 768.98px) {
+    margin-right: 0;
+    display: none;
+  }
+}
+
+.text {
+  br {
+    display: none;
+  }
+
+  @media (max-width: 950px) {
+    br {
+      display: block;
+    }
+  }
+}
+// RIGHT BLOCK
+
+.account {
+  @include flex-v-center;
+}

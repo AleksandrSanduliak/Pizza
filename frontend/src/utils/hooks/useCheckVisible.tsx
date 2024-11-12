@@ -1,21 +1,21 @@
-import { RefObject, useEffect, useState } from "react";
-import useAccount from "./useAccount";
-import useMediaQuery from "./useMediaQuery";
-import { useLocation, useNavigate } from "react-router-dom";
+import { RefObject, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import useAccount from './useAccount';
+import useMediaQuery from './useMediaQuery';
 export default function useCheckVisible(
   ref?: RefObject<HTMLElement>,
-  rootMargin = "0px"
+  rootMargin = '0px',
 ) {
   const loc = useLocation();
   const { isBurgerClick } = useAccount();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isMobile] = useMediaQuery();
 
-  console.log("loc", loc);
+  // console.log('loc', loc);
   useEffect(() => {
-    if (loc.pathname !== "/") {
+    if (loc.pathname !== '/') {
       setIsVisible((prev) => (prev = true));
-      console.log("hook", isVisible);
+      // console.log('hook', isVisible);
       return;
     }
     if (isMobile && isBurgerClick) return;
@@ -26,7 +26,7 @@ export default function useCheckVisible(
         console.log(entry.isIntersecting);
         setIsVisible(entry.isIntersecting);
       },
-      { rootMargin }
+      { rootMargin },
     );
     observer.observe(ref.current);
 

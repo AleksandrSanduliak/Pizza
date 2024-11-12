@@ -1,13 +1,13 @@
-import React from "react";
-import cl from "./counter.module.scss";
-import plus from "assets/icons/plus.svg";
-import minus from "assets/icons/minus.svg";
-import { useAppDispatch, useAppSelector } from "utils/hooks/redux";
-import { increment, decrement } from "store/slices/cartSlice";
+import minus from 'assets/icons/minus.svg';
+import plus from 'assets/icons/plus.svg';
+import React from 'react';
 import {
   useDecrementCardItemMutation,
   useIncrementCardItemMutation,
-} from "store/api/orderApi";
+} from 'store/api/orderApi';
+import { decrement, increment } from 'store/slices/cartSlice';
+import { useAppDispatch, useAppSelector } from 'utils/hooks/redux';
+import cl from './counter.module.scss';
 type TCounter = {
   value: number;
   id: number;
@@ -15,23 +15,23 @@ type TCounter = {
 const Counter = ({ value = 1, id }: TCounter) => {
   const [
     incrementItem,
-    {
-      incrementData,
-      incrementIsLoading,
-      incrementIsError,
-      incrementError,
-      incrementIsSuccess,
-    },
+    // {
+    //   incrementData,
+    //   incrementIsLoading,
+    //   incrementIsError,
+    //   incrementError,
+    //   incrementIsSuccess,
+    // },
   ] = useIncrementCardItemMutation();
   const [
     decrementItem,
-    {
-      decrementData,
-      decrementIsLoading,
-      decrementIsError,
-      decrementError,
-      decrementIsSuccess,
-    },
+    // {
+    //   decrementData,
+    //   decrementIsLoading,
+    //   decrementIsError,
+    //   decrementError,
+    //   decrementIsSuccess,
+    // },
   ] = useDecrementCardItemMutation();
   const dispatch = useAppDispatch();
 
@@ -39,13 +39,13 @@ const Counter = ({ value = 1, id }: TCounter) => {
 
   const incrementCount = () => {
     if (!isAuth) dispatch(increment(id));
-    console.log("item ID", id);
+    // console.log('item ID', id);
     incrementItem({ id: id });
   };
 
   const decrementCount = () => {
     if (!isAuth) dispatch(decrement(id));
-    console.log("item ID", id);
+    // console.log('item ID', id);
     decrementItem({ id: id });
   };
 

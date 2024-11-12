@@ -1,51 +1,40 @@
+import Backward from 'atoms/backward/Backward';
 import Logo from 'atoms/logo/Logo';
-import ShoppingBag from 'molecules/shoppingBag/ShoppingBag';
-import Account from 'organisms/account/Account';
+import cn from 'classnames';
 import Burger from 'molecules/burger/Burger';
-import './header.scss';
-import HeaderTop from './top/HeaderTop';
-import React from 'react';
+import cl from 'molecules/burger/burger.module.scss';
+import BurgerContent from 'molecules/burgerContent/BurgerContent';
 import Categories from 'molecules/cart/Categories';
 import RegisterForm from 'molecules/forms/registerForm/RegisterForm';
-import LoginContent from 'molecules/loginContent/LoginContent';
-import cl from 'molecules/burger/burger.module.scss';
-import useMediaQuery from 'utils/hooks/useMediaQuery';
-import NavMiddle from './navMiddle/NavMiddle';
-
-import useAccount from 'utils/hooks/useAccount';
-
-import BurgerContent from 'molecules/burgerContent/BurgerContent';
+import Login from 'molecules/Login/Login';
 import ShopCartModal from 'molecules/modals/ShoppingCartModal/ShopCartModal';
-import Backward from 'atoms/backward/Backward';
+import ShoppingBag from 'molecules/shoppingBag/ShoppingBag';
+import Account from 'organisms/account/Account';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
+import useAccount from 'utils/hooks/useAccount';
+import useMediaQuery from 'utils/hooks/useMediaQuery';
+import './header.scss';
+import HeaderTop from './HeaderTop/HeaderTop';
+import NavMiddle from './NavMiddle/NavMiddle';
 
 const Header = () => {
-  const [isMobile] = useMediaQuery();
+  const isMobile = useMediaQuery();
   const { isAccountClick, isRegisterClick, isBurgerClick, isShoppingBagClick } =
     useAccount();
   const location = useLocation();
-  // console.log("isAccountClick", isAccountClick);
-  // console.log("isRegisterClick", isRegisterClick);
-  // console.log("isBurgerClick", isBurgerClick);
-
-  // isAccountClick ||
-  // isBurgerClick ||
-  // isShoppingBagClick ||
-  // (isAccountClick && isBurgerClick)
-  //   ? addOverflowBody()
-  //   : removeOverflowBody();
 
   return (
     <>
-      <header className="header">
-        <HeaderTop />
-      </header>
-      <div className="header__navWrapper">
+      {/* <header className="header"> */}
+      <HeaderTop />
+      {/* </header> */}
+      <header className="header__navWrapper">
         <nav
-          className={`header__nav  header__container ${
-            isBurgerClick && cl.burgerContent
-          }`}>
-          {/* <div className="header__middle">
+          className={cn('header__nav', 'header__container', {
+            isBurgerClick: cl.burgerContent,
+          })}>
+          <div className="header__middle">
             <div className="logoWrapper">
               <Backward />
               <Logo headerVisible={true} />
@@ -53,7 +42,7 @@ const Header = () => {
             <NavMiddle />
             {location.pathname === '/' && <ShoppingBag />}
             <Burger />
-          </div> */}
+          </div>
           <div
             className={`${cl.burger__inner} ${
               isBurgerClick ? cl.inner__active : ''
@@ -73,7 +62,7 @@ const Header = () => {
               )}
               {isAccountClick && isMobile && !isRegisterClick && (
                 <div className={cl.modalContainer}>
-                  <LoginContent />
+                  <Login />
                 </div>
               )}
               {!isAccountClick && isMobile && !isRegisterClick && (
@@ -82,7 +71,7 @@ const Header = () => {
             </div>
           </div>
         </nav>
-      </div>
+      </header>
       {/* <Categories /> */}
     </>
   );

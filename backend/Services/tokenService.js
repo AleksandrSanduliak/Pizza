@@ -1,19 +1,22 @@
 const jwt = require("jsonwebtoken");
 const { db } = require("../Firebase/firebaseConntect");
 const APIError = require("../exeptions/apiError");
+
 class tokenService {
   generateToken(user) {
     const refreshToken = jwt.sign(user, process.env.JWT_REFRESH, {
       expiresIn: "30d",
     });
-    const accesToken = jwt.sign(user, process.env.JWT_ACCES, {
+    const accessToken = jwt.sign(user, process.env.JWT_ACCES, {
       expiresIn: "15m",
     });
+
     return {
       refreshToken,
-      accesToken,
+      accessToken,
     };
   }
+
   async saveToken(userId, refreshToken) {
     const uniqueToken = await db
       .collection("tokens")
@@ -28,8 +31,10 @@ class tokenService {
       .collection("tokens")
       .doc(userId)
       .set({ userId: userId, refreshToken: refreshToken });
+
     return token;
   }
+
   async removeToken(refreshToken) {
     const token = await db
       .collection("tokens")
@@ -39,8 +44,10 @@ class tokenService {
         querySnapshot.forEach((doc) => doc.ref.delete());
       })
       .catch(function (error) {});
+
     return token;
   }
+
   async findToken(refreshToken) {
     if (!refreshToken) throw APIError.TokenError();
     const token = await db
@@ -52,28 +59,35 @@ class tokenService {
           throw APIError.UnauthError();
         }
         const snap = querySnapshot.docs[0];
+        
         return snap.data();
       })
       .catch(function (error) {
         console.log(error.message);
       });
+
     return token;
   }
+
   validateRefreshToken(refreshToken) {
     try {
       const user = jwt.verify(refreshToken, process.env.JWT_REFRESH);
+
       return user;
     } catch (error) {
       console.log(error);
     }
   }
-  validateAccesToken(accesToken) {
+
+  validateAccessToken(accessToken) {
     try {
-      const user = jwt.verify(accesToken, process.env.JWT_ACCES);
+      const user = jwt.verify(accessToken, process.env.JWT_ACCES);
+
       return user;
     } catch (error) {
       console.log(error);
     }
   }
 }
+
 module.exports = new tokenService();

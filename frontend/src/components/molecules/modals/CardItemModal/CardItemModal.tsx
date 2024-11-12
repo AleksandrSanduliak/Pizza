@@ -1,14 +1,14 @@
-import React from "react";
-import Modal from "../Modal/Modal";
-import cl from "./carditem.module.scss";
-import { foodType } from "utils/types/types";
-import Label from "atoms/label/Label";
-import fire from "assets/icons/fire.svg";
-import Tabs from "molecules/tabs/Tabs";
-import { Button } from "atoms/button/Button";
-import NutritionDropdown from "../../dropdown/NutritionDropdown/NutritionDropdown";
-import { useSaveCardMutation } from "store/api/orderApi";
-import { pizzaTypes } from "utils/data/pizzaData";
+import React from 'react';
+import Modal from '../Modal/Modal';
+import cl from './carditem.module.scss';
+import { foodType } from 'utils/types/types';
+import Label from 'atoms/label/Label';
+import fire from 'assets/icons/fire.svg';
+import Tabs from 'molecules/tabs/Tabs';
+import { Button } from 'atoms/button/Button';
+import NutritionDropdown from '../../dropdown/NutritionDropdown/NutritionDropdown';
+import { useSaveCardMutation } from 'store/api/orderApi';
+import { pizzaTypes } from 'utils/data/pizzaData';
 
 const CardItemModal = ({ food }: foodType) => {
   const checkSizeType = food?.sizes?.length > 1 ? 1 : 0;
@@ -40,7 +40,7 @@ const CardItemModal = ({ food }: foodType) => {
 
   const actualSize = [food?.sizes?.[sizeId]];
   const actualWeight =
-    typeof food?.weightTypes === "object"
+    typeof food?.weightTypes === 'object'
       ? food?.weightTypes?.[pizzaType]?.[actualSize]
       : food?.weightTypes;
   const actualPizzaType = pizzaTypes[pizzaType];
@@ -104,7 +104,7 @@ const CardItemModal = ({ food }: foodType) => {
             </div>
             <div className={cl.footer}>
               <div className={cl.footerButtons}>
-                <p className={`h4 price__actual`}>
+                <p className="h4 price__actual">
                   Итого: {food.price[sizeId] ?? food.price} ₽
                 </p>
                 <Button onClick={saveToCard}>Добавить</Button>

@@ -1,19 +1,18 @@
-import { Button } from "atoms/button/Button";
-import cl from "./shoppingbag.module.scss";
-import { useAppSelector } from "utils/hooks/redux";
-import shoppingBagImg from "assets/icons/shoppingBag.svg";
-import ShopCartModal from "molecules/modals/ShoppingCartModal/ShopCartModal";
-import useAccount from "utils/hooks/useAccount";
+import { Button } from 'atoms/button/Button';
+import cl from './shoppingbag.module.scss';
+import { useAppSelector } from 'utils/hooks/redux';
+import shoppingBagImg from 'assets/icons/shoppingBag.svg';
+import ShopCartModal from 'molecules/modals/ShoppingCartModal/ShopCartModal';
+import useAccount from 'utils/hooks/useAccount';
 
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 const ShoppingBag = () => {
   const totalCount = useAppSelector(
-    (state) => state.reducer.cartShopSlice.totalCount
+    (state) => state.reducer.cartShopSlice.totalCount,
   );
   const { isShoppingBagClick, onClickShoppingBag } = useAccount();
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const modalRootEl = document.getElementById("modal-root")!;
+  const modalRootEl = document.getElementById('modal-root')!;
   return (
     <div onClick={() => onClickShoppingBag()} className={cl.shoppingbag}>
       <Button primary={true} btnType="shopping">

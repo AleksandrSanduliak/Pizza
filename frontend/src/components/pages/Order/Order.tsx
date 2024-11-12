@@ -1,16 +1,16 @@
+import SuccesDelivery from 'assets/imgs/order/succesDelivery.webp';
+import { Button } from 'atoms/button/Button';
+import Loader from 'atoms/loader/Loader';
+import OrderForm from 'molecules/forms/orderForm/OrderForm';
+import OrderSwiper from 'molecules/orderSwiper/OrderSwiper';
+import PromoCode from 'molecules/promoCode/PromoCode';
 import ShoppingItem from 'molecules/shoppingItem/ShoppingItem';
+import React from 'react';
+import { toast } from 'react-toastify';
+import { useGetPromoMutation, useSaveOrderMutation } from 'store/api/orderApi';
+import { orderFood, orderSauces } from 'utils/data/orderItems';
 import { useAppSelector } from 'utils/hooks/redux';
 import cl from './order.module.scss';
-import { Button } from 'atoms/button/Button';
-import { useGetPromoMutation, useSaveOrderMutation } from 'store/api/orderApi';
-import React from 'react';
-import PromoCode from 'molecules/promoCode/PromoCode';
-import OrderSwiper from 'molecules/orderSwiper/OrderSwiper';
-import { orderFood, orderSauces } from 'utils/data/orderItems';
-import OrderForm from 'molecules/forms/orderForm/OrderForm';
-import SuccesDelivery from 'assets/imgs/order/succesDelivery.webp';
-import { toast } from 'react-toastify';
-import Loader from 'atoms/loader/Loader';
 const Order = () => {
   const { totalPrice, discountPrice } = useAppSelector(
     (state) => state.reducer.cartShopSlice,
@@ -18,8 +18,8 @@ const Order = () => {
   const orderId = useAppSelector(
     (state) => state.reducer.cartShopSlice.orderId,
   );
-  console.log('orderId', orderId);
-  console.log('totalPrice', typeof totalPrice);
+  // console.log('orderId', orderId);
+  // console.log('totalPrice', typeof totalPrice);
   const items = useAppSelector((state) => state.reducer.cartShopSlice.items);
   const [saveOrder, { data, isLoading, isError, error, isSuccess }] =
     useSaveOrderMutation();
@@ -79,7 +79,7 @@ const Order = () => {
         <div className={cl.priceBlock}>
           <PromoCode />
           <div className={cl.calcPrice}>
-            <p className={`h4 price__actual`}>Итого: {totalPrice} ₽</p>
+            <p className="h4 price__actual">Итого: {totalPrice} ₽</p>
             {discountPrice > 0 && (
               <p className={`mini price__old ${cl.oldprice}`}>
                 Итого: {discountPrice} ₽

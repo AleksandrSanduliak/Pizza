@@ -1,0 +1,67 @@
+{
+  // Форматирование кода с помощью prettier
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Форматирование при сохранении файла
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+
+  // Использование локальных правил для StyleLint
+  // "stylelint.useLocal": true,
+  // "stylelint.autoFixOnSave": true,
+
+  // Проверка орфографии с помощью Code Spell Checker
+  "cSpell.language": "en,ru",
+
+  // Дополнительный словарь для Code Spell Checker
+  "cSpell.words": ["antd", "reduxjs"],
+
+  // Использование одной темы в проекте)
+    "workbench.colorTheme": "Default Dark Modern",
+
+  // Подсветка комментариев с приставкой TODO
+  "todohighlight.keywords": [
+    {
+      "text": "TODO:",
+      "color": "white",
+      "border": "1px solid white",
+      "backgroundColor": "rgba(46,24,83,0.5)",
+      "isWholeLine": true
+    }
+  ],
+
+  // настройки ESlint
+  "eslint.format.enable": true,
+  // "eslint.workingDirectories": [
+  //   "FolderName"
+  // ],
+  "eslint.workingDirectories": [
+    "src"
+  ],
+  "eslint.useFlatConfig": true,
+  "eslint.validate": ["typescript", "typescriptreact"],
+  
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.sortImports": "explicit",
+    "source.fixAll.ts": "explicit"
+  },
+
+  // Настройки Prettier
+  "prettier.requireConfig": true,
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // JS
+  "javascript.updateImportsOnFileMove.enabled": "always",
+}

@@ -7,12 +7,12 @@ module.exports = function (req, res, next) {
       return next(APIError.UnauthError());
     }
 
-    const accesToken = authHeader.split(" ")[1];
-    if (!accesToken) {
+    const accessToken = authHeader.split(" ")[1];
+    if (!accessToken) {
       return next(APIError.UnauthError());
     }
 
-    const userData = tokenService.validateAccesToken(accesToken);
+    const userData = tokenService.validateAccessToken(accessToken);
     console.log("userData", userData);
     if (!userData) {
       return next(APIError.UnauthError());

@@ -1,19 +1,22 @@
-import cl from "./logincontent.module.scss";
-import LoginForm from "molecules/forms/loginForm/LoginForm";
-import useAccount from "utils/hooks/useAccount";
-const LoginContent = () => {
+import cn from 'classnames';
+import LoginForm from 'molecules/forms/loginForm/LoginForm';
+import useAccount from 'utils/hooks/useAccount';
+import cl from './login.module.scss';
+
+const Login = () => {
   const { onClickRegister } = useAccount();
+
   return (
     <div className={cl.wrapper}>
       <div className={cl.pre_block}>
-        <p className={`${cl.title} h1`}>Вход в аккаунт</p>
-        <p className={`${cl.subtitle} normal`}>
+        <p className={cn(cl.title, 'h1')}>Вход в аккаунт</p>
+        <p className={cn(cl.subtitle, 'normal')}>
           Сможете быстро оформлять заказы,
           <br />
           использовать бонусы
         </p>
         <p className="normal" onClick={() => onClickRegister()}>
-          Отсутствует аккаунт?{" "}
+          Отсутствует аккаунт?{' '}
           <span className={cl.registration}>Зарегистрируйтесь</span>
         </p>
       </div>
@@ -22,4 +25,4 @@ const LoginContent = () => {
   );
 };
 
-export default LoginContent;
+export default Login;

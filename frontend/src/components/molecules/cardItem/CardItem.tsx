@@ -17,7 +17,7 @@ const CardItem = ({ food }: foodType) => {
   const isAuth = useAppSelector((store) => store.reducer.auth.isAuth);
   const [showModal, setIsShowModal] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const [isMobile] = useMediaQuery();
+  const isMobile = useMediaQuery();
   const [saveCard, { data, isLoading, isError, error, isSuccess }] =
     useSaveCardMutation();
 
@@ -62,7 +62,7 @@ const CardItem = ({ food }: foodType) => {
           <p className="subtitle">от {food.price?.[1] ?? food.price} ₽</p>
         </Button>
         {food.oldprice && (
-          <p className={`subtitle price__old`}>{food.oldprice} ₽</p>
+          <p className="subtitle price__old">{food.oldprice} ₽</p>
         )}
       </div>
     ) : (
@@ -78,7 +78,7 @@ const CardItem = ({ food }: foodType) => {
         <div className={cl.price}>
           <p className="subtitle">от {food.price?.[1] ?? food.price} ₽</p>
           {food.oldprice && (
-            <p className={`subtitle price__old`}>{food.oldprice} ₽</p>
+            <p className="subtitle price__old">{food.oldprice} ₽</p>
           )}
         </div>
       </>

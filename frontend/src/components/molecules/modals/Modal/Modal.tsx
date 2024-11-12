@@ -1,13 +1,12 @@
-/* eslint-disable react/react-in-jsx-scope */
 import { AnimatePresence, motion } from 'framer-motion';
 import { FC } from 'react';
-import Fade from '../../../atoms/fade/Fade';
-import cl from './modal.module.scss';
 import ReactDOM from 'react-dom';
 import {
   addOverflowHiddenToBody,
   removeOverflowHiddenToBody,
 } from 'utils/funcs/bodyOverflow';
+import Fade from '../../../atoms/fade/Fade';
+import cl from './modal.module.scss';
 
 export type TModal = {
   isOpen: boolean;
@@ -54,10 +53,12 @@ const Modal: FC<TModal> = ({
               duration: 0.25,
             },
           }}
+          onClick={(e) => e.stopPropagation()}
           className={`${cl.modal}`}>
           {isFade && (
             <Fade
               onClickFade={() => {
+                // console.log('f');
                 if (disableFadeClick) return;
                 setIsOpen(false);
               }}

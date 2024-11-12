@@ -1,11 +1,11 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Button } from "atoms/button/Button";
-import SVG from "react-inlinesvg";
-import { Navigation } from "swiper/modules";
-import "swiper/css/navigation";
-import cl from "./orderswiper.module.scss";
+import { Button } from 'atoms/button/Button';
+import SVG from 'react-inlinesvg';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css/navigation';
+import cl from './orderswiper.module.scss';
 const OrderSwiper = ({ array }: { array: [] }) => {
   const swiperRef = React.useRef(null);
   return (
@@ -44,11 +44,10 @@ const OrderSwiper = ({ array }: { array: [] }) => {
         }}
         ref={swiperRef}
         navigation={{
-          nextEl: ".next",
-          prevEl: ".prev",
+          nextEl: '.next',
+          prevEl: '.prev',
         }}
-        className={cl.swiper}
-      >
+        className={cl.swiper}>
         {array.map((food) => {
           return (
             <SwiperSlide key={food.id} className={cl.slide}>

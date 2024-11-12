@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react';
 
-const useMediaQuery = () => {
-  const matchMedia = window.matchMedia("(max-width: 768px)");
-  const [isMobile, setIsMobile] = React.useState<undefined | boolean>(
-    matchMedia.matches
-  );
-  const onChange = React.useCallback(() => {
-    setIsMobile(matchMedia.matches);
-  }, [matchMedia]);
+const useMediaQuery = (width = 768) => {
+  const [isMatches, setIsMatches] = React.useState<boolean>(false);
   React.useEffect(() => {
-    matchMedia.addEventListener("change", onChange);
-    return () => matchMedia.removeEventListener("change", onChange);
-  }, [matchMedia, onChange]);
-  return [isMobile];
+    const matchMedia = window.matchMedia(`(max-width: ${width}px)`);
+    if (matchMedia.matches !== isMatches) {
+      setIsMatches(matchMedia.matches);
+    }
+    const onChange = () => setIsMatches(matchMedia.matches);
+    window.addEventListener('resize', onChange);
+    return () => matchMedia.removeEventListener('resize', onChange);
+  }, [matchMedia, width]);
+
+  return isMatches;
 };
 
 export default useMediaQuery;

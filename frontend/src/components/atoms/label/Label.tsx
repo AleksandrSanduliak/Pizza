@@ -1,6 +1,6 @@
-import cl from "./label.module.scss";
+import cl from './label.module.scss';
 
-const labelTypes: string[] = ["NEW", "ХИТ"];
+const labelTypes: string[] = ['NEW', 'ХИТ'];
 
 type TLabel = {
   labelType?: number | undefined;
@@ -11,7 +11,7 @@ const Label = ({ labelType }: TLabel) => {
 
   return (
     <div>
-      {typeof labelType === "number" && (
+      {typeof labelType === 'number' && (
         <div className={`mini ${cl.label}`}>{labelTypes[labelType]}</div>
       )}
     </div>

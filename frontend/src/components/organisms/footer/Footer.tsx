@@ -1,11 +1,11 @@
-import cl from "./footer.module.scss";
-import Contacts from "molecules/contacts/Contacts";
-import Logo from "atoms/logo/Logo";
-import { TDataItem, footerCategories } from "utils/data/footerCategories";
-import { NavLink } from "react-router-dom";
-import useMediaQuery from "utils/hooks/useMediaQuery";
+import cl from './footer.module.scss';
+import Contacts from 'molecules/contacts/Contacts';
+import Logo from 'atoms/logo/Logo';
+import { TDataItem, footerCategories } from 'utils/data/footerCategories';
+import { NavLink } from 'react-router-dom';
+import useMediaQuery from 'utils/hooks/useMediaQuery';
 const Footer = () => {
-  const [isMobile] = useMediaQuery();
+  const isMobile = useMediaQuery();
 
   return (
     <footer className={cl.footer}>

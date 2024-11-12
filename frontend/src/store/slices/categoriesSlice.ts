@@ -1,10 +1,10 @@
-import { createSlice, current } from "@reduxjs/toolkit";
-import { setAuthMobile } from "./accountSlice";
+import { createSlice, current } from '@reduxjs/toolkit';
+import { setAuthMobile } from './accountSlice';
 
 const initialState = { isVisible: false };
 
 const isVisibleCategory = createSlice({
-  name: "isVisibleCategory",
+  name: 'isVisibleCategory',
   initialState,
   reducers: {
     visibleStatus: (state, action) => {
@@ -13,7 +13,7 @@ const isVisibleCategory = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(setAuthMobile, (state, action) => {
-      console.log("state extra", current(state));
+      console.log('state extra', current(state));
       state.isVisible = true;
     });
   },

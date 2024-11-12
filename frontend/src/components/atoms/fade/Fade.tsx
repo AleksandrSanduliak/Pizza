@@ -1,6 +1,5 @@
-import { Dispatch, FC, SetStateAction } from 'react';
 import cl from './fade.module.scss';
-import React from 'react';
+
 interface IFade {
   onClickFade: React.MouseEventHandler<HTMLDivElement>;
 }

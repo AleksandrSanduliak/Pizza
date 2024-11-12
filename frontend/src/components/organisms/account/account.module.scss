@@ -1,113 +1,93 @@
 .account {
-  &__inner {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-  }
+  display: flex;
+  align-items: center;
+}
 
-  &__text {
-    font-family: 'Inter';
-    pointer-events: none;
-    font-size: 0.875rem;
-    line-height: 1.125rem;
-    position: relative;
+.header {
+  cursor: pointer;
+  position: relative;
 
-    @media (max-width: 768.98px) {
-      font-size: 1rem;
-      line-height: 1.25rem;
-      padding: 1.25rem 0;
-
-      display: none;
-      padding: 0;
-      margin: 0px;
-    }
-  }
-
-  &__cabinet {
+  @media (max-width: 768.98px) {
+    font-size: 1rem;
+    line-height: 1.25rem;
+    padding: 1.25rem 0;
     display: none;
-    width: 17.813rem;
-    // height: 12.875rem;
-    position: absolute;
-    top: 3rem;
-    right: 1vw;
+    padding: 0;
+    margin: 0px;
+  }
+}
 
-    border-radius: 0.75rem;
-    border: 1px solid $linegray;
-    background: white;
-    box-shadow: 0 0.125rem 0.5rem 0 rgba(25, 25, 25, 0.1);
+.cabinet {
+  width: 17.813rem;
+  position: absolute;
+  top: 3rem;
+  right: 1vw;
 
-    @media (max-width: 950px) {
-      top: 4rem;
-    }
+  border-radius: 0.75rem;
+  border: 1px solid $linegray;
+  background: white;
+  box-shadow: 0 0.125rem 0.5rem 0 rgba(25, 25, 25, 0.1);
 
-    @media (max-width: 768.98px) {
-      position: relative;
-      width: 100%;
-      top: 0;
-      right: 0;
-      border-radius: 0;
-      box-shadow: none;
-      border: none;
-    }
+  @media (max-width: 950px) {
+    top: 4rem;
+  }
 
-    &::after,
-    &::before {
-      content: '';
-      position: absolute;
-      left: 130px;
-      top: -14px;
-      border: 8px solid transparent;
-      border-bottom: 6px solid $linegray;
+  @media (max-width: 768.98px) {
+    position: relative;
+    width: 100%;
+    top: 0;
+    right: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+  }
+}
 
-      @media (max-width: 768.98px) {
-        display: none;
-      }
-    }
+.text {
+  padding: 1rem 1.25rem;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
 
-    &::after {
-      border-bottom: 6px solid white;
-      top: -13px;
-    }
+.logout {
+  color: $gray-text;
 
-    &_text {
-      padding: 1rem 1.25rem;
-      width: 100%;
-      text-align: left;
-    }
+  border-top: 1px solid $linegray;
+}
 
-    &_logout {
-      color: $gray-text;
-    }
+// .content {
+//   width: 100%;
+// }
 
-    &_content {
-      width: 100%;
-    }
+.bonus {
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  color: $primary;
+  transition: $fastColorTransition;
 
-    &_bonus,
-    &_content {
-      border-bottom: 1px solid $linegray;
+  &:hover,
+  &:focus {
+    color: $black;
+  }
 
-      @media (max-width: 768.98px) {
-        border: 0;
-      }
-    }
+  @media (max-width: 768.98px) {
+    border-top: 1px solid $linegray;
+    display: inline;
+  }
+}
 
-    &_bonus {
-      color: $primary;
+.bonus,
+.content {
+  border-bottom: 1px solid $linegray;
 
-      @media (max-width: 768.98px) {
-        border-top: 1px solid $linegray;
-        display: inline;
-      }
-    }
+  @media (max-width: 768.98px) {
+    border: 0;
   }
 }
 
 .modalWrapper {
   padding: 3rem 0;
-
   display: flex;
   align-content: center;
   justify-content: center;
@@ -131,14 +111,25 @@
   padding: 0.5rem;
 }
 
-.activeCabinet {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
 .icon {
+  display: flex;
+
   @media (max-width: 769.98px) {
     display: none;
+  }
+}
+
+.activeHeader {
+  color: $primary;
+  transition: $fastColorTransition;
+}
+
+.header,
+.text {
+  transition: $fastColorTransition;
+
+  &:hover,
+  &:focus {
+    color: $primary;
   }
 }

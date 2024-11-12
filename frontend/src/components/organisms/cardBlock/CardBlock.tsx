@@ -1,11 +1,11 @@
-import React from 'react';
-import cl from './cardBlock.module.scss';
-import pizzas from 'utils/data/pizzas.json';
-import CardItem from 'molecules/cardItem/CardItem';
 import { Button } from 'atoms/button/Button';
+import Loader from 'atoms/loader/Loader';
+import CardItem from 'molecules/cardItem/CardItem';
+import React from 'react';
 import { useLazyGetGoodsQuery } from 'store/api/goodsApi';
 import { selectorApp } from 'store/store';
-import Loader from 'atoms/loader/Loader';
+import pizzas from 'utils/data/pizzas.json';
+import cl from './cardBlock.module.scss';
 
 const CardBlock = () => {
   const [getGoods, { data, isFetching, isLoading }] = useLazyGetGoodsQuery();
@@ -13,8 +13,8 @@ const CardBlock = () => {
   //   return <Loader type="absolute" />;
   // }
   const userCity = selectorApp((state) => state.reducer.userCity.currentCity);
-  console.log('userCity', userCity);
-  console.log(data);
+  // console.log('userCity', userCity);
+  // console.log(data);
   React.useEffect(() => {
     getGoods();
   }, [getGoods, userCity]);
@@ -41,7 +41,7 @@ const CardBlock = () => {
             <div className={cl.cards}>
               {data?.length &&
                 data.map((el) => {
-                  console.log('el', el.name);
+                  // console.log('el', el.name);
                   return (
                     <div key={el.name} className={cl.card}>
                       <h1 id={`${el.anchor}`} className={`h1 ${cl.title}`}>
@@ -49,7 +49,7 @@ const CardBlock = () => {
                       </h1>
                       {/* <div className={cl.items}> */}
                       {el.items.map((food) => {
-                        console.log('food', food);
+                        // console.log('food', food);
                         return (
                           <React.Fragment key={food.title}>
                             <CardItem food={food} />

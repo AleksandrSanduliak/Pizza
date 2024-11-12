@@ -1,12 +1,12 @@
-import React, { FC } from 'react';
-import Loc from 'assets/icons/isLogo.svg';
 import crosshair from 'assets/icons/cart-cross.svg';
-import { getCookie, setCookie } from 'utils/funcs/cookie';
+import Loc from 'assets/icons/isLogo.svg';
 import Modal from 'molecules/modals/Modal/Modal';
-import cl from './CityModal.module.scss';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { getUserCity } from 'store/slices/citySlice';
+import { setCookie } from 'utils/funcs/cookie';
 import { useAppDispatch, useAppSelector } from 'utils/hooks/redux';
+import cl from './CityModal.module.scss';
 
 export const cityInfo = [
   {
@@ -26,21 +26,15 @@ const CityModal: FC = () => {
   const actualLocation = useAppSelector(
     (state) => state.reducer.userCity.currentCity,
   );
-
   const [isOpenModal, setIsOpenModal] = React.useState(false);
-  const userLocation = getCookie('location');
 
   React.useEffect(() => {
-    dispatch(getUserCity(userLocation));
-  }, [dispatch, getUserCity]);
-
-  React.useEffect(() => {
-    if (userLocation === undefined || userLocation === null) {
+    if (actualLocation === undefined || actualLocation === null) {
       setIsOpenModal(true);
     } else {
       setIsOpenModal(false);
     }
-  }, [userLocation]);
+  }, [actualLocation]);
 
   const onChangeLocation = (city: string) => {
     setCookie('location', city, 30);
@@ -51,7 +45,6 @@ const CityModal: FC = () => {
   const isActiveCity = cityInfo.find(
     (item) => item.name === actualLocation,
   )?.title;
-  console.log('!!actualLocation', !actualLocation);
   return (
     <div className={cl.cityModal}>
       <Modal
@@ -65,7 +58,7 @@ const CityModal: FC = () => {
                 width="32px"
                 height="32px"
                 src={crosshair}
-                alt={`Кнопка закрытия окна`}
+                alt="Кнопка закрытия окна"
                 className={cl.crosshair}
                 onClick={() => setIsOpenModal(false)}
               />

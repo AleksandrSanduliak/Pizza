@@ -1,18 +1,18 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler, FieldErrors } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 
-import { orderSchema } from "utils/zodSchemas/orderSchema";
-import { orderForm } from "utils/types/types";
-import cl from "./orderform.module.scss";
-import { useHookFormMask } from "use-mask-input";
-import Tabs from "molecules/tabs/Tabs";
-import React from "react";
-import { Button } from "atoms/button/Button";
-import FormLabel from "atoms/formLabel/FormLabel";
-import { useAppSelector } from "utils/hooks/redux";
+import { Button } from 'atoms/button/Button';
+import Tabs from 'molecules/tabs/Tabs';
+import React from 'react';
+import { useHookFormMask } from 'use-mask-input';
+import { useAppSelector } from 'utils/hooks/redux';
+import { orderForm } from 'utils/types/types';
+import { orderSchema } from 'utils/zodSchemas/orderSchema';
+import FormItem from '../FormItem/FormItem';
+import cl from './orderform.module.scss';
 
 const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
-  const tabs = ["Доставка", "Самовывоз"];
+  const tabs = ['Доставка', 'Самовывоз'];
   const [activeTab, setActiveTab] = React.useState<number>(0);
   const {
     register,
@@ -23,17 +23,17 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
     resolver: zodResolver(orderSchema),
     defaultValues: {
       deliveryType: tabs[activeTab],
-      whenOrderBeFilled: "Как можно скорее",
-      payment: "Картой",
-      shortChange: "Без сдачи",
+      whenOrderBeFilled: 'Как можно скорее',
+      payment: 'Картой',
+      shortChange: 'Без сдачи',
     },
-    mode: "onChange",
+    mode: 'onChange',
   });
 
   const { totalPrice } = useAppSelector((state) => state.reducer.cartShopSlice);
   const onSubmit: SubmitHandler<orderForm> = (data) => {
     // setValue("deliveryType", tabs[activeTab]);
-    console.log(data);
+    // console.log(data);
     saveOrder({ userInfo: data });
   };
   const onInvalid = (errors: FieldErrors) => console.error(errors);
@@ -43,31 +43,31 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
     <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
       <div className={cl.aboutYou}>
         <div className="inputValidationBlock">
-          <FormLabel htmlFor="name" title="Имя" errors={errors} />
-          <input id="name" {...register("name")} className="input" />
+          <FormItem htmlFor="name" title="Имя" errors={errors} />
+          <input id="name" {...register('name')} className="input" />
         </div>
 
         <div className="inputValidationBlock">
-          <FormLabel htmlFor="phone" title="Номер телефона" errors={errors} />
+          <FormItem htmlFor="phone" title="Номер телефона" errors={errors} />
           <input
             className="input"
             id="phone"
-            {...registerWithMask("phone", ["+7 999 999-99-99"], {
+            {...registerWithMask('phone', ['+7 999 999-99-99'], {
               required: true,
             })}
           />
         </div>
 
         <div className="inputValidationBlock">
-          <FormLabel htmlFor="email" title="Email" errors={errors} />
+          <FormItem htmlFor="email" title="Email" errors={errors} />
           <input
             className="input"
             id="email"
-            {...register("email", {
-              required: "required",
+            {...register('email', {
+              required: 'required',
               pattern: {
                 value: /\S+@\S+\.\S+/,
-                message: "Entered value does not match email format",
+                message: 'Entered value does not match email format',
               },
             })}
           />
@@ -81,63 +81,63 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
           setActiveTab={setActiveTab}
         />
       </div>
-      <FormLabel htmlFor="street" title="Улица" errors={errors} />
+      <FormItem htmlFor="street" title="Улица" errors={errors} />
       <input
         className="input"
         id="street"
-        {...register("street", {
-          required: "required",
+        {...register('street', {
+          required: 'required',
         })}
       />
       <div className={cl.clientAddress}>
         <div className="inputValidationBlock">
-          <FormLabel htmlFor="house" title="Дом" errors={errors} />
-          <input className="input" id="house" {...register("house")} />
+          <FormItem htmlFor="house" title="Дом" errors={errors} />
+          <input className="input" id="house" {...register('house')} />
         </div>
 
         <div className="inputValidationBlock">
-          <FormLabel htmlFor="entrance" title="Подъезд" errors={errors} />
+          <FormItem htmlFor="entrance" title="Подъезд" errors={errors} />
           <input
             className="input"
             id="entrance"
             type="number"
-            {...register("entrance", {
+            {...register('entrance', {
               valueAsNumber: true,
             })}
           />
         </div>
 
         <div className="inputValidationBlock">
-          <FormLabel htmlFor="floor" title="Этаж" errors={errors} />
+          <FormItem htmlFor="floor" title="Этаж" errors={errors} />
           <input
             className="input"
             id="floor"
             type="number"
-            {...register("floor", {
+            {...register('floor', {
               valueAsNumber: true,
             })}
           />
         </div>
 
         <div className="inputValidationBlock">
-          <FormLabel htmlFor="apartment" title="Квартира" errors={errors} />
+          <FormItem htmlFor="apartment" title="Квартира" errors={errors} />
           <input
             className="input"
             id="apartment"
             type="number"
-            {...register("apartment", {
+            {...register('apartment', {
               valueAsNumber: true,
             })}
           />
         </div>
 
         <div className="inputValidationBlock">
-          <FormLabel htmlFor="intercom" title="Домофон" errors={errors} />
+          <FormItem htmlFor="intercom" title="Домофон" errors={errors} />
           <input
             className="input"
             id="intercom"
             type="string"
-            {...register("intercom")}
+            {...register('intercom')}
           />
         </div>
       </div>
@@ -151,7 +151,7 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
               id="whenOrderBeFilled"
               type="radio"
               value="Как можно скорее"
-              {...register("whenOrderBeFilled")}
+              {...register('whenOrderBeFilled')}
             />
             <span>Как можно скорее</span>
           </div>
@@ -160,7 +160,7 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
               id="whenOrderBeFilled"
               type="radio"
               value="По времени"
-              {...register("whenOrderBeFilled")}
+              {...register('whenOrderBeFilled')}
             />
             <span>По времени</span>
           </div>
@@ -177,7 +177,7 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
               id="payment"
               type="radio"
               value="Картой"
-              {...register("payment")}
+              {...register('payment')}
             />
             <span>Картой</span>
           </div>
@@ -186,7 +186,7 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
               id="payment"
               type="radio"
               value="Наличными"
-              {...register("payment")}
+              {...register('payment')}
             />
             <span>Наличными</span>
           </div>
@@ -195,7 +195,7 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
               id="payment"
               type="radio"
               value="Картой при получении"
-              {...register("payment")}
+              {...register('payment')}
             />
             <span> Картой при получении</span>
           </div>
@@ -212,7 +212,7 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
               id="shortChange"
               type="radio"
               value="Без сдачи"
-              {...register("shortChange")}
+              {...register('shortChange')}
             />
             <span>Без сдачи</span>
           </div>
@@ -221,7 +221,7 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
               id="shortChange"
               type="radio"
               value="Сдача с"
-              {...register("shortChange")}
+              {...register('shortChange')}
             />
             <span>Сдача с</span>
           </div>
@@ -237,12 +237,12 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
             id="comment"
             type="text"
             className="input"
-            {...register("shortChange")}
+            {...register('shortChange')}
           />
         </div>
       </div>
       <div className={cl.formFooter}>
-        <p className={`h4 price__actual`}>Итого: {totalPrice} ₽</p>
+        <p className="h4 price__actual">Итого: {totalPrice} ₽</p>
         <Button isSubmit={true}>Оформить заказ</Button>
       </div>
     </form>

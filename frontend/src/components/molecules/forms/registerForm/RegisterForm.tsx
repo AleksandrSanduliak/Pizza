@@ -1,164 +1,88 @@
-import React from "react";
-import { useRegisterUserMutation } from "store/api/authApi";
-import { Button, CompoundButton } from "atoms/button/Button";
-import { registerSchema } from "utils/zodSchemas/registerSchema";
-import { FormRegister } from "utils/types/types";
-import { toast } from "react-toastify";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler } from "react-hook-form";
-import cl from "./registerform.module.scss";
-import { withMask, useHookFormMask } from "use-mask-input";
-import useAccount from "utils/hooks/useAccount";
-import FormInput from "atoms/formInput/FormInput";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CompoundButton } from 'atoms/button/Button';
+import cn from 'classnames';
+import React from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { useRegisterUserMutation } from 'store/api/authApi';
+import { registerFormList } from 'utils/consts/forms/forms';
+import useAccount from 'utils/hooks/useAccount';
+import { registerSchema, TFormRegister } from 'utils/zodSchemas/registerSchema';
+import FormItem from '../FormItem/FormItem';
+import cl from './RegisterForm.module.scss';
 
 const RegisterForm = () => {
-  const { isAccountClick, isRegisterClick, onClickRegister, onClickAuth } =
-    useAccount();
-  const [registerUser, { data, isLoading, isError, error, isSuccess }] =
+  const { onClickRegister } = useAccount();
+  const [registerUser, { isLoading, isError, isSuccess }] =
     useRegisterUserMutation();
 
-  if (isError) {
-    toast.error("Ошибка регистрации", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  }
-  if (isSuccess) {
-    toast.success("Вы успешно зарегистрировались, войдите в систему.", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    onClickRegister();
-  }
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setFocus,
-  } = useForm<FormRegister>({ resolver: zodResolver(registerSchema) });
+  React.useEffect(() => {
+    if (isError) {
+      toast.error('Ошибка регистрации', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    }
 
-  const onSubmit: SubmitHandler<FormRegister> = (data) => {
-    registerUser(data);
-  };
+    if (isSuccess) {
+      toast.success('Вы успешно зарегистрировались, войдите в систему.', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+
+      onClickRegister();
+    }
+  }, [isError, isSuccess, onClickRegister]);
+
+  const form = useForm<TFormRegister>({
+    resolver: zodResolver(registerSchema),
+  });
+
+  const onSubmit: SubmitHandler<TFormRegister> = (data) => registerUser(data);
 
   React.useEffect(() => {
-    setFocus("name");
-  }, [setFocus]);
+    form.setFocus('name');
+  }, [form]);
 
-  const registerWithMask = useHookFormMask(register);
   return (
     <div className={cl.wrapper}>
-      <h1 className={`h1 ${cl.title}`}>Регистрация</h1>
-      <form className={cl.registerform} onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="name" className="label">
-          {errors.name ? (
-            <span className="mini" style={{ color: "red" }}>
-              {errors.name.message}
-            </span>
-          ) : (
-            <p className="mini">Имя</p>
-          )}
-        </label>
-        <input className="input" id="name" {...register("name")} />
+      <h1 className={cn('h1', cl.title)}>Регистрация</h1>
 
-        <label htmlFor="email" className="label">
-          {errors?.email ? (
-            <span className="mini" style={{ color: "red" }}>
-              {errors.email.message}
-            </span>
-          ) : (
-            <p className="mini">Email</p>
-          )}
-        </label>
-        <input
-          className="input"
-          id="email"
-          {...register("email", {
-            required: "required",
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: "Entered value does not match email format",
-            },
-          })}
-        />
-        <label htmlFor="phone" className="label">
-          {errors.phone ? (
-            <span className="mini" style={{ color: "red" }}>
-              {errors.phone.message}
-            </span>
-          ) : (
-            <p className="mini">Номер телефона</p>
-          )}
-        </label>
-        <input
-          className="input"
-          id="phone"
-          {...registerWithMask("phone", ["+7 999 999-99-99"], {
-            required: true,
-          })}
-        />
-        <label htmlFor="dateBrith" className="label">
-          {errors.dateBrith ? (
-            <span className="mini" style={{ color: "red" }}>
-              {errors.dateBrith.message}
-            </span>
-          ) : (
-            <p className="mini">День рождения</p>
-          )}
-        </label>
-        <input
-          className="input"
-          id="dateBrith"
-          {...registerWithMask("dateBrith", "datetime", {
-            inputFormat: "dd-mm-yyyy",
-            required: true,
-          })}
-        />
-        <label htmlFor="password" className="label">
-          {errors.password ? (
-            <span className="mini" style={{ color: "red" }}>
-              {errors.password.message}
-            </span>
-          ) : (
-            <p className="mini">Пароль</p>
-          )}
-        </label>
-        <input className="input" id="password" {...register("password")} />
-        <label htmlFor="confirmPassword" className="label">
-          {errors.confirmPassword ? (
-            <span className="mini" style={{ color: "red" }}>
-              {errors.confirmPassword.message}
-            </span>
-          ) : (
-            <p className="mini">Подтверждение пароля</p>
-          )}
-        </label>
-        <input
-          className="input"
-          id="confirmPassword"
-          {...register("confirmPassword")}
-        />
-        <div className={cl.buttonWrapper}>
-          <CompoundButton onClick={() => onClickRegister()}>
-            Назад
-          </CompoundButton>
-          <CompoundButton isSubmit={true} isLoading={isLoading ? true : false}>
-            Отправить
-          </CompoundButton>
-        </div>
-      </form>
+      <FormProvider {...form}>
+        <form
+          className={cl.registerForm}
+          onSubmit={form.handleSubmit(onSubmit)}>
+          <p className={cn(cl.notification, 'mini')}>
+            Продолжая, вы соглашаетесь со сбором и обработкой персональных
+            данных и пользовательским соглашением
+          </p>
+          {registerFormList.map((item) => (
+            <FormItem {...item} key={item.name} />
+          ))}
+          <div className={cl.buttons}>
+            <CompoundButton onClick={() => onClickRegister()}>
+              Назад
+            </CompoundButton>
+            <CompoundButton
+              isSubmit={true}
+              isLoading={isLoading ? true : false}>
+              Отправить
+            </CompoundButton>
+          </div>
+        </form>
+      </FormProvider>
     </div>
   );
 };

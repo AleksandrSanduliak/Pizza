@@ -1,8 +1,8 @@
-import React from "react";
-import cl from "./checkadress.module.scss";
-import { Button } from "atoms/button/Button";
-import { toast } from "react-toastify";
-import useMediaQuery from "utils/hooks/useMediaQuery";
+import React from 'react';
+import cl from './checkadress.module.scss';
+import { Button } from 'atoms/button/Button';
+import { toast } from 'react-toastify';
+import useMediaQuery from 'utils/hooks/useMediaQuery';
 const CheckAdress = () => {
   type TResponseParams = {
     hl: [];
@@ -14,8 +14,8 @@ const CheckAdress = () => {
     type: string;
     value: string;
   }
-  const [isMobile] = useMediaQuery();
-  const [valueAdress, setValue] = React.useState<string>("");
+  const isMobile = useMediaQuery();
+  const [valueAdress, setValue] = React.useState<string>('');
   const [suggest, setSuggest] = React.useState<ISuggest[]>([]);
   const [click, setClick] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState(false);
@@ -81,7 +81,7 @@ const CheckAdress = () => {
   // }, [click, loading, valueAdress]);
 
   const setAddress = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ): void => {
     if (!e.target) return;
     setClick((prev) => (prev = false));
@@ -118,8 +118,7 @@ const CheckAdress = () => {
         </div>
         <Button
           onClick={() => setClick((prev: boolean) => (prev = true))}
-          btnType={isMobile && "checkAdress"}
-        >
+          btnType={isMobile && 'checkAdress'}>
           Проверить
         </Button>
       </div>

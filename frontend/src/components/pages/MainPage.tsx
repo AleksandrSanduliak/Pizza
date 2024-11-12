@@ -1,5 +1,6 @@
 import CheckAdress from 'organisms/checkAdress/CheckAdress';
 import CardBlock from 'organisms/cardBlock/CardBlock';
+import React from 'react';
 
 const MainPage = () => {
   return (

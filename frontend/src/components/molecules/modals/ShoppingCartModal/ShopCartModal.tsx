@@ -1,45 +1,45 @@
-import whiteCrosshair from "assets/icons/white-crosshair.svg";
-import grayCrosshair from "assets/icons/gray-crosshair.svg";
-import Fade from "atoms/fade/Fade";
-import ShoppingItem from "molecules/shoppingItem/ShoppingItem";
+import grayCrosshair from 'assets/icons/gray-crosshair.svg';
+import whiteCrosshair from 'assets/icons/white-crosshair.svg';
+import Fade from 'atoms/fade/Fade';
+import ShoppingItem from 'molecules/shoppingItem/ShoppingItem';
 
-import { stopBubling } from "utils/funcs/stopBubling";
-import { useAppSelector } from "utils/hooks/redux";
-import cl from "./shopcartmodal.module.scss";
-import { Button } from "atoms/button/Button";
-import { useNavigate } from "react-router-dom";
-import useAccount from "utils/hooks/useAccount";
-import { toast } from "react-toastify";
-import useMediaQuery from "utils/hooks/useMediaQuery";
-import emptyCard from "assets/icons/emptyCard.svg";
+import emptyCard from 'assets/icons/emptyCard.svg';
+import { Button } from 'atoms/button/Button';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { stopBubling } from 'utils/funcs/stopBubling';
+import { useAppSelector } from 'utils/hooks/redux';
+import useAccount from 'utils/hooks/useAccount';
+import useMediaQuery from 'utils/hooks/useMediaQuery';
+import cl from './shopcartmodal.module.scss';
 
 const ShopCartModal = ({ isFade = true }) => {
   const isAuth = useAppSelector((store) => store.reducer.auth.isAuth);
   const items = useAppSelector((state) => state.reducer.cartShopSlice.items);
   const totalPrice = useAppSelector(
-    (state) => state.reducer.cartShopSlice.totalPrice
+    (state) => state.reducer.cartShopSlice.totalPrice,
   );
   const navigate = useNavigate();
   const { onClickShoppingBag, setAuthForDesktop, setAuthForMobile } =
     useAccount();
-  const [isMobile] = useMediaQuery();
-  console.log("items: ", items);
+  const isMobile = useMediaQuery();
+  // console.log('items: ', items);
   const handleMakeOrder = () => {
     if (!isAuth) {
       isMobile ? setAuthForMobile() : setAuthForDesktop();
-      toast.info("Войдите в аккаунт, чтобы сделать заказ", {
-        position: "top-right",
+      toast.info('Войдите в аккаунт, чтобы сделать заказ', {
+        position: 'top-right',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: 'light',
       });
       return;
     }
-    navigate("/order");
+    navigate('/order');
     onClickShoppingBag();
   };
   const closeOnCross = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -47,7 +47,7 @@ const ShopCartModal = ({ isFade = true }) => {
     onClickShoppingBag();
   };
   const totalCount = useAppSelector(
-    (state) => state.reducer.cartShopSlice.totalCount
+    (state) => state.reducer.cartShopSlice.totalCount,
   );
 
   return (
@@ -72,8 +72,7 @@ const ShopCartModal = ({ isFade = true }) => {
               <Button
                 onClick={() => handleMakeOrder()}
                 primary={true}
-                btnType="card"
-              >
+                btnType="card">
                 Оформить заказ
               </Button>
             </div>
@@ -103,8 +102,7 @@ const ShopCartModal = ({ isFade = true }) => {
           height="25"
           viewBox="0 0 25 25"
           fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -112,7 +110,7 @@ const ShopCartModal = ({ isFade = true }) => {
             1.833 0 012.592 2.592l-9.068 9.068 9.07 9.07a1.833 1.833 0 01-2.59 2.592l-9.072-9.07-9.073 9.073a1.833 
             1.833 0 01-2.591-2.592L9.61 12.2z"
             fill="currentColor"
-          ></path>
+          />
         </svg>
       </div>
     </div>

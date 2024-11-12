@@ -1,6 +1,6 @@
-import React from "react";
-import cl from "./contacts.module.scss";
-import SVG from "react-inlinesvg";
+import React from 'react';
+import cl from './contacts.module.scss';
+import SVG from 'react-inlinesvg';
 const contats = [
   {
     id: 0,
@@ -16,9 +16,9 @@ const contats = [
               fill="#FF7010"
             />
           </svg>`,
-    text: "+7 (926) 223-10-11",
-    atribute: "tel:+7 (926) 223-10-11",
-    title: "phone",
+    text: '+7 (926) 223-10-11',
+    atribute: 'tel:+7 (926) 223-10-11',
+    title: 'phone',
   },
   {
     id: 1,
@@ -38,9 +38,9 @@ const contats = [
               fill="#FF7010"
             />
           </svg>`,
-    text: "Москва, ул. Юных Ленинцев, д.99",
-    atribute: "https://maps.app.goo.gl/xGcCWwA2j76WRzxk8",
-    title: "adress",
+    text: 'Москва, ул. Юных Ленинцев, д.99',
+    atribute: 'https://maps.app.goo.gl/xGcCWwA2j76WRzxk8',
+    title: 'adress',
   },
   {
     id: 2,
@@ -56,9 +56,9 @@ const contats = [
               fill="#FF7010"
             />
           </svg>`,
-    text: "+7 (926) 223-10-11",
-    atribute: "tel:+7 (926) 223-10-11",
-    title: "phone",
+    text: '+7 (926) 223-10-11',
+    atribute: 'tel:+7 (926) 223-10-11',
+    title: 'phone',
   },
 ];
 const Contacts = () => {

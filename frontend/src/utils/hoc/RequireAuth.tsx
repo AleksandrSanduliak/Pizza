@@ -1,6 +1,6 @@
-import { useLocation, Navigate } from "react-router-dom";
-import React from "react";
-import { useAppSelector } from "utils/hooks/redux";
+import { useLocation, Navigate } from 'react-router-dom';
+import React from 'react';
+import { useAppSelector } from 'utils/hooks/redux';
 
 type TRequireAuth = {
   children: React.ReactElement;

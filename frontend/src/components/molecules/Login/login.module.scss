@@ -1,0 +1,36 @@
+.wrapper {
+  max-width: 19.375rem;
+  width: 19.375rem;
+
+  @media (max-width: 768.98px) {
+    max-width: none;
+  }
+}
+
+.title {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.subtitle {
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.pre_block {
+  margin-bottom: 1.25rem;
+}
+
+.registration {
+  cursor: pointer;
+  border-bottom: 0.125rem solid $black;
+  color: $black;
+  transition: $fastColorTransition, $fastBorderTransition;
+
+  &:hover,
+  &:focus {
+    border-bottom: 0.125rem solid $primary;
+    color: $primary;
+    transition: $fastColorTransition, $fastBorderTransition;
+  }
+}

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IGenericResponse } from './authApi';
 import { setDiscountPrice, setItems, setOrderId } from '../slices/cartSlice';
+import { IGenericResponse } from './authApi';
 const baseUrl = `${import.meta.env.VITE_SERVER_URL}/api/order`;
 
 export const orderApi = createApi({
@@ -10,7 +10,7 @@ export const orderApi = createApi({
     mode: 'cors',
     prepareHeaders: (headers) => {
       headers.set('Access-Control-Allow-Credentials', '*');
-      const accessToken = document.cookie.split('accesToken=')[1];
+      const accessToken = document.cookie.split('accessToken=')[1];
       if (accessToken) {
         headers.set('Authorization', `Bearer ${accessToken}`);
       }
@@ -30,7 +30,7 @@ export const orderApi = createApi({
       async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log('onQueryStarted data', data);
+          // console.log('onQueryStarted data', data);
           dispatch(setDiscountPrice({ ...data, isPromoCodeActive: true }));
         } catch (e) {
           console.log(e);
@@ -39,7 +39,7 @@ export const orderApi = createApi({
     }),
     saveCard: builder.mutation<IGenericResponse, unknown>({
       query(data) {
-        console.log('saveCard data', data);
+        // console.log('saveCard data', data);
         return {
           credentials: 'include',
           url: 'saveCard',
@@ -51,7 +51,7 @@ export const orderApi = createApi({
       async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log('onQueryStarted data', data);
+          // console.log('onQueryStarted data', data);
           dispatch(setItems(data));
         } catch (e) {
           console.log(e);
@@ -71,7 +71,7 @@ export const orderApi = createApi({
       async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log('onQueryStarted data', data);
+          // console.log('onQueryStarted data', data);
           dispatch(setItems(data));
         } catch (e) {
           console.log(e);
@@ -91,7 +91,7 @@ export const orderApi = createApi({
       async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log('onQueryStarted data', data);
+          // console.log('onQueryStarted data', data);
           dispatch(setItems(data));
         } catch (e) {
           console.log(e);
@@ -111,7 +111,7 @@ export const orderApi = createApi({
       async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log('onQueryStarted data', data);
+          // console.log('onQueryStarted data', data);
           dispatch(setItems(data));
         } catch (e) {
           console.log(e);
@@ -131,7 +131,7 @@ export const orderApi = createApi({
       async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log('onQueryStarted data', data.orderId);
+          // console.log('onQueryStarted data', data.orderId);
           dispatch(setOrderId({ orderId: data.orderId }));
           dispatch(
             setItems({ items: [], cardInfo: { totalPrice: 0, totalCount: 0 } }),

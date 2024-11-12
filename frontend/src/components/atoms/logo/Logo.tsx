@@ -1,8 +1,8 @@
-import logo from "assets/icons/pizzaLogo.svg";
-import logoLetters from "assets/icons/logo-letters.svg";
-import cl from "./logo.module.scss";
-import { NavLink } from "react-router-dom";
-import { useAppSelector } from "utils/hooks/redux";
+import logoLetters from 'assets/icons/logo-letters.svg';
+import logo from 'assets/icons/pizzaLogo.svg';
+import { NavLink } from 'react-router-dom';
+import { useAppSelector } from 'utils/hooks/redux';
+import cl from './logo.module.scss';
 
 type TLogo = {
   headerVisible?: boolean;
@@ -10,6 +10,9 @@ type TLogo = {
 };
 
 const Logo = ({ headerVisible = false, footerLogoStyles = false }: TLogo) => {
+  const actualLocation = useAppSelector(
+    (state) => state.reducer.userCity.currentCity,
+  );
   const visible = useAppSelector((store) => store.reducer.isVisible.isVisible);
 
   const footerLogoWrapper = footerLogoStyles && cl.footerWrapper;
@@ -19,7 +22,9 @@ const Logo = ({ headerVisible = false, footerLogoStyles = false }: TLogo) => {
   const headerImg = headerVisible && !visible && cl.hiddenSvg;
 
   return (
-    <NavLink to="/" className={`${cl.wrapper} ${footerLogoWrapper}`}>
+    <NavLink
+      to={`/${actualLocation}`}
+      className={`${cl.wrapper} ${footerLogoWrapper}`}>
       <img
         className={footerLogo}
         loading="lazy"

@@ -1,28 +1,28 @@
-import React from "react";
+import React from 'react';
 import {
   setAccount,
-  setBurger,
-  setRegister,
   setAuthDesktop,
   setAuthMobile,
+  setBurger,
+  setRegister,
   setShoppingBag,
-} from "store/slices/accountSlice";
-import { useAppDispatch, useAppSelector } from "utils/hooks/redux";
+} from 'store/slices/accountSlice';
+import { useAppDispatch, useAppSelector } from 'utils/hooks/redux';
 
 const useAccount = () => {
   const dispatch = useAppDispatch();
 
   const isAccountClick = useAppSelector(
-    (state) => state.reducer.account.isAccountClick
+    (state) => state.reducer.account.isAccountClick,
   );
   const isRegisterClick = useAppSelector(
-    (state) => state.reducer.account.isRegisterClick
+    (state) => state.reducer.account.isRegisterClick,
   );
   const isBurgerClick = useAppSelector(
-    (state) => state.reducer.account.isBurgerClick
+    (state) => state.reducer.account.isBurgerClick,
   );
   const isShoppingBagClick = useAppSelector(
-    (state) => state.reducer.account.isShoppingBagClick
+    (state) => state.reducer.account.isShoppingBagClick,
   );
 
   const onClickAuth = React.useCallback(() => {

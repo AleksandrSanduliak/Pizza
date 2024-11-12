@@ -1,27 +1,24 @@
-import SVG from "react-inlinesvg";
-import { useLocation } from "react-router-dom";
-import { NavHashLink } from "react-router-hash-link";
-
-import { categories } from "utils/data/categories";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import cl from "./navmiddle.module.scss";
-import { useAppSelector } from "utils/hooks/redux";
+import SVG from 'react-inlinesvg';
+import { useLocation } from 'react-router-dom';
+import { NavHashLink } from 'react-router-hash-link';
+import 'swiper/css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { categories } from 'utils/data/categories';
+import { useAppSelector } from 'utils/hooks/redux';
+import cl from './navmiddle.module.scss';
 
 const NavMiddle = () => {
   const visible = useAppSelector((store) => store.reducer.isVisible.isVisible);
   const location = useLocation();
   const categoriesSlicedLastElem = categories.slice(0, -1);
   const actualArray = visible ? categoriesSlicedLastElem : categories;
-  console.log("NavMiddle visible", visible);
   const actualLocation = `${location.hash}`.slice(1);
 
   return (
     <>
-      {!visible && location.pathname === "/" && (
+      {!visible && location.pathname === '/' && (
         <div
-          className={`${cl.headerNavWrapper} ${visible ? cl.notVisible : ""}`}
-        >
+          className={`${cl.headerNavWrapper} ${visible ? cl.notVisible : ''}`}>
           <Swiper
             slidesPerView="auto"
             spaceBetween={20}
@@ -52,8 +49,7 @@ const NavMiddle = () => {
                 slidesPerView: actualArray.length,
               },
             }}
-            className={`${cl.swiper} `}
-          >
+            className={`${cl.swiper} `}>
             {actualArray.map((category) => {
               return (
                 <SwiperSlide key={category.name} className={`${cl.slide}`}>
@@ -61,9 +57,8 @@ const NavMiddle = () => {
                     smooth
                     to={`/#${category.path}`}
                     className={`${cl.slide__link} ${
-                      actualLocation === category.path ? cl.activelink : ""
-                    }`}
-                  >
+                      actualLocation === category.path ? cl.activelink : ''
+                    }`}>
                     <SVG
                       description={`Иконка категории ${category.name}`}
                       onError={(error) => console.log(error.message)}
