@@ -6,15 +6,6 @@
 .header {
   cursor: pointer;
   position: relative;
-
-  @media (max-width: 768.98px) {
-    font-size: 1rem;
-    line-height: 1.25rem;
-    padding: 1.25rem 0;
-    display: none;
-    padding: 0;
-    margin: 0px;
-  }
 }
 
 .cabinet {
@@ -55,10 +46,6 @@
 
   border-top: 1px solid $linegray;
 }
-
-// .content {
-//   width: 100%;
-// }
 
 .bonus {
   padding: 1rem 1.25rem;
@@ -113,10 +100,6 @@
 
 .icon {
   display: flex;
-
-  @media (max-width: 769.98px) {
-    display: none;
-  }
 }
 
 .activeHeader {

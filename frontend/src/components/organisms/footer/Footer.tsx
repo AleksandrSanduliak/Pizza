@@ -1,9 +1,9 @@
-import cl from './footer.module.scss';
-import Contacts from 'molecules/contacts/Contacts';
 import Logo from 'atoms/logo/Logo';
-import { TDataItem, footerCategories } from 'utils/data/footerCategories';
+import Contacts from 'molecules/contacts/Contacts';
 import { NavLink } from 'react-router-dom';
+import { TDataItem, footerCategories } from 'utils/data/footerCategories';
 import useMediaQuery from 'utils/hooks/useMediaQuery';
+import cl from './footer.module.scss';
 const Footer = () => {
   const isMobile = useMediaQuery();
 
@@ -12,7 +12,7 @@ const Footer = () => {
       <div className="footer__container">
         <div className={cl.footer__inner}>
           <div className={cl.footer__logo}>
-            <Logo footerLogoStyles />
+            <Logo logoType="footer" />
             {!isMobile && (
               <p className={`normal ${cl.copyright}`}>
                 © Copyright 2024 — Куда Пицца
@@ -20,7 +20,6 @@ const Footer = () => {
             )}
           </div>
           {Object.values(footerCategories).map((category) => {
-            // console.log(category);
             return (
               <div key={category.title}>
                 <p className={`h4 ${cl.footer__title} `}>{category.title}</p>

@@ -1,35 +1,27 @@
 .wrapper {
   @include flex-align;
   cursor: pointer;
+  margin-right: 0.5rem;
+
+  @media (max-width: 768.98px) {
+    margin-right: 0;
+  }
 }
 
 .img {
-  margin-right: 0.75rem;
-  min-width: 2rem;
-  min-height: 2rem;
+  margin-left: 0.75rem;
+
+  @media (max-width: 768.98px) {
+    margin-left: 0.5rem;
+  }
 }
 
-.svg {
-  opacity: 1;
-  visibility: visible;
+.logo {
   width: auto;
   object-fit: contain;
 }
 
-.hiddenSvg {
-  @media (max-width: 991.98px) {
-    opacity: 0;
-    visibility: hidden;
-    width: 0;
-  }
-
-  @media (max-width: 425.98px) {
-    opacity: 0;
-    visibility: hidden;
-    width: 0;
-  }
-}
-
+// Footer classes
 .footerWrapper {
   @media (max-width: 991.98px) {
     margin-bottom: 1.5rem;
@@ -41,21 +33,27 @@
 }
 
 .footerImg {
-  min-width: 2.5rem;
-  min-height: 2.5rem;
-  margin-right: 1rem;
-
-  @media (max-width: 768.98px) {
-    margin-right: 0.75rem;
-  }
+  min-width: 1.5rem;
+  min-height: 1.75rem;
 }
 
-.footerSvg {
-  width: 7.5rem;
+.footerLogo {
+  width: 3.5rem;
   min-height: 2.5rem;
+  margin-right: 0.75rem;
   object-fit: contain;
 
   @media (max-width: 768.98px) {
     min-height: 1.7rem;
   }
+}
+
+// Footer classes
+
+// fixed header classes
+.fixedHeaderLogo {
+  min-width: 2rem;
+  margin-left: 0.5rem;
+  margin-bottom: 0.75rem;
+  margin-right: 0.5rem;
 }

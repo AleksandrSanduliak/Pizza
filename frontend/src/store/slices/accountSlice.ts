@@ -1,4 +1,8 @@
 import { createSlice, current } from '@reduxjs/toolkit';
+import {
+  addOverflowHiddenToBody,
+  removeOverflowHiddenToBody,
+} from 'utils/funcs/bodyOverflow';
 
 const initialState = {
   isAccountClick: false,

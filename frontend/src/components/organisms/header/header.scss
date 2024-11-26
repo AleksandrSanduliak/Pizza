@@ -13,7 +13,6 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    position: sticky;
     z-index: 10;
     top: 0;
     background-color: $white;
@@ -40,17 +39,6 @@
     @media (max-width: 768.98px) {
       padding: 0.75rem 0;
     }
-  }
-}
-
-.fixed-header {
-  @media (max-width: 768.98px) {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    overflow-y: auto;
   }
 }
 

@@ -1,8 +1,8 @@
 import Contacts from 'molecules/contacts/Contacts';
 import { BurgerCategories } from 'utils/data/burgerCategories';
-import cl from 'molecules/burger/burger.module.scss';
+import cl from './burger.module.scss';
 
-const BurgerContent = () => {
+const BurgerNav = () => {
   return (
     <>
       <nav className={cl.burger__nav}>
@@ -19,4 +19,5 @@ const BurgerContent = () => {
     </>
   );
 };
-export default BurgerContent;
+
+export default BurgerNav;

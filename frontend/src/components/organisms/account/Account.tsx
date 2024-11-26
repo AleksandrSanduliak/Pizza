@@ -21,8 +21,7 @@ interface IAccoutList {
   onClick?: () => void;
 }
 
-const UserCabinet = () => {
-  const { isOpenMenu, accountWrapper, clickAllowedInner } = useCabinetClick();
+const AccountButtonsList = ({ isOpenMenu }: { isOpenMenu: boolean }) => {
   const actualLocation = useAppSelector(
     (state) => state.reducer.userCity.currentCity,
   );
@@ -73,34 +72,70 @@ const UserCabinet = () => {
   ];
 
   return (
+    <AnimatePresence mode="wait">
+      {isOpenMenu && (
+        <motion.ul
+          key="userCabinet"
+          className={cl.cabinet}
+          variants={parentVariants}
+          initial="initial"
+          animate={isOpenMenu ? 'animate' : 'exit'}
+          exit="exit">
+          {accoutList.map((item: IAccoutList) => {
+            return (
+              <motion.li
+                key={item.key}
+                className={item.className}
+                variants={itemVariants}
+                onClick={item.onClick}>
+                {item.text}
+              </motion.li>
+            );
+          })}
+        </motion.ul>
+      )}
+    </AnimatePresence>
+  );
+};
+
+const AccountButton = ({
+  title,
+  isActive,
+  onClickCb,
+}: {
+  title: string;
+  isActive: boolean;
+  onClickCb?: () => void;
+}) => {
+  const handleClick = () => {
+    if (onClickCb) {
+      onClickCb();
+    }
+  };
+
+  return (
+    <p
+      className={cn(cl.header, 'standartText', {
+        [cl.activeHeader]: isActive,
+      })}
+      onClick={handleClick}>
+      {title}
+    </p>
+  );
+};
+
+const UserCabinet = () => {
+  const { isOpenMenu, accountWrapper, setIsOpenMenu } = useCabinetClick();
+  const onClick = () => setIsOpenMenu((prev) => !prev);
+
+  return (
     <div ref={accountWrapper}>
-      <p className={cn(cl.header, { [cl.activeHeader]: isOpenMenu })}>
-        Личный кабинет
-      </p>
-      <AnimatePresence mode="wait">
-        {isOpenMenu && (
-          <motion.ul
-            key="userCabinet"
-            ref={clickAllowedInner}
-            className={cl.cabinet}
-            variants={parentVariants}
-            initial="initial"
-            animate={isOpenMenu ? 'animate' : 'exit'}
-            exit="exit">
-            {accoutList.map((item: IAccoutList) => {
-              return (
-                <motion.li
-                  key={item.key}
-                  className={item.className}
-                  variants={itemVariants}
-                  onClick={item.onClick}>
-                  {item.text}
-                </motion.li>
-              );
-            })}
-          </motion.ul>
-        )}
-      </AnimatePresence>
+      <AccountButton
+        title="Личный кабинет"
+        isActive={isOpenMenu}
+        onClickCb={onClick}
+      />
+      <AccountButtonsList isOpenMenu={isOpenMenu} />
     </div>
   );
 };
@@ -108,36 +143,34 @@ const UserCabinet = () => {
 const LoginModal = () => {
   const { isAccountClick, isRegisterClick, onClickAuth } = useAccount();
   const isMobile = useMediaQuery();
+
   return (
     <div onClick={() => onClickAuth()}>
-      <p className={cn(cl.header, { [cl.activeHeader]: isAccountClick })}>
-        Войти в аккаунт
-      </p>
-      <Modal isOpen={!isMobile && isAccountClick} setIsOpen={onClickAuth}>
-        <div className={cl.modalWrapper}>
-          <div className={cl.modal}>
-            {isRegisterClick ? <RegisterForm /> : <Login />}
+      <AccountButton title="Войти в аккаунт" isActive={isAccountClick} />
+      {!isMobile && isAccountClick && (
+        <Modal isOpen={!isMobile && isAccountClick} setIsOpen={onClickAuth}>
+          <div className={cl.modalWrapper}>
+            <div className={cl.modal}>
+              {isRegisterClick ? <RegisterForm /> : <Login />}
+            </div>
           </div>
-        </div>
-      </Modal>
+        </Modal>
+      )}
     </div>
   );
 };
 
 const Account = () => {
   const user = useAppSelector((state) => state.reducer.auth.isAuth);
-  const isMobile = useMediaQuery();
 
   return (
     <div className={cl.account}>
-      {!isMobile && (
-        <img
-          className={cn('icon', cl.icon)}
-          loading="lazy"
-          src={accoutImage}
-          alt="Иконка Аккаунта"
-        />
-      )}
+      <img
+        className={cn('icon', cl.icon)}
+        loading="lazy"
+        src={accoutImage}
+        alt="Иконка Аккаунта"
+      />
       {user ? <UserCabinet /> : <LoginModal />}
     </div>
   );

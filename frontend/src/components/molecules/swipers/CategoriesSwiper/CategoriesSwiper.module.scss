@@ -1,0 +1,88 @@
+// SWIPER CLASSES
+.swiperContainer {
+  height: 81px;
+  width: 100%;
+}
+
+.swiperInner {
+  display: flex;
+  align-items: center;
+  background-color: $white;
+}
+
+.swiper {
+  width: 100%;
+  padding: 0.5rem 0.5rem;
+  will-change: box-shadow;
+  transition: 0.3s box-shadow;
+
+  @media (max-width: 1280.98px) {
+    width: calc(100vw - 30px);
+  }
+}
+
+.swiperWrapper {
+  margin-bottom: 1rem;
+}
+// SWIPER CLASSES
+
+// SLIDE CLASSES
+.slide {
+  display: flex;
+  justify-content: center;
+
+  padding: 0.3rem;
+  width: auto !important; // переписываем автоширину для слайдера
+
+  border-radius: 0.75rem;
+  border: 0.106rem solid $linegray;
+  background: $white;
+  height: auto;
+  cursor: pointer;
+
+  // coloring svg
+  svg,
+  p,
+  svg path {
+    transition: $fastBcgTransition;
+  }
+
+  &:hover {
+    svg path {
+      fill: $red;
+    }
+
+    p {
+      color: $red;
+    }
+  }
+}
+
+.slideImage {
+  @include adaptiv-value(width, 32, 24, 1);
+  @include adaptiv-value(height, 32, 24, 1);
+  margin-right: 0.5rem;
+}
+
+.slideText {
+  @include adaptiv-value(font-size, 18, 14, 1);
+  @include adaptiv-value(line-height, 24, 18, 1);
+}
+
+.slideLink {
+  color: $black;
+  display: flex;
+  align-items: center;
+}
+
+.activelink {
+  p {
+    color: $red;
+  }
+
+  svg path {
+    transition: $fastBcgTransition;
+    fill: $red;
+  }
+}
+// SLIDE CLASSES

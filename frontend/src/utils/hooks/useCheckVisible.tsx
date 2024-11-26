@@ -1,30 +1,28 @@
 import { RefObject, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { visibleStatus } from 'store/slices/categoriesSlice';
 import useAccount from './useAccount';
 import useMediaQuery from './useMediaQuery';
+import useUserLocation from './useUserLocation';
+
 export default function useCheckVisible(
   ref?: RefObject<HTMLElement>,
   rootMargin = '0px',
 ) {
-  const loc = useLocation();
+  const dispatch = useDispatch();
+  const isMobile = useMediaQuery();
   const { isBurgerClick } = useAccount();
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [isMobile] = useMediaQuery();
+  const { isUrlMainPage } = useUserLocation();
 
-  // console.log('loc', loc);
   useEffect(() => {
-    if (loc.pathname !== '/') {
-      setIsVisible((prev) => (prev = true));
-      // console.log('hook', isVisible);
-      return;
-    }
-    if (isMobile && isBurgerClick) return;
     if (ref?.current == null) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        console.log(entry.isIntersecting);
+        console.log('visible1', entry.isIntersecting);
         setIsVisible(entry.isIntersecting);
+        dispatch(visibleStatus(isVisible));
       },
       { rootMargin },
     );
@@ -35,7 +33,7 @@ export default function useCheckVisible(
 
       observer.unobserve(ref?.current);
     };
-  }, [rootMargin, isBurgerClick, ref, isMobile, loc.pathname, isVisible]);
+  }, [dispatch, isVisible, ref, rootMargin]);
 
   return [isVisible, setIsVisible];
 }

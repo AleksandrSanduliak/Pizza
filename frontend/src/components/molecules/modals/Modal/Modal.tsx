@@ -1,10 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { FC } from 'react';
+import React, { FC, memo } from 'react';
 import ReactDOM from 'react-dom';
-import {
-  addOverflowHiddenToBody,
-  removeOverflowHiddenToBody,
-} from 'utils/funcs/bodyOverflow';
+import useOverflowBody from 'utils/hooks/useOverflowBody';
 import Fade from '../../../atoms/fade/Fade';
 import cl from './modal.module.scss';
 
@@ -25,12 +22,7 @@ const Modal: FC<TModal> = ({
   disableFadeClick,
   setIsOpen,
 }) => {
-  if (isOpen) {
-    addOverflowHiddenToBody();
-  } else {
-    removeOverflowHiddenToBody();
-  }
-
+  useOverflowBody(isOpen);
   return ReactDOM.createPortal(
     <AnimatePresence>
       {isOpen && (
@@ -54,13 +46,13 @@ const Modal: FC<TModal> = ({
             },
           }}
           onClick={(e) => e.stopPropagation()}
-          className={`${cl.modal}`}>
+          className={cl.modal}>
           {isFade && (
             <Fade
               onClickFade={() => {
-                // console.log('f');
                 if (disableFadeClick) return;
                 setIsOpen(false);
+                // removeOverflowHiddenToBody();
               }}
             />
           )}
@@ -72,4 +64,4 @@ const Modal: FC<TModal> = ({
   );
 };
 
-export default Modal;
+export default memo(Modal);

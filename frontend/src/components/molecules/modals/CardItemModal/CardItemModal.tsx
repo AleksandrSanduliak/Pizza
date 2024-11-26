@@ -1,14 +1,14 @@
-import React from 'react';
-import Modal from '../Modal/Modal';
-import cl from './carditem.module.scss';
-import { foodType } from 'utils/types/types';
-import Label from 'atoms/label/Label';
 import fire from 'assets/icons/fire.svg';
-import Tabs from 'molecules/tabs/Tabs';
 import { Button } from 'atoms/button/Button';
-import NutritionDropdown from '../../dropdown/NutritionDropdown/NutritionDropdown';
+import Label from 'atoms/label/Label';
+import Tabs from 'molecules/tabs/Tabs';
+import React from 'react';
 import { useSaveCardMutation } from 'store/api/orderApi';
 import { pizzaTypes } from 'utils/data/pizzaData';
+import { foodType } from 'utils/types/types';
+import NutritionDropdown from '../../dropdown/NutritionDropdown/NutritionDropdown';
+import Modal from '../Modal/Modal';
+import cl from './carditem.module.scss';
 
 const CardItemModal = ({ food }: foodType) => {
   const checkSizeType = food?.sizes?.length > 1 ? 1 : 0;

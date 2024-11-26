@@ -141,3 +141,12 @@ ul {
 .overflow-hidden {
   overflow-y: hidden;
 }
+
+.fixed-header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  z-index: 1000;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 10px 0px;
+}

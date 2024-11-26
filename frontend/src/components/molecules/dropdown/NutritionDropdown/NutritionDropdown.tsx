@@ -1,10 +1,10 @@
+import infoSVG from 'assets/icons/info.svg';
 import NutritionInfo from 'atoms/nutritionInfo/NutritionInfo';
 import PortalDropdown from 'molecules/dropdown/DropdownPortalWrapper/PortalDropdown';
 import React from 'react';
-import infoSVG from 'assets/icons/info.svg';
-import cl from './nutritionDropdown.module.scss';
 import { useOutsideClick } from 'utils/hooks/useOutsideClick';
-import { stopBubling } from 'utils/funcs/stopBubling';
+import cl from './nutritionDropdown.module.scss';
+// import { stopBubling } from 'utils/funcs/stopBubling';
 
 interface INutritionDropdown {
   info: any;
@@ -35,7 +35,9 @@ const NutritionDropdown = ({ info, weight }: INutritionDropdown) => {
           alt="Информация"
         />
         {isOpen && (
-          <div onClick={stopBubling} className={cl.dropdown}>
+          <div
+            // onClick={stopBubling}
+            className={cl.dropdown}>
             <div className={cl.content}>
               <svg
                 viewBox="0 0 18 12"

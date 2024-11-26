@@ -1,25 +1,22 @@
-import React from 'react';
-import cl from './CardItem.module.scss';
 import { Button } from 'atoms/button/Button';
-import { useAppSelector } from 'utils/hooks/redux';
-import { useAppDispatch } from 'utils/hooks/redux';
-import { addItem, setItems } from 'store/slices/cartSlice';
-import { foodType } from 'utils/types/types';
-import useMediaQuery from 'utils/hooks/useMediaQuery';
-import { Slide, toast } from 'react-toastify';
-import CardItemModal from 'molecules/modals/CardItemModal/CardItemModal';
-import { stopBubling } from 'utils/funcs/stopBubling';
 import Label from 'atoms/label/Label';
+import CardItemModal from 'molecules/modals/CardItemModal/CardItemModal';
+import React from 'react';
+import { Slide, toast } from 'react-toastify';
 import { useSaveCardMutation } from 'store/api/orderApi';
+import { addItem } from 'store/slices/cartSlice';
 import { pizzaTypes } from 'utils/data/pizzaData';
+import { useAppDispatch, useAppSelector } from 'utils/hooks/redux';
+import useMediaQuery from 'utils/hooks/useMediaQuery';
+import { foodType } from 'utils/types/types';
+import cl from './CardItem.module.scss';
 
 const CardItem = ({ food }: foodType) => {
   const isAuth = useAppSelector((store) => store.reducer.auth.isAuth);
   const [showModal, setIsShowModal] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
   const isMobile = useMediaQuery();
-  const [saveCard, { data, isLoading, isError, error, isSuccess }] =
-    useSaveCardMutation();
+  const [saveCard, { isLoading, isError, isSuccess }] = useSaveCardMutation();
 
   const toastId = React.useRef<string | number>(0);
 
@@ -86,7 +83,7 @@ const CardItem = ({ food }: foodType) => {
   };
 
   const addToCart = (e) => {
-    stopBubling(e);
+    // stopBubling(e);
     if (isAuth) {
       saveCard({
         id: food.id,

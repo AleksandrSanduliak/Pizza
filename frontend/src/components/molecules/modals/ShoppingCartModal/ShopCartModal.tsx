@@ -1,5 +1,3 @@
-import grayCrosshair from 'assets/icons/gray-crosshair.svg';
-import whiteCrosshair from 'assets/icons/white-crosshair.svg';
 import Fade from 'atoms/fade/Fade';
 import ShoppingItem from 'molecules/shoppingItem/ShoppingItem';
 
@@ -7,7 +5,6 @@ import emptyCard from 'assets/icons/emptyCard.svg';
 import { Button } from 'atoms/button/Button';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { stopBubling } from 'utils/funcs/stopBubling';
 import { useAppSelector } from 'utils/hooks/redux';
 import useAccount from 'utils/hooks/useAccount';
 import useMediaQuery from 'utils/hooks/useMediaQuery';
@@ -53,7 +50,9 @@ const ShopCartModal = ({ isFade = true }) => {
   return (
     <div className={`${cl.modal} ${cl.activeModal}`}>
       {isFade && <Fade />}
-      <div onClick={stopBubling} className={cl.content}>
+      <div
+        // onClick={stopBubling}
+        className={cl.content}>
         {items.length >= 1 ? (
           <div className={cl.card}>
             <div className={cl.header}>

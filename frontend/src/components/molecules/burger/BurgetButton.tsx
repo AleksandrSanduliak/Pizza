@@ -1,10 +1,8 @@
-import cl from './burger.module.scss';
-import { useAppSelector } from 'utils/hooks/redux';
+import cn from 'classnames';
 import useAccount from 'utils/hooks/useAccount';
+import cl from './burger.module.scss';
 
-const Burger = () => {
-  const visible = useAppSelector((store) => store.reducer.isVisible.isVisible);
-
+const BurgerButton = () => {
   const { isBurgerClick, onClickBurger } = useAccount();
 
   const handleOpen = () => {
@@ -13,11 +11,7 @@ const Burger = () => {
 
   return (
     <div
-      className={`${cl.burger} 
-      ${isBurgerClick ? cl.burger_active : ''} 
-
-      `}
-      // ${visible ? "" : cl.hidden}
+      className={cn(cl.burgerButton, { isBurgerClick: cl.burger_active })}
       aria-label={
         isBurgerClick ? 'Закрыть главное меню' : 'Открыть главное меню'
       }
@@ -27,4 +21,4 @@ const Burger = () => {
   );
 };
 
-export default Burger;
+export default BurgerButton;
