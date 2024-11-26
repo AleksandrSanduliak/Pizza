@@ -1,34 +1,30 @@
 import Backward from 'atoms/backward/Backward';
 import Logo from 'atoms/logo/Logo';
 import cn from 'classnames';
-import Burger from 'molecules/burger/Burger';
 import cl from 'molecules/burger/burger.module.scss';
-import BurgerContent from 'molecules/burgerContent/BurgerContent';
-import Categories from 'molecules/cart/Categories';
-import RegisterForm from 'molecules/forms/registerForm/RegisterForm';
-import Login from 'molecules/Login/Login';
-import ShopCartModal from 'molecules/modals/ShoppingCartModal/ShopCartModal';
+import BurgerContent from 'molecules/burger/BurgerContent';
+import BurgerButton from 'molecules/burger/BurgetButton';
 import ShoppingBag from 'molecules/shoppingBag/ShoppingBag';
-import Account from 'organisms/account/Account';
+import CategoriesSwiper from 'molecules/swipers/CategoriesSwiper/CategoriesSwiper';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import useAccount from 'utils/hooks/useAccount';
+import useCheckVisible from 'utils/hooks/useCheckVisible';
 import useMediaQuery from 'utils/hooks/useMediaQuery';
+import useUserLocation from 'utils/hooks/useUserLocation';
 import './header.scss';
 import HeaderTop from './HeaderTop/HeaderTop';
-import NavMiddle from './NavMiddle/NavMiddle';
 
 const Header = () => {
   const isMobile = useMediaQuery();
-  const { isAccountClick, isRegisterClick, isBurgerClick, isShoppingBagClick } =
-    useAccount();
-  const location = useLocation();
+
+  const { isBurgerClick } = useAccount();
+  const { isUrlMainPage, userLocation } = useUserLocation();
+  const childRef = React.useRef<HTMLElement>(null);
+  const [visible] = useCheckVisible(childRef, '0px');
 
   return (
     <>
-      {/* <header className="header"> */}
       <HeaderTop />
-      {/* </header> */}
       <header className="header__navWrapper">
         <nav
           className={cn('header__nav', 'header__container', {
@@ -37,42 +33,20 @@ const Header = () => {
           <div className="header__middle">
             <div className="logoWrapper">
               <Backward />
-              <Logo headerVisible={true} />
+              <Logo
+                logoType="header"
+                targetToHidden="logoLetters"
+                navigateTo={userLocation as string}
+              />
             </div>
-            <NavMiddle />
-            {location.pathname === '/' && <ShoppingBag />}
-            <Burger />
+            {isUrlMainPage && <ShoppingBag />}
+            {isMobile && visible && <BurgerButton />}
           </div>
-          <div
-            className={`${cl.burger__inner} ${
-              isBurgerClick ? cl.inner__active : ''
-            }`}>
-            <div className={cl.burger__accountWrap}>
-              {!isMobile && <Account />}
-              {isMobile && !isShoppingBagClick && !isAccountClick && (
-                <Account />
-              )}
-            </div>
-
-            <div className={cl.burgerContent}>
-              {isAccountClick && isMobile && isRegisterClick && (
-                <div className={cl.modalContainer}>
-                  <RegisterForm />
-                </div>
-              )}
-              {isAccountClick && isMobile && !isRegisterClick && (
-                <div className={cl.modalContainer}>
-                  <Login />
-                </div>
-              )}
-              {!isAccountClick && isMobile && !isRegisterClick && (
-                <BurgerContent />
-              )}
-            </div>
-          </div>
+          {isMobile && isBurgerClick && <BurgerContent />}
         </nav>
       </header>
-      {/* <Categories /> */}
+      <div ref={childRef as React.RefObject<HTMLDivElement>} />
+      <CategoriesSwiper />
     </>
   );
 };

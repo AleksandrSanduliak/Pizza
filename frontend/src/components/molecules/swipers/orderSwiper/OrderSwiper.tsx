@@ -3,8 +3,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Button } from 'atoms/button/Button';
 import SVG from 'react-inlinesvg';
-import { Navigation } from 'swiper/modules';
 import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
 import cl from './orderswiper.module.scss';
 const OrderSwiper = ({ array }: { array: [] }) => {
   const swiperRef = React.useRef(null);

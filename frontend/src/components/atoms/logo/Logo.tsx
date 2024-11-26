@@ -1,39 +1,93 @@
 import logoLetters from 'assets/icons/logo-letters.svg';
 import logo from 'assets/icons/pizzaLogo.svg';
+import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
-import { useAppSelector } from 'utils/hooks/redux';
 import cl from './logo.module.scss';
 
-type TLogo = {
-  headerVisible?: boolean;
-  footerLogoStyles?: boolean;
+type TLogoType = 'header' | 'fixedHeader' | 'footer' | 'default';
+type THideType = 'logo' | 'logoLetters';
+type TLogoClasses = {
+  logoClass: string;
+  logoLettersClass?: string;
+  wrapperClass?: string;
 };
 
-const Logo = ({ headerVisible = false, footerLogoStyles = false }: TLogo) => {
-  const actualLocation = useAppSelector(
-    (state) => state.reducer.userCity.currentCity,
-  );
-  const visible = useAppSelector((store) => store.reducer.isVisible.isVisible);
+const logoClasses: Record<TLogoType, TLogoClasses> = {
+  footer: {
+    logoLettersClass: cl.footerImg,
+    logoClass: cl.footerLogo,
+    wrapperClass: cl.footerLogoWrapper,
+  },
+  header: {
+    logoLettersClass: cl.img,
+    logoClass: cl.logo,
+  },
+  fixedHeader: {
+    // logoLettersClass hidden,
+    logoClass: cl.fixedHeaderLogo,
+  },
+  default: {
+    logoLettersClass: cl.img,
+    logoClass: cl.logo,
+  },
+};
 
-  const footerLogoWrapper = footerLogoStyles && cl.footerWrapper;
-  const footerLogo = footerLogoStyles ? cl.footerImg : cl.img;
-  const footerImg = footerLogoStyles ? cl.footerSvg : cl.svg;
+const getLogoClasses = (type: TLogoType) => {
+  const classes = logoClasses[type] || logoClasses.default;
 
-  const headerImg = headerVisible && !visible && cl.hiddenSvg;
+  return {
+    ...classes,
+  };
+};
+
+const LogoImage = ({
+  className,
+  src,
+  alt,
+  isHidden,
+}: {
+  className: string;
+  src: string;
+  alt: string;
+  isHidden?: boolean;
+}) => {
+  if (isHidden) return null;
+
+  return <img className={cn(className)} loading="lazy" src={src} alt={alt} />;
+};
+
+const Logo = ({
+  logoType,
+  isHidden,
+  targetToHidden,
+  navigateTo,
+  onClickCb,
+  logoStyles,
+}: {
+  logoType: TLogoType;
+  isHidden?: boolean;
+  targetToHidden?: THideType;
+  navigateTo?: string;
+  onClickCb?: () => void;
+  logoStyles?: string;
+}) => {
+  const { logoLettersClass, logoClass, wrapperClass } =
+    getLogoClasses(logoType);
 
   return (
     <NavLink
-      to={`/${actualLocation}`}
-      className={`${cl.wrapper} ${footerLogoWrapper}`}>
-      <img
-        className={footerLogo}
-        loading="lazy"
+      to={navigateTo ?? ''}
+      className={cn(cl.wrapper, wrapperClass)}
+      onClick={onClickCb}>
+      <LogoImage
+        isHidden={isHidden && targetToHidden === 'logo'}
+        className={cn(logoClass, logoStyles)}
         src={logo}
         alt="Логотип ToTo Pizza"
       />
-      <img
-        className={`${footerImg} ${headerImg}`}
-        loading="lazy"
+      <LogoImage
+        isHidden={isHidden && targetToHidden === 'logoLetters'}
+        className={logoLettersClass as string}
         src={logoLetters}
         alt="Куда пицца"
       />

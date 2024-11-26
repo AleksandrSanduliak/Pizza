@@ -10,7 +10,7 @@ const useMediaQuery = (width = 768) => {
     const onChange = () => setIsMatches(matchMedia.matches);
     window.addEventListener('resize', onChange);
     return () => matchMedia.removeEventListener('resize', onChange);
-  }, [matchMedia, width]);
+  }, [isMatches, width]);
 
   return isMatches;
 };
