@@ -3,22 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import { getUserCity } from 'store/slices/citySlice';
 import { cityInfo } from 'utils/consts/cityInfo';
 import { getCookie, setCookie } from 'utils/funcs/cookie';
+import { TSetLocationAndNavigateFn, TUseUseLocation } from 'utils/types/appNavigation';
 import { useAppDispatch } from './redux';
 
-const useUserLocation = () => {
+const useUserLocation: TUseUseLocation = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const userLocation =
-    getCookie('location') !== undefined ? getCookie('location') : null;
+  const userLocation = getCookie('location') !== undefined ? getCookie('location') : null;
 
   React.useEffect(() => {
     dispatch(getUserCity(userLocation));
   }, [dispatch, userLocation]);
 
   const [cityInUrl, paths] = location.pathname.replace('/', '').split('/');
-  const setLocationAndNavigate = React.useCallback(
-    (city: string, paths: string, hash?: string): void => {
+  const setLocationAndNavigate: TSetLocationAndNavigateFn = React.useCallback(
+    (city, paths, hash) => {
       const userPath = paths ? `/${paths}` : '';
       const userHash = hash ? `${hash}` : '';
       const url = `/${city}${userHash}${userPath}`;

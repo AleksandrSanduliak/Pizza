@@ -2,24 +2,13 @@ import MainPage from 'pages/MainPage';
 import NotFound from 'pages/NotFound';
 import Order from 'pages/Order/Order';
 import OrderHistory from 'pages/OrderHistory';
-import Settings from 'pages/Settings';
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Layout from 'src/components/templates/Layout';
 import { cityInfo, ICityInfo } from 'utils/consts/cityInfo';
 import RequireAuth from 'utils/hoc/RequireAuth';
 import useAppNavigation from 'utils/hooks/useAppNavigation';
-
-export const staticRoutes: { path: string; component: JSX.Element }[] = [
-  {
-    path: 'settings',
-    component: (
-      <RequireAuth>
-        <Settings />
-      </RequireAuth>
-    ),
-  },
-];
+import { staticRoutes } from 'utils/Router/StaticRoutes';
 
 const CityRoutes = (item: ICityInfo) => {
   return (
