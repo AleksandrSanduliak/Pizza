@@ -1,6 +1,7 @@
 import logoLetters from 'assets/icons/logo-letters.svg';
 import logo from 'assets/icons/pizzaLogo.svg';
 import cn from 'classnames';
+import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 import cl from './logo.module.scss';
 
@@ -21,6 +22,7 @@ const logoClasses: Record<TLogoType, TLogoClasses> = {
   header: {
     logoLettersClass: cl.img,
     logoClass: cl.logo,
+    wrapperClass: cl.headerWrapper,
   },
   fixedHeader: {
     // logoLettersClass hidden,
@@ -63,6 +65,7 @@ const Logo = ({
   navigateTo,
   onClickCb,
   logoStyles,
+  animations,
 }: {
   logoType: TLogoType;
   isHidden?: boolean;
@@ -70,28 +73,31 @@ const Logo = ({
   navigateTo?: string;
   onClickCb?: () => void;
   logoStyles?: string;
+  animations?: object;
 }) => {
   const { logoLettersClass, logoClass, wrapperClass } =
     getLogoClasses(logoType);
 
   return (
-    <NavLink
-      to={navigateTo ?? ''}
-      className={cn(cl.wrapper, wrapperClass)}
-      onClick={onClickCb}>
-      <LogoImage
-        isHidden={isHidden && targetToHidden === 'logo'}
-        className={cn(logoClass, logoStyles)}
-        src={logo}
-        alt="Логотип ToTo Pizza"
-      />
-      <LogoImage
-        isHidden={isHidden && targetToHidden === 'logoLetters'}
-        className={logoLettersClass as string}
-        src={logoLetters}
-        alt="Куда пицца"
-      />
-    </NavLink>
+    <motion.div {...animations}>
+      <NavLink
+        to={navigateTo ?? ''}
+        className={cn(cl.wrapper, wrapperClass)}
+        onClick={onClickCb}>
+        <LogoImage
+          isHidden={isHidden && targetToHidden === 'logo'}
+          className={cn(logoClass, logoStyles)}
+          src={logo}
+          alt="Логотип ToTo Pizza"
+        />
+        <LogoImage
+          isHidden={isHidden && targetToHidden === 'logoLetters'}
+          className={logoLettersClass as string}
+          src={logoLetters}
+          alt="Куда пицца"
+        />
+      </NavLink>
+    </motion.div>
   );
 };
 

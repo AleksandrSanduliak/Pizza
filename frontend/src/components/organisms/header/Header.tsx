@@ -33,11 +33,7 @@ const Header = () => {
           <div className="header__middle">
             <div className="logoWrapper">
               <Backward />
-              <Logo
-                logoType="header"
-                targetToHidden="logoLetters"
-                navigateTo={userLocation as string}
-              />
+              <Logo logoType="header" navigateTo={userLocation as string} />
             </div>
             {isUrlMainPage && <ShoppingBag />}
             {isMobile && visible && <BurgerButton />}
