@@ -1,11 +1,6 @@
 .wrapper {
   @include flex-align;
   cursor: pointer;
-  margin-right: 0.5rem;
-
-  @media (max-width: 768.98px) {
-    margin-right: 0;
-  }
 }
 
 .img {
@@ -19,6 +14,15 @@
 .logo {
   width: auto;
   object-fit: contain;
+}
+
+// header classes
+.headerWrapper {
+  margin-right: 0.5rem;
+
+  @media (max-width: 768.98px) {
+    margin-right: 0;
+  }
 }
 
 // Footer classes
@@ -53,7 +57,5 @@
 // fixed header classes
 .fixedHeaderLogo {
   min-width: 2rem;
-  margin-left: 0.5rem;
-  margin-bottom: 0.75rem;
-  margin-right: 0.5rem;
+  margin-left: 0.75rem;
 }
