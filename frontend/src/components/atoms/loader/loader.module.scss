@@ -8,16 +8,6 @@
   left: 50%;
 }
 
-.loader_static {
-  box-sizing: border-box;
-  position: relative;
-  width: 3rem;
-  height: 3rem;
-  animation: spin 1s linear infinite;
-  top: 0;
-  left: 0;
-}
-
 .loader:after,
 .loader:before {
   content: "";

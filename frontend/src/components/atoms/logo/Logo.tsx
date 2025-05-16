@@ -1,8 +1,10 @@
-import logoLetters from 'assets/icons/logo-letters.svg';
-import logo from 'assets/icons/pizzaLogo.svg';
 import cn from 'classnames';
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
+
+import logoLetters from 'assets/icons/logo-letters.svg';
+import logo from 'assets/icons/pizzaLogo.svg';
+
 import cl from './logo.module.scss';
 
 type TLogoType = 'header' | 'fixedHeader' | 'footer' | 'default';
@@ -25,7 +27,6 @@ const logoClasses: Record<TLogoType, TLogoClasses> = {
     wrapperClass: cl.headerWrapper,
   },
   fixedHeader: {
-    // logoLettersClass hidden,
     logoClass: cl.fixedHeaderLogo,
   },
   default: {
@@ -58,6 +59,16 @@ const LogoImage = ({
   return <img className={cn(className)} loading="lazy" src={src} alt={alt} />;
 };
 
+interface ILogo {
+  logoType: TLogoType;
+  isHidden?: boolean;
+  targetToHidden?: THideType;
+  navigateTo?: string;
+  onClickCb?: () => void;
+  logoStyles?: string;
+  animations?: object;
+}
+
 const Logo = ({
   logoType,
   isHidden,
@@ -66,24 +77,12 @@ const Logo = ({
   onClickCb,
   logoStyles,
   animations,
-}: {
-  logoType: TLogoType;
-  isHidden?: boolean;
-  targetToHidden?: THideType;
-  navigateTo?: string;
-  onClickCb?: () => void;
-  logoStyles?: string;
-  animations?: object;
-}) => {
-  const { logoLettersClass, logoClass, wrapperClass } =
-    getLogoClasses(logoType);
+}: ILogo) => {
+  const { logoLettersClass, logoClass, wrapperClass } = getLogoClasses(logoType);
 
   return (
     <motion.div {...animations}>
-      <NavLink
-        to={navigateTo ?? ''}
-        className={cn(cl.wrapper, wrapperClass)}
-        onClick={onClickCb}>
+      <NavLink to={navigateTo} className={cn(cl.wrapper, wrapperClass)} onClick={onClickCb}>
         <LogoImage
           isHidden={isHidden && targetToHidden === 'logo'}
           className={cn(logoClass, logoStyles)}

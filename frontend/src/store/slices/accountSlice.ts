@@ -1,8 +1,4 @@
-import { createSlice, current } from '@reduxjs/toolkit';
-import {
-  addOverflowHiddenToBody,
-  removeOverflowHiddenToBody,
-} from 'utils/funcs/bodyOverflow';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isAccountClick: false,
@@ -18,6 +14,7 @@ const accountSlice = createSlice({
     setAccount: (state) => {
       state.isAccountClick = !state.isAccountClick;
       if (!state.isAccountClick && state.isRegisterClick) {
+        // desktop: при закрытии модалки авторизации сбрасываем флаг регистрации
         state.isRegisterClick = !state.isRegisterClick;
       }
     },
@@ -41,12 +38,7 @@ const accountSlice = createSlice({
     },
   },
 });
+
 export default accountSlice.reducer;
-export const {
-  setAccount,
-  setRegister,
-  setBurger,
-  setAuthDesktop,
-  setAuthMobile,
-  setShoppingBag,
-} = accountSlice.actions;
+export const { setAccount, setRegister, setBurger, setAuthDesktop, setAuthMobile, setShoppingBag } =
+  accountSlice.actions;

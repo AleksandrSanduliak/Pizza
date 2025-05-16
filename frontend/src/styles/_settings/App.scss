@@ -20,19 +20,30 @@ body {
   box-sizing: border-box;
 }
 
-#root {
-  display: flex;
-  min-height: 100%;
+#fullscreen-loader-root {
+  position: relative;
+  z-index: 9999999;
+}
+
+.toast-root {
+  // app.tsx
+  z-index: 999999;
+  margin-top: 5.5rem;
 }
 
 #modal-root {
   position: relative;
-  z-index: 999;
+  z-index: 99999;
 }
 
 #dropdown-root {
   position: relative;
-  z-index: 1000;
+  z-index: 9999;
+}
+
+#root {
+  display: flex;
+  min-height: 100%;
 }
 
 .wrapper {
@@ -143,7 +154,7 @@ ul {
 }
 
 .fixed-header {
-  position: fixed !important;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;

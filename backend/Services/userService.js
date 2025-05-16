@@ -68,7 +68,7 @@ class UserService {
   }
 
   async refresh(refreshToken) {
-    console.log("refresh token", refreshToken);
+    // throw APIError.UnauthError()
     if (!refreshToken) throw APIError.UnauthError();
 
     const userData = tokenService.validateRefreshToken(refreshToken);

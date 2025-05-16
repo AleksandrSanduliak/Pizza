@@ -1,0 +1,27 @@
+.btnWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardBtn {
+  @media (max-width: 1280.98px) {
+    padding: 0.625rem 1.25rem;
+  }
+
+  @media (max-width: 768.98px) {
+    background: $light-primary;
+    color: $primary;
+    padding: 0.6rem;
+    border: none;
+  }
+}
+
+.btnWrapper {
+  display: flex;
+}

@@ -1,53 +1,47 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
+
 import { logout, setUser } from 'store/slices/authSlice';
 import { setItems } from 'store/slices/cartSlice';
-import { FormLogin } from 'utils/types/types';
 
-export type tokensData = {
+import { authApiUrl } from '../apiList';
+import { BaseQueryWithBearerToken } from './common/baseQuery/BaseQueryWithBearerToken';
+import { baseQueryWithReauth } from './common/baseQuery/baseQueryWithReauth';
+
+export type TTokens = {
   accessToken: string;
   refreshToken: string;
 };
 
-export interface IGenericResponse {
+export interface IResponse {
   accessToken: string;
   status: string;
   message: string;
 }
 
-const baseUrl = `${import.meta.env.VITE_SERVER_URL}/api/auth`;
-const baseQuery = fetchBaseQuery({
-  baseUrl,
-  credentials: 'include',
-  mode: 'cors',
-  redirect: 'follow',
-  prepareHeaders: (headers) => {
-    headers.set('Access-Control-Allow-Credentials', '*');
-    const accessToken = document.cookie.split('accessToken=')[1];
-    if (accessToken) {
-      headers.set('Authorization', `Bearer ${accessToken}`);
-    }
-    return headers;
-  },
-});
-const baseQueryReAuth = async (args, api, extraOptions) => {
-  const result = await baseQuery(args, api, extraOptions);
-  if ((result.error as Record<string, unknown>)?.originalStatus === 401) {
-    const refreshRes = await baseQuery('/refresh', api, extraOptions);
-    if (refreshRes?.data) {
-      const user = api.getState().auth.user;
-      api.dispatch(setUser(user));
-    } else {
-      api.dispatch(logout());
-    }
-  }
-  return result;
+export type TUser = {
+  email: string;
 };
 
+export type TUserCard = {
+  card: [];
+  cardInfo: any;
+};
+
+export type TUserResponse = {
+  bonuses: number;
+  user: {
+    id: string;
+    email: string;
+  };
+} & TTokens;
+
+const baseQuery = BaseQueryWithBearerToken(authApiUrl);
+const authApiBaseQuery = baseQueryWithReauth(baseQuery);
 export const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery: baseQueryReAuth,
+  baseQuery: authApiBaseQuery,
   endpoints: (builder) => ({
-    registerUser: builder.mutation<IGenericResponse, FormLogin>({
+    registerUser: builder.mutation({
       query(data) {
         return {
           credentials: 'include',
@@ -58,7 +52,8 @@ export const authApi = createApi({
         };
       },
     }),
-    loginUser: builder.mutation<IGenericResponse, FormLogin>({
+
+    loginUser: builder.mutation({
       query: (data) => ({
         credentials: 'include',
         url: 'login',
@@ -66,7 +61,7 @@ export const authApi = createApi({
         body: data,
         mode: 'cors',
       }),
-      async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           dispatch(setUser(data.user));
@@ -78,14 +73,14 @@ export const authApi = createApi({
     }),
 
     logoutUser: builder.mutation<void, void>({
-      query(data) {
+      query() {
         return {
           url: 'logout',
           credentials: 'include',
           method: 'POST',
         };
       },
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
           dispatch(logout());
@@ -95,18 +90,20 @@ export const authApi = createApi({
       },
     }),
 
-    refreshToken: builder.query<IGenericResponse, FetchBaseQueryError>({
+    refreshToken: builder.query<TUserResponse, void>({
       query: () => ({
         credentials: 'include',
         url: 'refresh',
         method: 'GET',
         mode: 'cors',
       }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          dispatch(setUser(data.user));
-          dispatch(setItems(data.userCard));
+          if (!data) return;
+          dispatch(setUser(data?.user));
+          dispatch(setItems(data?.userCard));
         } catch (e) {
           console.log(e);
         }

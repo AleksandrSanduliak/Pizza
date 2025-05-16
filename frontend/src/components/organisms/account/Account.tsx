@@ -1,17 +1,20 @@
-import accoutImage from 'assets/icons/isAccount.svg';
 import cn from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
-import RegisterForm from 'molecules/forms/registerForm/RegisterForm';
-import Login from 'molecules/Login/Login';
-import Modal from 'molecules/modals/Modal/Modal';
 import { useNavigate } from 'react-router-dom';
+
+import accoutImage from 'assets/icons/isAccount.svg';
+import AccountButton from 'atoms/Buttons/buttons/AccountButton/AccountButton';
+import RegisterForm from 'molecules/forms/RegisterForm/RegisterForm';
+import Login from 'molecules/Login/Login';
+import FullPageModal from 'molecules/modals/ReusableAbstractModals/Modal/Modal';
 import { useLogoutUserMutation } from 'store/api/authApi';
 import { itemVariants, parentVariants } from 'utils/animations/dropdownAnim';
 import { useAppSelector } from 'utils/hooks/redux';
-import useAccount from 'utils/hooks/useAccount';
-import useCabinetClick from 'utils/hooks/useCabinetClick';
-import useMediaQuery from 'utils/hooks/useMediaQuery';
-import cl from './account.module.scss';
+import useAccount from 'utils/hooks/ui/useAccount';
+import useCabinetClick from 'utils/hooks/ui/useCabinetClick';
+import useMediaQuery from 'utils/hooks/ui/useMediaQuery';
+
+import cl from './Account.module.scss';
 
 interface IAccoutList {
   key: string;
@@ -22,9 +25,7 @@ interface IAccoutList {
 }
 
 const AccountButtonsList = ({ isOpenMenu }: { isOpenMenu: boolean }) => {
-  const actualLocation = useAppSelector(
-    (state) => state.reducer.userCity.currentCity,
-  );
+  const actualLocation = useAppSelector((state) => state.reducer.userCity.currentCity);
   const bonuses = useAppSelector((state) => state.reducer.auth.bonuses);
 
   const { onClickBurger } = useAccount();
@@ -98,43 +99,13 @@ const AccountButtonsList = ({ isOpenMenu }: { isOpenMenu: boolean }) => {
   );
 };
 
-const AccountButton = ({
-  title,
-  isActive,
-  onClickCb,
-}: {
-  title: string;
-  isActive: boolean;
-  onClickCb?: () => void;
-}) => {
-  const handleClick = () => {
-    if (onClickCb) {
-      onClickCb();
-    }
-  };
-
-  return (
-    <p
-      className={cn(cl.header, 'standartText', {
-        [cl.activeHeader]: isActive,
-      })}
-      onClick={handleClick}>
-      {title}
-    </p>
-  );
-};
-
 const UserCabinet = () => {
   const { isOpenMenu, accountWrapper, setIsOpenMenu } = useCabinetClick();
   const onClick = () => setIsOpenMenu((prev) => !prev);
 
   return (
     <div ref={accountWrapper}>
-      <AccountButton
-        title="Личный кабинет"
-        isActive={isOpenMenu}
-        onClickCb={onClick}
-      />
+      <AccountButton title="Личный кабинет" isActive={isOpenMenu} onClickCb={onClick} />
       <AccountButtonsList isOpenMenu={isOpenMenu} />
     </div>
   );
@@ -147,15 +118,11 @@ const LoginModal = () => {
   return (
     <div onClick={() => onClickAuth()}>
       <AccountButton title="Войти в аккаунт" isActive={isAccountClick} />
-      {!isMobile && isAccountClick && (
-        <Modal isOpen={!isMobile && isAccountClick} setIsOpen={onClickAuth}>
-          <div className={cl.modalWrapper}>
-            <div className={cl.modal}>
-              {isRegisterClick ? <RegisterForm /> : <Login />}
-            </div>
-          </div>
-        </Modal>
-      )}
+      <FullPageModal isOpen={!isMobile && isAccountClick} onClose={onClickAuth}>
+        <div className={cl.modalWrapper}>
+          <div className={cl.modal}>{isRegisterClick ? <RegisterForm /> : <Login />}</div>
+        </div>
+      </FullPageModal>
     </div>
   );
 };
@@ -165,12 +132,7 @@ const Account = () => {
 
   return (
     <div className={cl.account}>
-      <img
-        className={cn('icon', cl.icon)}
-        loading="lazy"
-        src={accoutImage}
-        alt="Иконка Аккаунта"
-      />
+      <img className={cn('icon', cl.icon)} loading="lazy" src={accoutImage} alt="Иконка Аккаунта" />
       {user ? <UserCabinet /> : <LoginModal />}
     </div>
   );

@@ -1,0 +1,15 @@
+import React from 'react';
+
+import cn from 'classnames';
+
+import cl from './FooterWrapper.module.scss';
+
+interface IFooterWrapper {
+  children: React.ReactNode;
+}
+
+const FooterWrapper = ({ children }: IFooterWrapper) => {
+  return <div className={cn('subtitle', cl.footer)}>{children}</div>;
+};
+
+export default FooterWrapper;

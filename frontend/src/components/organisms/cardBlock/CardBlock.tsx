@@ -1,67 +1,39 @@
-import { Button } from 'atoms/button/Button';
-import Loader from 'atoms/loader/Loader';
-import CardItem from 'molecules/cardItem/CardItem';
-import React from 'react';
-import { useLazyGetGoodsQuery } from 'store/api/goodsApi';
+import cn from 'classnames';
+
+import CardItem from 'molecules/CardItem/4_Components/CardItem/CardItem';
 import { selectorApp } from 'store/store';
-import pizzas from 'utils/data/pizzas.json';
-import cl from './cardBlock.module.scss';
+import { TFoodCategoryInfo, TFoodItem, TGoodsData } from 'utils/types/types';
+
+import cl from './CardBlock.module.scss';
+
+const CardItems = ({ items }: { items: TFoodItem[] }) => {
+  return items.map((food) => <CardItem key={food.title} foodItem={food} />);
+};
+
+const Card = ({ categoryInfo }: { categoryInfo: TFoodCategoryInfo }) => {
+  const { name, anchor, title, items } = categoryInfo;
+
+  return (
+    <div key={name} className={cl.card}>
+      <h1 id={anchor} className={cn('h1', cl.title)}>
+        {title}
+      </h1>
+      <CardItems items={items} />
+    </div>
+  );
+};
 
 const CardBlock = () => {
-  const [getGoods, { data, isFetching, isLoading }] = useLazyGetGoodsQuery();
-  // if (!isLoading) {
-  //   return <Loader type="absolute" />;
-  // }
-  const userCity = selectorApp((state) => state.reducer.userCity.currentCity);
-  // console.log('userCity', userCity);
-  // console.log(data);
-  React.useEffect(() => {
-    getGoods();
-  }, [getGoods, userCity]);
+  const goods = selectorApp((state) => state.reducer.goods.goods) as TGoodsData;
+
   return (
     <section>
       <div className="cardBlock__container">
-        <div>
-          {/* {Object.values(pizzas).map((food) => {
-        return (
-          <div className={cl.cardBlock__wrapper} id={`${food.anchor}`}>
-            <p className={cl.cardBlock__blockTitle}>
-              <span className="h1">{food.title}</span>{" "}
-              <Button btnType="filter">Фильтры</Button>
-            </p>
-            <div className={cl.cardBlock__block}>
-              {food.data.map((foodItem) => {
-                return <CardItem food={foodItem} key={foodItem.title} />;
-              })}
-            </div>
-          </div>
-        );
-      })} */}
-          <div>
-            <div className={cl.cards}>
-              {data?.length &&
-                data.map((el) => {
-                  // console.log('el', el.name);
-                  return (
-                    <div key={el.name} className={cl.card}>
-                      <h1 id={`${el.anchor}`} className={`h1 ${cl.title}`}>
-                        {el.title}
-                      </h1>
-                      {/* <div className={cl.items}> */}
-                      {el.items.map((food) => {
-                        // console.log('food', food);
-                        return (
-                          <React.Fragment key={food.title}>
-                            <CardItem food={food} />
-                          </React.Fragment>
-                        );
-                      })}
-                      {/* </div> */}
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
+        <div className={cl.cards}>
+          {goods.length >= 1 &&
+            goods.map((categoryInfo) => (
+              <Card key={categoryInfo.title} categoryInfo={categoryInfo} />
+            ))}
         </div>
       </div>
     </section>

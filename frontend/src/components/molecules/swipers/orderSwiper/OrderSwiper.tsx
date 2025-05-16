@@ -1,19 +1,18 @@
 import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Button } from 'atoms/button/Button';
+import { Swiper, SwiperSlide } from 'swiper/react';
+// import { Button } from 'atoms/Buttons/Button';
 import SVG from 'react-inlinesvg';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
+
 import cl from './orderswiper.module.scss';
+
 const OrderSwiper = ({ array }: { array: [] }) => {
   const swiperRef = React.useRef(null);
   return (
     <div className={cl.wrapper}>
-      <Button
-        btnType="orderLeft"
-        onClick={() => swiperRef?.current?.swiper?.slidePrev()}
-      />
+      {/* <Button btnType="orderLeft" onClick={() => swiperRef?.current?.swiper?.slidePrev()} /> */}
       <Swiper
         modules={[Navigation]}
         slidesPerView="auto"
@@ -53,9 +52,7 @@ const OrderSwiper = ({ array }: { array: [] }) => {
             <SwiperSlide key={food.id} className={cl.slide}>
               <SVG
                 description={`Иконка категории ${food.name}`}
-                onError={(error: { message: string }) =>
-                  console.log(error.message)
-                }
+                onError={(error: { message: string }) => console.log(error.message)}
                 title={food.name}
                 src={`${food.img}`}
                 className={cl.img}
@@ -63,11 +60,7 @@ const OrderSwiper = ({ array }: { array: [] }) => {
               <div className={cl.text}>
                 <div className={cl.textTop}>
                   <p className={`subtitle ${cl.title}`}>{food.name}</p>
-                  {food.weight && (
-                    <p className={`mini ${cl.subtitle}`}>
-                      Порция {food.weight}
-                    </p>
-                  )}
+                  {food.weight && <p className={`mini ${cl.subtitle}`}>Порция {food.weight}</p>}
                 </div>
                 <Button primary={true} btnType="card">
                   {food?.price} ₽
@@ -77,10 +70,7 @@ const OrderSwiper = ({ array }: { array: [] }) => {
           );
         })}
       </Swiper>
-      <Button
-        btnType="orderRight"
-        onClick={() => swiperRef?.current?.swiper?.slideNext()}
-      />
+      <Button btnType="orderRight" onClick={() => swiperRef?.current?.swiper?.slideNext()} />
     </div>
   );
 };

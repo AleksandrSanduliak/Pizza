@@ -1,11 +1,20 @@
 .headerTop {
+  position: relative;
+  z-index: 11;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  background-color: $white;
+  border: 0.063rem solid $linegray;
+}
+
+.headerTopInner {
   @include flex-v-center;
   max-height: 2.5rem;
   padding: 0.688rem 0;
   transition: $mediumBcgTransition;
   justify-content: space-between;
 
-  @media (max-width: 950px) {
+  @media (max-width: 950.98px) {
     max-height: 3.5rem;
   }
 
@@ -35,7 +44,7 @@
     display: none;
   }
 
-  @media (max-width: 950px) {
+  @media (max-width: 950.98px) {
     max-width: 8.75rem;
   }
 
@@ -53,6 +62,7 @@
     }
   }
 }
+
 // LEFT BLOCK
 
 // RIGHT BLOCK
@@ -66,7 +76,7 @@
   }
 }
 
-.text {
+.rightBlockText {
   br {
     display: none;
   }
@@ -76,9 +86,4 @@
       display: block;
     }
   }
-}
-// RIGHT BLOCK
-
-.account {
-  @include flex-v-center;
 }

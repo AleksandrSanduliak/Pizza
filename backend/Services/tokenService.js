@@ -5,10 +5,10 @@ const APIError = require("../exeptions/apiError");
 class tokenService {
   generateToken(user) {
     const refreshToken = jwt.sign(user, process.env.JWT_REFRESH, {
-      expiresIn: "30d",
+      expiresIn: "1m",
     });
     const accessToken = jwt.sign(user, process.env.JWT_ACCES, {
-      expiresIn: "15m",
+      expiresIn: "1m",
     });
 
     return {

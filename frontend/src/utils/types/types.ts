@@ -11,40 +11,54 @@ export interface IRegisterFormFields extends TLoginFormFields {
   type?: string;
 }
 
-// export type orderForm = {
-//   name: string;
-//   phone: string | null;
-//   email: number;
-//   deliveryType: string;
-
-//   street: string;
-//   house: string;
-//   entrance: number;
-//   floor: number;
-//   apartment: number;
-//   intercom: number;
-//   whenOrderBeFilled: string;
-//   payment: string;
-//   shortChange: string; // сдача
-// };
-
-export type pizzaItem = {
+export type TFoodItem = {
   id: number;
   imageUrl: string;
   title: string;
   types: number[];
   sizes: number[];
-  price: number;
+  price: number[];
   oldprice?: number;
   labeltype?: number | undefined;
   category: number;
   rating?: number;
   desc?: string;
-  count?: number;
-  totalPrice?: number;
+  count: number;
+  totalPrice: number;
   disabled?: boolean;
 };
 
-export type foodType = {
-  food: pizzaItem;
+type fooditem = {
+  id: number;
+  title: string;
+  desc: string;
+  items: Array<{
+    productId: number;
+    title: string;
+    desc: string;
+    price: number;
+    oldprice: number | null;
+    image: string;
+    stoplisted: boolean;
+    nutrition_facts: {
+      fats: string;
+      proteins: string;
+      carbs: string;
+      calories: string;
+      joules: string;
+    };
+    size: number;
+    types: number[];
+    url: string;
+    weight: number;
+  }>;
 };
+
+export type TFoodCategoryInfo = {
+  title: string;
+  anchor: string;
+  name: string;
+  items: TFoodItem[];
+};
+
+export type TGoodsData = TFoodCategoryInfo[];

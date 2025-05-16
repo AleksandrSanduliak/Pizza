@@ -1,21 +1,15 @@
-import cl from './label.module.scss';
+import cn from 'classnames';
+
+import cl from './Label.module.scss';
 
 const labelTypes: string[] = ['NEW', 'ХИТ'];
 
 type TLabel = {
-  labelType?: number | undefined;
+  labelType: number;
 };
 
 const Label = ({ labelType }: TLabel) => {
-  if (!labelType) return null;
-
-  return (
-    <div>
-      {typeof labelType === 'number' && (
-        <div className={`mini ${cl.label}`}>{labelTypes[labelType]}</div>
-      )}
-    </div>
-  );
+  return <div className={cn('mini', cl.label)}>{labelTypes[labelType]}</div>;
 };
 
 export default Label;

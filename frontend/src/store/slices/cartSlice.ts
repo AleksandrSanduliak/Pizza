@@ -1,9 +1,10 @@
-import { createSlice, current } from '@reduxjs/toolkit';
-import { pizzaItem } from 'utils/types/types';
+import { createSlice } from '@reduxjs/toolkit';
+
+import { TFoodItem } from 'utils/types/types';
 
 type initialState = {
   totalPrice: number;
-  items: pizzaItem[];
+  items: TFoodItem[];
   totalCount: number;
   discountPrice: number;
   isPromoCodeActive: boolean;
@@ -23,10 +24,8 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addItem(state, action: { payload: pizzaItem }) {
-      const findItem = state.items.find(
-        (item) => item.id === action.payload.id,
-      );
+    addItem(state, action: { payload: TFoodItem }) {
+      const findItem = state.items.find((item) => item.id === action.payload.id) as TFoodItem;
 
       if (findItem) {
         const { price } = findItem;
@@ -47,16 +46,14 @@ const cartSlice = createSlice({
     increment(state, action) {
       const index = state.items.findIndex((i) => i?.id === action.payload);
       state.items[index].count! += 1;
-      state.items[index].totalPrice =
-        state.items[index].price * state.items[index].count!;
+      state.items[index].totalPrice = state.items[index].price * state.items[index].count!;
       state.totalCount += 1;
       state.totalPrice += state.items[index].price;
     },
     decrement(state, action) {
       const index = state.items.findIndex((i) => i?.id === action.payload);
       state.items[index].count -= 1;
-      state.items[index].totalPrice =
-        state.items[index].price * state.items[index].count;
+      state.items[index].totalPrice = state.items[index].price * state.items[index].count;
       state.totalCount -= 1;
       state.totalPrice -= state.items[index].price;
       if (state.items[index].count === 0) {
@@ -88,13 +85,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const {
-  addItem,
-  increment,
-  decrement,
-  removeItem,
-  setDiscountPrice,
-  setItems,
-  setOrderId,
-} = cartSlice.actions;
+export const { addItem, increment, decrement, removeItem, setDiscountPrice, setItems, setOrderId } =
+  cartSlice.actions;
 export default cartSlice.reducer;

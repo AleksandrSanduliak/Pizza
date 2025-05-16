@@ -12,17 +12,17 @@ export const loginFormList: TLoginFormFields[] = [
 ];
 
 export const registerFormList: IRegisterFormFields[] = [
-  ...loginFormList,
+  // ...loginFormList,
   {
     name: 'name',
     title: 'Имя',
   },
-  // {
-  //   name: 'email',
-  //   title: 'Email',
-  //   // isRegisterMask: true,
-  //   // mask: '*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{2,6}][.*{1,2}]',
-  // },
+  {
+    name: 'email',
+    title: 'Email',
+    // isRegisterMask: true,
+    // mask: '*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{2,6}][.*{1,2}]',
+  },
   {
     name: 'phone',
     title: 'Номер телефона',
@@ -42,10 +42,10 @@ export const registerFormList: IRegisterFormFields[] = [
       required: true,
     },
   },
-  // {
-  //   name: 'password',
-  //   title: 'Пароль',
-  // },
+  {
+    name: 'password',
+    title: 'Пароль',
+  },
   {
     name: 'confirmPassword',
     title: 'Подтверждение пароля',

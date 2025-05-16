@@ -1,33 +1,41 @@
-import CityModal from 'molecules/CityModal/CityModal';
-import Account from 'organisms/account/Account';
-import useMediaQuery from 'utils/hooks/useMediaQuery';
+import cn from 'classnames';
+import ChangeCityBlock from 'molecules/ChangeCityBlock/ChangeCityBlock';
+import Account from 'organisms/Account/Account';
+import useMediaQuery from 'utils/hooks/ui/useMediaQuery';
 import cl from './HeaderTop.module.scss';
+
+const CafeInformation = () => {
+  const isMatching400px = useMediaQuery(400);
+
+  return (
+    <>
+      <div className={cl.leftBlock}>
+        <p className={cn('mini', cl.delivery)}>
+          {isMatching400px ? 'Ср.' : 'Среднее '}время доставки*:
+          <br />
+          <span className="minibold">00:24:19</span>
+        </p>
+      </div>
+      <div className={cl.rightBlock}>
+        <p className={cl.rightBlockText}>
+          Время работы:
+          <br />с 11:00 до 23:00
+        </p>
+      </div>
+    </>
+  );
+};
 
 const HeaderTop = () => {
   const isMobile = useMediaQuery();
-  const matching400px = useMediaQuery(400);
 
   return (
-    <header className="header">
-      <div className="HeaderTop">
-        <div className="header__container">
-          <div className={cl.headerTop}>
-            <CityModal />
-            <div className={cl.leftBlock}>
-              <p className={cl.delivery}>
-                {matching400px ? 'Ср.' : 'Среднее '}время доставки*:
-                <br />
-                <span className="bold-span">00:24:19</span>
-              </p>
-            </div>
-            <div className={cl.rightBlock}>
-              <p className={cl.text}>
-                Время работы:
-                <br />с 11:00 до 23:00
-              </p>
-            </div>
-            {!isMobile && <Account />}
-          </div>
+    <header className={cl.headerTop}>
+      <div className="header__container">
+        <div className={cl.headerTopInner}>
+          <ChangeCityBlock />
+          <CafeInformation />
+          {!isMobile && <Account />}
         </div>
       </div>
     </header>

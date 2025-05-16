@@ -44,8 +44,7 @@
   font-weight: 600;
   line-height: 1.75rem;
 
-  @media (max-width: 768.98px) {
-  }
+  @media (max-width: 768.98px) {}
 }
 
 .bigtext {
@@ -111,7 +110,6 @@
 }
 
 .mini {
-  color: $gray-text;
   font-family: $secondary-font;
   font-size: 0.875rem;
   font-weight: 400;

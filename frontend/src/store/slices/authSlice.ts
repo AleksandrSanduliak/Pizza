@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IGenericResponse } from 'store/api/authApi';
 import { Iuser } from 'store/types';
 import { eraseCookie, setCookie } from 'utils/funcs/cookie';
+
 interface IuserState {
   user: Iuser | null;
   userData: any | null;
@@ -10,6 +11,7 @@ interface IuserState {
   isAuth: boolean;
   bonuses: number;
 }
+
 const initialState: IuserState = {
   user: null,
   userData: null,

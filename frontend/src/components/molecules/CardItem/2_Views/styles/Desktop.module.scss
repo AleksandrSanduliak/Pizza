@@ -1,0 +1,10 @@
+.itemDesktop {
+  @media (max-width: 1440.98px) {
+    flex-basis: calc(25% - 0.625rem);
+    max-width: none;
+  }
+
+  @media (max-width: 1024.98px) {
+    flex-basis: calc(33.33333% - 0.625rem);
+  }
+}

@@ -1,8 +1,11 @@
 import React from 'react';
-import Header from 'organisms/header/Header';
-import { Outlet } from 'react-router-dom';
-import Footer from 'organisms/footer/Footer';
 
+import { Outlet } from 'react-router-dom';
+
+import Footer from 'organisms/Footer/Footer';
+import Header from 'organisms/Header/Header';
+// const Header = React.lazy(() => import('organisms/Header/Header'));
+// const Footer = React.lazy(() => import('organisms/Footer/Footer'));
 const Layout = () => {
   return (
     <>

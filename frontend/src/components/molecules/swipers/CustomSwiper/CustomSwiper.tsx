@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { SwiperOptions } from 'swiper/types';
 
@@ -6,7 +7,7 @@ interface ISwiperKey {
   name: string;
 }
 
-interface ICustomSwiper<T extends ISwiperKey> {
+export interface ICustomSwiper<T extends ISwiperKey> {
   list: T[];
   isVisible?: boolean;
   Slide: React.FC<{ item: T }>;

@@ -1,10 +1,7 @@
 import minus from 'assets/icons/minus.svg';
 import plus from 'assets/icons/plus.svg';
 import React from 'react';
-import {
-  useDecrementCardItemMutation,
-  useIncrementCardItemMutation,
-} from 'store/api/orderApi';
+import { useDecrementCardItemMutation, useIncrementCardItemMutation } from 'store/api/orderApi';
 import { decrement, increment } from 'store/slices/cartSlice';
 import { useAppDispatch, useAppSelector } from 'utils/hooks/redux';
 import cl from './counter.module.scss';
@@ -52,25 +49,11 @@ const Counter = ({ value = 1, id }: TCounter) => {
   return (
     <div className={cl.wrapper}>
       <button className={cl.button} onClick={decrementCount}>
-        <img
-          className={cl.img}
-          width="14px"
-          height="14px"
-          src={minus}
-          loading="lazy"
-          alt="Плюс"
-        />
+        <img className={cl.img} width="14px" height="14px" src={minus} loading="lazy" alt="Плюс" />
       </button>
       <span className="subtitle2">{value}</span>
       <button className={cl.button} onClick={incrementCount}>
-        <img
-          className={cl.img}
-          width="14px"
-          height="14px"
-          src={plus}
-          loading="lazy"
-          alt="Минус"
-        />
+        <img className={cl.img} width="14px" height="14px" src={plus} loading="lazy" alt="Минус" />
       </button>
     </div>
   );

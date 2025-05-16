@@ -1,0 +1,15 @@
+.img {
+  @media (max-width: 768.98px) {
+    width: 8.438rem;
+    height: 8.438rem;
+    object-fit: contain;
+    flex: 0 0 auto;
+    margin-left: 0.3rem;
+    margin-top: 0.3rem;
+  }
+
+  @media (max-width: 425.98px) {
+    width: 7.188rem;
+    height: 7.188rem;
+  }
+}

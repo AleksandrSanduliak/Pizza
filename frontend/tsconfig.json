@@ -22,17 +22,17 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths":{
-    "src": ["src"],
-    "assets/*": ["src/assets/*"],
-    "atoms/*": ["src/components/atoms/*"],
-    "molecules/*": ["src/components/molecules/*"],
-    "organisms/*": ["src/components/organisms/*"],
-    "pages/*": ["src/components/pages/*"],
-    "utils/*": ["src/utils/*"],
-    "store/*": ["src/store/*"],
-    "styles/*": ["src/styles/_settings/*"],
-    "fonts/*": ["src/assets/fonts/*"],
-  }
+      "src": ["src"],
+      "assets/*": ["src/assets/*"],
+      "atoms/*": ["src/components/atoms/*"],
+      "molecules/*": ["src/components/molecules/*"],
+      "organisms/*": ["src/components/organisms/*"],
+      "pages/*": ["src/components/pages/*"],
+      "utils/*": ["src/utils/*"],
+      "store/*": ["src/store/*"],
+      "styles/*": ["src/styles/_settings/*"],
+      "fonts/*": ["src/assets/fonts/*"],
+    }
   },
  
   "include": [ "src", "vite.config.ts", "vite-env.d.ts"],

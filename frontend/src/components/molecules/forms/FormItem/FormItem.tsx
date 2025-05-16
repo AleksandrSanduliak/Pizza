@@ -1,9 +1,12 @@
+import React from 'react';
+
 import cn from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
-import React from 'react';
 import { FieldError, useFormContext } from 'react-hook-form';
 import { useHookFormMask } from 'use-mask-input';
+
 import { IRegisterFormFields } from 'utils/types/types';
+
 import cl from './FormItem.module.scss';
 
 interface IField {
@@ -47,6 +50,7 @@ const FormItem = ({
   const conditionalRegister = isRegisterMask
     ? { ...registerWithMask(name, mask ?? '', maskOptions) } // mask не должен быть undefined
     : { ...register(name) };
+
   return (
     <div>
       <label htmlFor={name} className="label">

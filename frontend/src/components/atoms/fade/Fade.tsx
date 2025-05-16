@@ -1,7 +1,8 @@
+import { MouseEventHandler } from 'react';
 import cl from './fade.module.scss';
 
 interface IFade {
-  onClickFade: React.MouseEventHandler<HTMLDivElement>;
+  onClickFade: MouseEventHandler<HTMLDivElement> | undefined;
 }
 
 const Fade = ({ onClickFade }: IFade) => {

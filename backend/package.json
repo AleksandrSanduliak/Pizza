@@ -18,7 +18,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "backdev": "nodemon server.js"
+    "backdev": "nodemon --inspect server.js"
   },
   "author": "",
   "license": "ISC",

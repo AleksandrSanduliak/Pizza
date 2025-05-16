@@ -1,0 +1,9 @@
+.imgWrapper {
+  @media (max-width: 768.98px) {
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 425.98px) {
+    margin-right: 0.5rem;
+  }
+}

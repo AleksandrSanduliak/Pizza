@@ -1,0 +1,26 @@
+.text {
+  padding: 0 1.25rem;
+
+  @media (max-width: 768.98px) {
+    padding: 0;
+    padding-right: 0.3rem;
+  }
+
+}
+
+.textTitle {
+  margin-bottom: 0.75rem;
+
+
+  @media(max-width: 768.98px) {
+    margin-bottom: 0.45rem;
+  }
+
+  @media(max-width: 500.98px) {
+    margin-bottom: 0.35rem;
+  }
+}
+
+.textDesc {
+  margin-bottom: 0.75rem;
+}

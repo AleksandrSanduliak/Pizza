@@ -57,5 +57,8 @@
 // fixed header classes
 .fixedHeaderLogo {
   min-width: 2rem;
-  margin-left: 0.75rem;
+
+  @media(max-width: 768.98px) {
+    min-width: 1.65rem;
+  }
 }

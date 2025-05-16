@@ -1,19 +1,30 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery, FetchBaseQueryMeta } from '@reduxjs/toolkit/query/react';
 
-const baseUrl = `${import.meta.env.VITE_SERVER_URL}/api/goods`;
+import { goodsApiUrl } from 'store/apiList';
+import { setGoods } from 'store/slices/goodsSlice';
+import { TGoodsData } from 'utils/types/types';
 
 export const goodsApi = createApi({
   reducerPath: 'goodsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl,
+    baseUrl: goodsApiUrl,
     credentials: 'include',
   }),
+
   endpoints: (builder) => ({
-    getGoods: builder.query<any, any>({
+    getGoods: builder.query<TGoodsData, void>({
       query: () => ({
-        url: `getGoods`,
+        url: 'getGoods',
         method: 'GET',
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const data = await queryFulfilled;
+          dispatch(setGoods(data.data));
+        } catch (e) {
+          console.log(e);
+        }
+      },
     }),
   }),
 });

@@ -1,15 +1,17 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
-
-import { Button } from 'atoms/button/Button';
-import Tabs from 'molecules/tabs/Tabs';
 import React from 'react';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+// import { CompoundButton } from 'atoms/Buttons/Button';
+import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import { useHookFormMask } from 'use-mask-input';
+
+import Tabs from 'molecules/tabs/Tabs';
 import { useAppSelector } from 'utils/hooks/redux';
 import { orderForm } from 'utils/types/types';
 import { orderSchema } from 'utils/zodSchemas/orderSchema';
-import FormItem from '../FormItem/FormItem';
+
 import cl from './orderform.module.scss';
+import FormItem from '../FormItem/FormItem';
 
 const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
   const tabs = ['Доставка', 'Самовывоз'];
@@ -75,11 +77,7 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
       </div>
       <div className={cl.delivery}>
         <h2>Доставка</h2>
-        <Tabs
-          tabsArray={tabs}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-        />
+        <Tabs tabsArray={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
       <FormItem htmlFor="street" title="Улица" errors={errors} />
       <input
@@ -133,12 +131,7 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
 
         <div className="inputValidationBlock">
           <FormItem htmlFor="intercom" title="Домофон" errors={errors} />
-          <input
-            className="input"
-            id="intercom"
-            type="string"
-            {...register('intercom')}
-          />
+          <input className="input" id="intercom" type="string" {...register('intercom')} />
         </div>
       </div>
       <div className={cl.column}>
@@ -173,21 +166,11 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
         </label>
         <div className={cl.rowsWrapper}>
           <div className={cl.row}>
-            <input
-              id="payment"
-              type="radio"
-              value="Картой"
-              {...register('payment')}
-            />
+            <input id="payment" type="radio" value="Картой" {...register('payment')} />
             <span>Картой</span>
           </div>
           <div className={cl.row}>
-            <input
-              id="payment"
-              type="radio"
-              value="Наличными"
-              {...register('payment')}
-            />
+            <input id="payment" type="radio" value="Наличными" {...register('payment')} />
             <span>Наличными</span>
           </div>
           <div className={cl.row}>
@@ -208,21 +191,11 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
         </label>
         <div className={cl.rowsWrapper}>
           <div className={cl.row}>
-            <input
-              id="shortChange"
-              type="radio"
-              value="Без сдачи"
-              {...register('shortChange')}
-            />
+            <input id="shortChange" type="radio" value="Без сдачи" {...register('shortChange')} />
             <span>Без сдачи</span>
           </div>
           <div className={cl.row}>
-            <input
-              id="shortChange"
-              type="radio"
-              value="Сдача с"
-              {...register('shortChange')}
-            />
+            <input id="shortChange" type="radio" value="Сдача с" {...register('shortChange')} />
             <span>Сдача с</span>
           </div>
         </div>
@@ -242,8 +215,10 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
         </div>
       </div>
       <div className={cl.formFooter}>
-        <p className="h4 price__actual">Итого: {totalPrice} ₽</p>
-        <Button isSubmit={true}>Оформить заказ</Button>
+        <p className="h4 priceActual">Итого: {totalPrice} ₽</p>
+        {/* <CompoundButton type="submit" buttonType="default" buttonMode="primary">
+          Оформить заказ
+        </CompoundButton> */}
       </div>
     </form>
   );

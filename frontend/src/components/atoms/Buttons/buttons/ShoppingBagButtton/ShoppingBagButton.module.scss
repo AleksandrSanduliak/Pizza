@@ -1,0 +1,10 @@
+.shoppingBagButton {
+  padding: 0.5rem 1rem;
+
+  @media (max-width: 768.98px) {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 1.75rem;
+    padding: 0;
+  }
+}

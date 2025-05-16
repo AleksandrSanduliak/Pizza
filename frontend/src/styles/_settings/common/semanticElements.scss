@@ -77,7 +77,6 @@ input[type='radio']:checked::before {
 
   p {
     margin-bottom: 0.5rem;
-    // min-height: 36px;
   }
 }
 
@@ -89,16 +88,4 @@ input[type='radio']:checked::before {
   width: 1.25rem;
   height: 1.25rem;
   margin-right: 0.5rem;
-
-  // @media (max-width: 768.98px) {
-  //   margin-right: 0;
-  // }
-}
-
-.bold-span {
-  color: $black;
-  font-family: $secondary-font;
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1.125rem;
 }

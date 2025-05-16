@@ -3,11 +3,6 @@
   align-items: center;
 }
 
-.header {
-  cursor: pointer;
-  position: relative;
-}
-
 .cabinet {
   width: 17.813rem;
   position: absolute;
@@ -81,6 +76,7 @@
   align-items: center;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .modal {

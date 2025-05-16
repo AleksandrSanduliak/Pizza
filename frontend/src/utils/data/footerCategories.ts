@@ -2,18 +2,14 @@ export type TDataItem = {
   anchor: string;
   text: string;
 };
-interface IfooterCat {
-  Kudapizza: {
-    title: string;
-    data: TDataItem[];
-  };
-  Help: {
-    title: string;
-    data: TDataItem[];
-  };
+
+interface IFooterCat {
+  title: string;
+  data: TDataItem[];
 }
-export const footerCategories: IfooterCat = {
-  Kudapizza: {
+
+export const footerCategories: IFooterCat[] = [
+  {
     title: 'Куда Пицца',
     data: [
       {
@@ -30,7 +26,7 @@ export const footerCategories: IfooterCat = {
       },
     ],
   },
-  Help: {
+  {
     title: 'Помощь',
     data: [
       {
@@ -51,4 +47,4 @@ export const footerCategories: IfooterCat = {
       },
     ],
   },
-};
+];

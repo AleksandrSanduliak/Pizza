@@ -1,22 +1,22 @@
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  persistReducer,
+  persistStore,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 import { authApi } from 'store/api/authApi';
 import { orderApi } from 'store/api/orderApi';
-import { goodsApi } from './api/goodsApi';
-
 import { rootReducers } from 'store/rootReducer';
+
+import { goodsApi } from './api/goodsApi';
 
 const persistConfig = {
   key: 'root',
@@ -42,12 +42,7 @@ const store = configureStore({
 });
 
 export default store;
-// store.subscribe(() => {
-//   console.log("state\n", store.getState().reducer.cartShopSlice);
-// });
-// store.subscribe(() => {
-//   console.log("state\n", store.getState().reducer.auth);
-// });
+
 export const persister = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;

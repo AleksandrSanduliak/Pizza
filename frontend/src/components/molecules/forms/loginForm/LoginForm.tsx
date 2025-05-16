@@ -1,15 +1,18 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { CompoundButton } from 'atoms/button/Button';
-import cn from 'classnames';
-import FormItem from 'molecules/forms/FormItem/FormItem';
 import React from 'react';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import cn from 'classnames';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
+
+import LoadingButton from 'atoms/Buttons/buttons/LoadingButton/LoadingButton';
+import FormItem from 'molecules/forms/FormItem/FormItem';
 import { useLoginUserMutation } from 'store/api/authApi';
 import { loginFormList } from 'utils/consts/forms/forms';
-import useAccount from 'utils/hooks/useAccount';
+import NotificationFacade from 'utils/funcs/facades/NotificationFacade';
+import useAccount from 'utils/hooks/ui/useAccount';
 import { loginSchema, TFormLogin } from 'utils/zodSchemas/loginSchema';
-import cl from './loginform.module.scss';
+
+import cl from './LoginForm.module.scss';
 
 const LoginForm: React.FC = () => {
   const [loginUser, { isLoading, isError, isSuccess }] = useLoginUserMutation();
@@ -29,47 +32,26 @@ const LoginForm: React.FC = () => {
 
   React.useEffect(() => {
     if (isSuccess) {
-      toast.success('Вы зашли в систему', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      NotificationFacade.toastSuccess({ message: 'Вы зашли в систему' });
       onClickAuth();
     }
     if (isError) {
-      toast.error('Ошибка входа, проверьте введенную почту и пароль', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
+      NotificationFacade.toastError({
+        message: 'Ошибка входа, проверьте введенную почту и пароль',
       });
     }
   }, [isError, isSuccess, onClickAuth]);
 
   return (
     <FormProvider {...form}>
-      <form className={cl.formlogin} onSubmit={form.handleSubmit(onSubmit)}>
+      <form className={cl.formLogin} onSubmit={form.handleSubmit(onSubmit)}>
         {loginFormList.map((item) => (
           <FormItem key={item.name} name={item.name} title={item.title} />
         ))}
-        <CompoundButton
-          onClick={form.handleSubmit(onSubmit)}
-          isSubmit={true}
-          isLoading={isLoading ? true : false}>
-          Отправить
-        </CompoundButton>
-        <p className={cn(cl.formlogin__desc, 'mini')}>
-          Продолжая, вы соглашаетесь со сбором и обработкой персональных данных
-          и пользовательским соглашением
+        <LoadingButton isLoading={isLoading}>Отправить</LoadingButton>
+        <p className={cn('mini', cl.description)}>
+          Продолжая, вы соглашаетесь со сбором и обработкой персональных данных и пользовательским
+          соглашением
         </p>
       </form>
     </FormProvider>

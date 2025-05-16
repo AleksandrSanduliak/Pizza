@@ -1,12 +1,15 @@
+import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+import { TFoodItem } from 'utils/types/types';
+
+import { orderApiUrl } from '../apiList';
 import { setDiscountPrice, setItems, setOrderId } from '../slices/cartSlice';
-import { IGenericResponse } from './authApi';
-const baseUrl = `${import.meta.env.VITE_SERVER_URL}/api/order`;
 
 export const orderApi = createApi({
   reducerPath: 'orderApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl,
+    baseUrl: orderApiUrl,
     mode: 'cors',
     prepareHeaders: (headers) => {
       headers.set('Access-Control-Allow-Credentials', '*');
@@ -17,6 +20,7 @@ export const orderApi = createApi({
       return headers;
     },
   }),
+
   endpoints: (builder) => ({
     getPromo: builder.mutation<IGenericResponse, unknown>({
       query(data) {
@@ -37,9 +41,8 @@ export const orderApi = createApi({
         }
       },
     }),
-    saveCard: builder.mutation<IGenericResponse, unknown>({
+    saveCard: builder.mutation<TFoodItem, any>({
       query(data) {
-        // console.log('saveCard data', data);
         return {
           credentials: 'include',
           url: 'saveCard',
@@ -133,9 +136,7 @@ export const orderApi = createApi({
           const { data } = await queryFulfilled;
           // console.log('onQueryStarted data', data.orderId);
           dispatch(setOrderId({ orderId: data.orderId }));
-          dispatch(
-            setItems({ items: [], cardInfo: { totalPrice: 0, totalCount: 0 } }),
-          );
+          dispatch(setItems({ items: [], cardInfo: { totalPrice: 0, totalCount: 0 } }));
         } catch (e) {
           console.log(e);
         }

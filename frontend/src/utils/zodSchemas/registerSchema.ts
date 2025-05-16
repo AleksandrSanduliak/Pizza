@@ -18,14 +18,8 @@ export const registerSchema: ZodType = z
         'Номер телефона должен соответствовать виду - +7-123-456-78-99',
       ),
     dateBrith: z.string().optional(),
-    password: z
-      .string()
-      .trim()
-      .min(8, { message: 'Пароль должен быть более 8 символов' }),
-    confirmPassword: z
-      .string()
-      .trim()
-      .min(8, { message: 'Пароль должен быть более 8 символов' }),
+    password: z.string().trim().min(8, { message: 'Пароль должен быть более 8 символов' }),
+    confirmPassword: z.string().trim().min(8, { message: 'Пароль должен быть более 8 символов' }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Введенные пароли не соответствуют',

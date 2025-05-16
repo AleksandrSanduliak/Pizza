@@ -1,10 +1,8 @@
-import CardBlock from 'organisms/cardBlock/CardBlock';
-import CheckAdress from 'organisms/checkAdress/CheckAdress';
+import CardBlock from 'organisms/CardBlock/CardBlock';
 
 const MainPage = () => {
   return (
     <>
-      <CheckAdress />
       <CardBlock />
     </>
   );

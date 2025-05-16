@@ -1,28 +1,28 @@
+import React from 'react';
+
+// import { Button } from 'atoms/Buttons/Button';
+import { toast } from 'react-toastify';
+
 import SuccesDelivery from 'assets/imgs/order/succesDelivery.webp';
-import { Button } from 'atoms/button/Button';
 import Loader from 'atoms/loader/Loader';
 import OrderForm from 'molecules/forms/orderForm/OrderForm';
 import PromoCode from 'molecules/promoCode/PromoCode';
-import ShoppingItem from 'molecules/shoppingItem/ShoppingItem';
+// import ShoppingItem from 'molecules/shoppingItem/ShoppingItem1';
 import OrderSwiper from 'molecules/swipers/orderSwiper/OrderSwiper';
-import React from 'react';
-import { toast } from 'react-toastify';
 import { useGetPromoMutation, useSaveOrderMutation } from 'store/api/orderApi';
 import { orderFood, orderSauces } from 'utils/data/orderItems';
+import NotificationFacade from 'utils/funcs/facades/NotificationFacade';
 import { useAppSelector } from 'utils/hooks/redux';
+
 import cl from './order.module.scss';
+
 const Order = () => {
-  const { totalPrice, discountPrice } = useAppSelector(
-    (state) => state.reducer.cartShopSlice,
-  );
-  const orderId = useAppSelector(
-    (state) => state.reducer.cartShopSlice.orderId,
-  );
+  const { totalPrice, discountPrice } = useAppSelector((state) => state.reducer.cartShopSlice);
+  const orderId = useAppSelector((state) => state.reducer.cartShopSlice.orderId);
   // console.log('orderId', orderId);
   // console.log('totalPrice', typeof totalPrice);
   const items = useAppSelector((state) => state.reducer.cartShopSlice.items);
-  const [saveOrder, { data, isLoading, isError, error, isSuccess }] =
-    useSaveOrderMutation();
+  const [saveOrder, { data, isLoading, isError, error, isSuccess }] = useSaveOrderMutation();
   const [state, setState] = React.useState(true);
   if (isLoading) {
     window.scrollTo(0, 0);
@@ -34,15 +34,8 @@ const Order = () => {
   }
 
   if (isError) {
-    toast.error('Ошибка! Перезагрузите страницу или повторите попытку позже', {
-      position: 'top-right',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
+    NotificationFacade.toastError({
+      message: 'Ошибка! Перезагрузите страницу или повторите попытку позже',
     });
   }
   if (isSuccess) {
@@ -50,19 +43,14 @@ const Order = () => {
     window.scrollTo(0, 0);
     return (
       <div className={cl.succesBlock}>
-        <img
-          src={SuccesDelivery}
-          alt="Заказ принят"
-          width="220px"
-          height="135"
-        />
+        <img src={SuccesDelivery} alt="Заказ принят" width="220px" height="135" />
         <h2>Заказ №{orderId} принят</h2>
         <div className={`normal ${cl.succesText}`}>
           Спасибо за заказ! <br />
           Примерное время доставки 45 минут. <br />
           Статус отследить можно нажав на кнопку ниже <br />
         </div>
-        <Button>Отследить заказ</Button>
+        {/* <Button>Отследить заказ</Button> */}
       </div>
     );
   }
@@ -79,11 +67,9 @@ const Order = () => {
         <div className={cl.priceBlock}>
           <PromoCode />
           <div className={cl.calcPrice}>
-            <p className="h4 price__actual">Итого: {totalPrice} ₽</p>
+            <p className="h4 priceActual">Итого: {totalPrice} ₽</p>
             {discountPrice > 0 && (
-              <p className={`mini price__old ${cl.oldprice}`}>
-                Итого: {discountPrice} ₽
-              </p>
+              <p className={`mini priceOld ${cl.oldprice}`}>Итого: {discountPrice} ₽</p>
             )}
           </div>
         </div>

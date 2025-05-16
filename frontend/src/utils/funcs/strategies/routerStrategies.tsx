@@ -1,57 +1,24 @@
-import { NavigateFunction } from 'react-router-dom';
 import { staticRoutes } from 'utils/Router/StaticRoutes';
 import {
-  TCityInUrl,
-  TCityInUrlEqualsList,
-  TPaths,
-  TSetLocationAndNavigateFn,
-  TUserLocation,
-  TUserLocationEqualsList,
-} from 'utils/types/appNavigation';
+  TDefaultUseStrategy,
+  TDifferentCityInParamsStrategy,
+  TNoLocationRouteStrategy,
+  TRouteStrategy,
+  TStaticRouteStrategy,
+} from './routerStrategiesTypes';
 
-type TNavigate = { navigate: NavigateFunction }; // navigate
-type TCommonArgs = TNavigate & { cityInUrl: TCityInUrl }; // navigate + cityInUrl
-type TNavigateAndCityUrl = TCommonArgs & { userLocation: TUserLocation }; // navigate + cityInUrl + userlocation общий тип для 3х стратегий
-
-type TLocationNavigationOptions = {
-  setLocationAndNavigate: TSetLocationAndNavigateFn;
-  paths: TPaths;
-};
-
-// FUNCTION ARGS
-type TNoLocationArgs = { userLocation: TUserLocation } & TNavigateAndCityUrl;
-type TDifflrentCityArgs = {
-  cityInUrlEqualsList: TCityInUrlEqualsList;
-} & TLocationNavigationOptions &
-  TNavigateAndCityUrl;
-type TDefaultUserArgs = {
-  userLocationEqualsList: TUserLocationEqualsList;
-} & TLocationNavigationOptions;
-
-// STRATEGY TYPES
-type TStaticRouteStrategy = (arg: TCommonArgs) => boolean;
-type TNoLocationRouteStrategy = (args: TNoLocationArgs) => boolean;
-type TDifferentCityInParamsStrategy = (args: TDifflrentCityArgs) => boolean;
-type TDefaultUsestrategy = (args: TDefaultUserArgs) => boolean;
-
-// STRATEGY CREATION
 const staticRouteStrategy: TStaticRouteStrategy = ({ navigate, cityInUrl }) => {
   // парсинг url на наличие статичных маршрутов
-  const urlInRouteIsStatic = staticRoutes.find((item) => cityInUrl === item.path);
-  if (urlInRouteIsStatic) {
-    navigate(urlInRouteIsStatic.path);
-    return true;
-  }
-  return false;
+  const urlInRouteIsStatic = staticRoutes?.find((item) => cityInUrl === item.path);
+  if (!urlInRouteIsStatic) return false;
+  navigate(urlInRouteIsStatic.path);
+
+  return true;
 };
 
 const noLocationStrategy: TNoLocationRouteStrategy = ({ navigate, userLocation, cityInUrl }) => {
   // проверка на наличие города в LS и в queryParams
-  if (!userLocation && !cityInUrl) {
-    navigate('/');
-    return true;
-  }
-  return false;
+  return !userLocation && !cityInUrl ? (navigate('/'), true) : false;
 };
 
 const differentCityInParamsStrategy: TDifferentCityInParamsStrategy = ({
@@ -75,7 +42,7 @@ const differentCityInParamsStrategy: TDifferentCityInParamsStrategy = ({
   return false;
 };
 
-const defaultUserStrategy: TDefaultUsestrategy = ({
+const defaultUserStrategy: TDefaultUseStrategy = ({
   setLocationAndNavigate,
   userLocationEqualsList,
   paths,
@@ -86,9 +53,34 @@ const defaultUserStrategy: TDefaultUsestrategy = ({
   return true;
 };
 
-export {
-  defaultUserStrategy,
-  differentCityInParamsStrategy,
-  noLocationStrategy,
-  staticRouteStrategy,
+const routeStrategiesHandlers = ({
+  navigate,
+  cityInUrl,
+  userLocation,
+  setLocationAndNavigate,
+  cityInUrlEqualsList,
+  userLocationEqualsList,
+  paths,
+}: TRouteStrategy): Array<() => boolean> => {
+  return [
+    () => staticRouteStrategy({ navigate, cityInUrl }),
+    () => noLocationStrategy({ navigate, userLocation, cityInUrl }),
+    () =>
+      differentCityInParamsStrategy({
+        navigate,
+        cityInUrl,
+        userLocation,
+        setLocationAndNavigate,
+        cityInUrlEqualsList,
+        paths,
+      }),
+    () =>
+      defaultUserStrategy({
+        setLocationAndNavigate,
+        userLocationEqualsList,
+        paths,
+      }),
+  ];
 };
+
+export { routeStrategiesHandlers };

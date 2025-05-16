@@ -1,10 +1,18 @@
 .wrapper {
   max-width: 19.375rem;
   width: 19.375rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   @media (max-width: 768.98px) {
     max-width: none;
+    width: auto;
   }
+}
+
+.inner {
+  margin-bottom: 1.25rem;
 }
 
 .title {
@@ -15,10 +23,16 @@
 .subtitle {
   margin-bottom: 1.25rem;
   text-align: center;
+
+  br {
+    display: none;
+  }
 }
 
-.pre_block {
-  margin-bottom: 1.25rem;
+.registrationWrapper {
+  @media(max-width:768.98px) {
+    text-align: center;
+  }
 }
 
 .registration {
@@ -33,4 +47,6 @@
     color: $primary;
     transition: $fastColorTransition, $fastBorderTransition;
   }
+
+
 }

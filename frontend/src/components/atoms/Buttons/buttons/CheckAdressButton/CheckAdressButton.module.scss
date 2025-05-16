@@ -1,0 +1,9 @@
+.checkAdressBtn {
+  padding: 0.813rem 2rem;
+
+  @media (max-width: 768.98px) {
+    font-size: 0;
+    line-height: 0;
+    padding: 0.875rem;
+  }
+}

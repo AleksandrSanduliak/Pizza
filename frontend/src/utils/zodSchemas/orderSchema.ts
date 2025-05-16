@@ -1,7 +1,6 @@
-import { FormRegister, orderForm } from '../types/types';
 import { z, ZodType } from 'zod';
 
-export const orderSchema: ZodType<orderForm> = z.object({
+export const orderSchema: ZodType = z.object({
   name: z
     .string()
     .trim()

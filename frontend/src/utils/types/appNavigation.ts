@@ -12,6 +12,7 @@ export type TCityInUrlEqualsList = TCheckCityInfo;
 export type TPaths = string;
 export type TIsUrlMainPage = boolean;
 export type TAppHash = string;
+export type TUserCityName = string;
 
 type TUseUserLocationResult = {
   userLocation: TUserLocation;
@@ -22,5 +23,7 @@ type TUseUserLocationResult = {
   setLocationAndNavigate: TSetLocationAndNavigateFn;
   isUrlMainPage: TIsUrlMainPage;
   appHash: TAppHash;
+  userCityName: TUserCityName;
 };
+
 export type TUseUseLocation = () => TUseUserLocationResult;

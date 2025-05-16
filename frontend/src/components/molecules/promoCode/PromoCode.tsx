@@ -1,19 +1,20 @@
-import { Button } from 'atoms/button/Button';
-import debounce from 'lodash.debounce';
 import React from 'react';
+
+// import { Button, CompoundButton } from 'atoms/Buttons/Button';
+import debounce from 'lodash.debounce';
+
 import { useGetPromoMutation } from 'store/api/orderApi';
 import { setDiscountPrice } from 'store/slices/cartSlice';
 import { useAppDispatch, useAppSelector } from 'utils/hooks/redux';
+
 import cl from './promocode.module.scss';
+
 const PromoCode = () => {
   const dispatch = useAppDispatch();
-  const { totalPrice, isPromoCodeActive } = useAppSelector(
-    (state) => state.reducer.cartShopSlice,
-  );
+  const { totalPrice, isPromoCodeActive } = useAppSelector((state) => state.reducer.cartShopSlice);
   // console.log('isPromoCodeActive', isPromoCodeActive);
   const [inputData, setDataInput] = React.useState('');
-  const [getPromo, { data, isLoading, isError, error, isSuccess }] =
-    useGetPromoMutation();
+  const [getPromo, { data, isLoading, isError, error, isSuccess }] = useGetPromoMutation();
   const onInputChange = (e) => {
     // console.log('data ', e.target.value);
     setDataInput(e.target.value);
@@ -33,7 +34,12 @@ const PromoCode = () => {
         type="text"
         className={`input ${cl.promoInput}`}
       />
-      <Button btnType="checkAdress" onClick={() => getReq} />
+      {/* <CompoundButton
+        type="submit"
+        buttonType="default"
+        buttonMode="primary"
+        onClick={() => getReq}
+      /> */}
     </div>
   );
 };

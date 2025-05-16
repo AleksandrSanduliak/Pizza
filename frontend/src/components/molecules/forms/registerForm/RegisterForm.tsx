@@ -1,45 +1,36 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { CompoundButton } from 'atoms/button/Button';
-import cn from 'classnames';
 import React from 'react';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+// import { CompoundButton } from 'atoms/Buttons/Button';
+import cn from 'classnames';
+import { motion } from 'framer-motion';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
+
+import BaseButton from 'atoms/Buttons/BaseButton';
+import LoadingButton from 'atoms/Buttons/buttons/LoadingButton/LoadingButton';
 import { useRegisterUserMutation } from 'store/api/authApi';
 import { registerFormList } from 'utils/consts/forms/forms';
-import useAccount from 'utils/hooks/useAccount';
+import NotificationFacade from 'utils/funcs/facades/NotificationFacade';
+import useAccount from 'utils/hooks/ui/useAccount';
 import { registerSchema, TFormRegister } from 'utils/zodSchemas/registerSchema';
-import FormItem from '../FormItem/FormItem';
+
 import cl from './RegisterForm.module.scss';
+import FormItem from '../FormItem/FormItem';
 
 const RegisterForm = () => {
   const { onClickRegister } = useAccount();
-  const [registerUser, { isLoading, isError, isSuccess }] =
-    useRegisterUserMutation();
+  const [registerUser, { isLoading, isError, isSuccess }] = useRegisterUserMutation();
 
   React.useEffect(() => {
     if (isError) {
-      toast.error('Ошибка регистрации', {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
+      NotificationFacade.toastError({
+        message: 'Произошла ошибка при регистрации, попробуйте позже.',
       });
     }
 
     if (isSuccess) {
-      toast.success('Вы успешно зарегистрировались, войдите в систему.', {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
+      NotificationFacade.toastSuccess({
+        message: 'Вы успешно зарегистрировались, войдите в систему.',
       });
 
       onClickRegister();
@@ -59,28 +50,21 @@ const RegisterForm = () => {
   return (
     <div className={cl.wrapper}>
       <h1 className={cn('h1', cl.title)}>Регистрация</h1>
-
       <FormProvider {...form}>
-        <form
-          className={cl.registerForm}
-          onSubmit={form.handleSubmit(onSubmit)}>
-          <p className={cn(cl.notification, 'mini')}>
-            Продолжая, вы соглашаетесь со сбором и обработкой персональных
-            данных и пользовательским соглашением
-          </p>
+        <form className={cl.registerForm} onSubmit={form.handleSubmit(onSubmit)}>
+          <label className={cn('mini', cl.notification)}>
+            Продолжая, вы соглашаетесь со сбором и обработкой персональных данных и пользовательским
+            соглашением
+          </label>
           {registerFormList.map((item) => (
             <FormItem {...item} key={item.name} />
           ))}
-          <div className={cl.buttons}>
-            <CompoundButton onClick={() => onClickRegister()}>
+          <motion.div layoutId="registerFormWrap" className={cl.buttons}>
+            <BaseButton type="button" buttonMode="primary" onClick={() => onClickRegister()}>
               Назад
-            </CompoundButton>
-            <CompoundButton
-              isSubmit={true}
-              isLoading={isLoading ? true : false}>
-              Отправить
-            </CompoundButton>
-          </div>
+            </BaseButton>
+            <LoadingButton isLoading={isLoading}>Отправить</LoadingButton>
+          </motion.div>
         </form>
       </FormProvider>
     </div>

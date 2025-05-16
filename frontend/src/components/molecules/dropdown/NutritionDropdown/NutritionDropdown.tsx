@@ -1,8 +1,11 @@
-import infoSVG from 'assets/icons/info.svg';
+import React from 'react';
+
 import NutritionInfo from 'atoms/nutritionInfo/NutritionInfo';
 import PortalDropdown from 'molecules/dropdown/DropdownPortalWrapper/PortalDropdown';
-import React from 'react';
-import { useOutsideClick } from 'utils/hooks/useOutsideClick';
+
+import infoSVG from 'assets/icons/info.svg';
+import { useOutsideClick } from 'utils/hooks/ui/useOutsideClick';
+
 import cl from './nutritionDropdown.module.scss';
 // import { stopBubling } from 'utils/funcs/stopBubling';
 
@@ -23,10 +26,7 @@ const NutritionDropdown = ({ info, weight }: INutritionDropdown) => {
 
   return (
     <div>
-      <div
-        ref={infoRef}
-        className={cl.wrapper}
-        onClick={() => setIsOpen((prev) => !prev)}>
+      <div ref={infoRef} className={cl.wrapper} onClick={() => setIsOpen((prev) => !prev)}>
         <img
           className={`${cl.img} ${isOpen && cl.isActive}`}
           src={infoSVG}
@@ -54,8 +54,7 @@ const NutritionDropdown = ({ info, weight }: INutritionDropdown) => {
               <div className={cl.text}>
                 <p className={`mini ${cl.title}`}>Пищевая ценность на 100 г </p>
                 <p className={`normal ${cl.row}`}>
-                  <span>Энерг. ценность</span>{' '}
-                  <span>{info?.calories} ккал</span>
+                  <span>Энерг. ценность</span> <span>{info?.calories} ккал</span>
                 </p>
                 <p className={`normal ${cl.row}`}>
                   Белки <span>{info?.proteins} г</span>
