@@ -1,6 +1,9 @@
+'use client';
 import cn from 'classnames';
+
 import LoginForm from 'molecules/forms/LoginForm/LoginForm';
 import useAccount from 'utils/hooks/ui/useAccount';
+
 import cl from './Login.module.scss';
 
 const Login = () => {

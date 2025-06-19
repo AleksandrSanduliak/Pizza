@@ -4,8 +4,7 @@ import React from 'react';
 import debounce from 'lodash.debounce';
 
 import { useGetPromoMutation } from 'store/api/orderApi';
-import { setDiscountPrice } from 'store/slices/cartSlice';
-import { useAppDispatch, useAppSelector } from 'utils/hooks/redux';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 import cl from './promocode.module.scss';
 

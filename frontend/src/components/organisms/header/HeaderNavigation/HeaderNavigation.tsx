@@ -1,26 +1,19 @@
+'use client';
 import React from 'react';
+
+import { useRouter } from 'next/navigation';
 
 import cn from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import ConvertStrSvgToComponent from 'atoms/ConvertStrSvgToComponent/ConvertStrSvgToComponent';
-import Logo from 'atoms/logo/Logo';
-import { categories, TCategories } from 'utils/data/categories';
-import { useAppSelector } from 'utils/hooks/redux';
+import Logo from 'atoms/Logo/Logo';
+import { useAppSelector } from 'store/hooks';
+import { categories } from 'utils/data/categories';
 import useDraggableScroll from 'utils/hooks/ui/useDraggableScroll';
 
+import { headerAnim, logoHeaderAnimation } from './animations';
 import cl from './HeaderNavigation.module.scss';
-
-const logoHeaderAnimation = {
-  initial: { marginLeft: -38 },
-  animate: { marginLeft: 0 },
-  exit: { marginLeft: -38 },
-  transition: { duration: 0.2, ease: 'easeInOut' },
-};
-
-const headerAnim = {
-  transition: { duration: 0.2, ease: 'easeInOut' },
-};
 
 const NavigationLogo = () => {
   const isVisible = useAppSelector((store) => store.reducer.isVisible.isVisible);
@@ -40,11 +33,21 @@ const NavigationLogo = () => {
   );
 };
 
-const NavigationItem = ({ category }: { category: TCategories }) => {
-  const { name, img } = category;
-
+const NavigationItem = ({
+  name,
+  img,
+  path,
+}: {
+  name: string;
+  img: string | undefined;
+  path: string;
+}) => {
+  const router = useRouter();
+  const onClickHeaderNavItem = () => {
+    router.push(`/#${path}`);
+  };
   return (
-    <li className={cl.navItem}>
+    <li className={cl.navItem} onClick={onClickHeaderNavItem}>
       {img && (
         <ConvertStrSvgToComponent
           alt={`Иконка категории ${name}`}
@@ -63,7 +66,6 @@ const NavigationItem = ({ category }: { category: TCategories }) => {
 const NavigationList = () => {
   const draggableElementRef = React.useRef<HTMLUListElement>(null);
   const { events } = useDraggableScroll(draggableElementRef);
-
   return (
     <motion.ul
       layoutScroll
@@ -73,7 +75,12 @@ const NavigationList = () => {
       className={cl.navList}>
       <NavigationLogo />
       {categories.map((category) => (
-        <NavigationItem key={category.name} category={category} />
+        <NavigationItem
+          key={category.name}
+          name={category.name}
+          img={category.img}
+          path={category.path}
+        />
       ))}
     </motion.ul>
   );

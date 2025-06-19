@@ -1,10 +1,11 @@
+'use client';
 import React from 'react';
 
 import useCardNotifications from 'molecules/CardItem/utils/useCardNotifications';
 import { useSaveCardMutation } from 'store/api/orderApi';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { addItem } from 'store/slices/cartSlice';
 import NotificationFacade from 'utils/funcs/facades/NotificationFacade';
-import { useAppDispatch, useAppSelector } from 'utils/hooks/redux';
 import { TFoodItem } from 'utils/types/types';
 
 const addItemDTO = (foodItem: TFoodItem) => {

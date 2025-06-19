@@ -1,6 +1,9 @@
 import React from 'react';
-import cl from './contacts.module.scss';
+
 import SVG from 'react-inlinesvg';
+
+import cl from './contacts.module.scss';
+
 const contats = [
   {
     id: 0,

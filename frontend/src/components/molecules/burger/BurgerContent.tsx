@@ -1,3 +1,4 @@
+'use client';
 import RegisterForm from 'molecules/forms/RegisterForm/RegisterForm';
 import Login from 'molecules/Login/Login';
 import Account from 'organisms/Account/Account';
@@ -8,6 +9,7 @@ import {
   TIsRegisterClick,
   TIsShoppingBagClick,
 } from 'utils/types/useAccountTypes';
+
 import cl from './burger.module.scss';
 import BurgerNav from './BurgerNav';
 

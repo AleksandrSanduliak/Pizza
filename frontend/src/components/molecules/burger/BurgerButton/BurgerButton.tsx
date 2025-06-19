@@ -1,5 +1,8 @@
+'use client';
 import cn from 'classnames';
+
 import useAccount from 'utils/hooks/ui/useAccount';
+
 import cl from './BurgerButton.module.scss';
 
 const BurgerButton = () => {

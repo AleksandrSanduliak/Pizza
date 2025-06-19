@@ -1,9 +1,6 @@
 import React from 'react';
 
-import NutritionInfo from 'atoms/nutritionInfo/NutritionInfo';
-import PortalDropdown from 'molecules/dropdown/DropdownPortalWrapper/PortalDropdown';
-
-import infoSVG from 'assets/icons/info.svg';
+import infoSVG from 'public/icons/Info.svg';
 import { useOutsideClick } from 'utils/hooks/ui/useOutsideClick';
 
 import cl from './nutritionDropdown.module.scss';

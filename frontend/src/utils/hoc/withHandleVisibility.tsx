@@ -1,7 +1,8 @@
+'use client';
 import React from 'react';
 
+import { useAppDispatch } from 'store/hooks';
 import { visibleStatus } from 'store/slices/categoriesSlice';
-import { useAppDispatch } from 'utils/hooks/redux';
 import useIsVisibleElement from 'utils/hooks/ui/useIsVisibleElement';
 
 // отслеживает конкретный компонент находится ли он в зоне viewport

@@ -1,3 +1,4 @@
+'use client';
 import ReactDOM from 'react-dom';
 
 import ShoppingBagButton from 'atoms/Buttons/buttons/ShoppingBagButtton/ShoppingBagButton';
@@ -9,7 +10,6 @@ import cl from './Shoppingbag.module.scss';
 const ShoppingBag = () => {
   const { isShoppingBagClick, onClickShoppingBag, isBurgerClick } = useAccount();
   const modalRootEl = document.getElementById('modal-root')!;
-
   return (
     <div onClick={() => onClickShoppingBag()} className={cl.shoppingbag}>
       {!isBurgerClick && <ShoppingBagButton />}

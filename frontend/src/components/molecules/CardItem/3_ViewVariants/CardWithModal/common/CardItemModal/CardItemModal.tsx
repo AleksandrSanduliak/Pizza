@@ -1,18 +1,16 @@
 import React from 'react';
 
-import cn from 'classnames';
-
-import fire from 'assets/icons/fire.svg';
 import BaseButton from 'atoms/Buttons/BaseButton';
 import Label from 'atoms/Label/Label';
 import { useCardContext } from 'molecules/CardItem/CompoundItemContext';
 import Tabs from 'molecules/tabs/Tabs';
+import fire from 'public/icons/fire.svg';
 import { pizzaTypes } from 'utils/data/pizzaData';
 import { TFoodItem } from 'utils/types/types';
 
 import cl from './CardItemModal.module.scss';
 import NutritionDropdown from '../../../../../dropdown/NutritionDropdown/NutritionDropdown';
-import FullPageModal from '../../../../../modals/ReusableAbstractModals/Modal/Modal';
+import FullPageModal from '../../../../../modals/views/Modal/Modal';
 
 const CardModalContentText = ({
   title,
@@ -95,7 +93,7 @@ const CardItemModal = ({
   isShowModal: boolean;
   onClose: () => void;
 }) => {
-  console.log('foodItem', foodItem);
+  // console.log('foodItem', foodItem);
   // const [saveCard, { data, isLoading, isError, error, isSuccess }] = useSaveCardMutation();
   const { addToCart } = useCardContext();
   const [pizzaType, setPizzaType] = React.useState<number>(0);

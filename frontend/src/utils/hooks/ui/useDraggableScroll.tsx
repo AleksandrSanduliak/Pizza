@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 
 const useDraggableScroll = <T extends HTMLElement>(draggableElementRef: React.RefObject<T>) => {

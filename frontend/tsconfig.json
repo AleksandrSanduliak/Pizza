@@ -1,41 +1,40 @@
 {
   "compilerOptions": {
+    "typeRoots": [
+         "./node_modules/@yandex/ymaps3-types"],
+    /* Bundler mode */
+    "baseUrl": "./src",
+    "paths":{
+      "atoms/*": ["components/atoms/*"],
+      "molecules/*": ["components/molecules/*"],
+      "organisms/*": ["components/organisms/*"],
+      "utils/*": ["utils/*"],
+      "store/*": ["app/lib/*"],
+      "styles/*": ["app/styles/*"],
+      "pages/*": ["app/pages/*"],
+    },
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "typeRoots": [
-         "./node_modules/@yandex/ymaps3-types"],
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-      
-    /* Linting */
+    "jsx": "preserve",
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
-    "paths":{
-      "src": ["src"],
-      "assets/*": ["src/assets/*"],
-      "atoms/*": ["src/components/atoms/*"],
-      "molecules/*": ["src/components/molecules/*"],
-      "organisms/*": ["src/components/organisms/*"],
-      "pages/*": ["src/components/pages/*"],
-      "utils/*": ["src/utils/*"],
-      "store/*": ["src/store/*"],
-      "styles/*": ["src/styles/_settings/*"],
-      "fonts/*": ["src/assets/fonts/*"],
-    }
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "plugins": [{ "name": "next" }]
   },
  
-  "include": [ "src", "vite.config.ts", "vite-env.d.ts"],
-  // "include": [ "src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["./src", "./dist/types/**/*.ts", "./next-env.d.ts"],
+  "exclude": ["./node_modules"]
 }

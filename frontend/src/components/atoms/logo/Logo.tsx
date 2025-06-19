@@ -1,9 +1,11 @@
+'use client';
+import Link from 'next/link';
+
 import cn from 'classnames';
 import { motion } from 'framer-motion';
-import { NavLink } from 'react-router-dom';
 
-import logoLetters from 'assets/icons/logo-letters.svg';
-import logo from 'assets/icons/pizzaLogo.svg';
+import logoLetters from 'public/icons/logo-letters.svg';
+import logo from 'public/icons/pizzaLogo.svg';
 
 import cl from './logo.module.scss';
 
@@ -63,7 +65,7 @@ interface ILogo {
   logoType: TLogoType;
   isHidden?: boolean;
   targetToHidden?: THideType;
-  navigateTo?: string;
+  navigateTo: string;
   onClickCb?: () => void;
   logoStyles?: string;
   animations?: object;
@@ -82,7 +84,7 @@ const Logo = ({
 
   return (
     <motion.div {...animations}>
-      <NavLink to={navigateTo} className={cn(cl.wrapper, wrapperClass)} onClick={onClickCb}>
+      <Link href={`${navigateTo}`} className={cn(cl.wrapper, wrapperClass)} onClick={onClickCb}>
         <LogoImage
           isHidden={isHidden && targetToHidden === 'logo'}
           className={cn(logoClass, logoStyles)}
@@ -95,7 +97,7 @@ const Logo = ({
           src={logoLetters}
           alt="Куда пицца"
         />
-      </NavLink>
+      </Link>
     </motion.div>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from 'atoms/Buttons/Button';
+// import { Button } from 'atoms/Buttons/Button';
 
 import cl from './Tabs.module.scss';
 

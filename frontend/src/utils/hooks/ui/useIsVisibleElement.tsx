@@ -1,4 +1,6 @@
+'use client';
 import { RefObject, useEffect, useState } from 'react';
+
 type IUseCheckVisibleArgs = {
   ref: RefObject<HTMLElement | null>;
   rootMargin?: string;
@@ -14,10 +16,10 @@ const useIsVisibleElement: IUseCheckVisible = ({ ref, cb, rootMargin = '0px' }) 
 
   useEffect(() => {
     const currentRef = ref?.current;
-    console.log('isVisible', isVisible);
+    // console.log('isVisible', isVisible);
     if (!currentRef) return;
 
-    console.log('work');
+    // console.log('work');
     const observer = new IntersectionObserver(
       ([entry]) => {
         const isVisible = !entry.isIntersecting;

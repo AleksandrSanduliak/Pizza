@@ -1,15 +1,18 @@
+'use client';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
 import cn from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 
-import accoutImage from 'assets/icons/isAccount.svg';
 import AccountButton from 'atoms/Buttons/buttons/AccountButton/AccountButton';
 import RegisterForm from 'molecules/forms/RegisterForm/RegisterForm';
 import Login from 'molecules/Login/Login';
-import FullPageModal from 'molecules/modals/ReusableAbstractModals/Modal/Modal';
+import FullPageModal from 'molecules/modals/views/Modal/Modal';
+import accoutImage from 'public/icons/isAccount.svg';
 import { useLogoutUserMutation } from 'store/api/authApi';
+import { useAppSelector } from 'store/hooks';
 import { itemVariants, parentVariants } from 'utils/animations/dropdownAnim';
-import { useAppSelector } from 'utils/hooks/redux';
 import useAccount from 'utils/hooks/ui/useAccount';
 import useCabinetClick from 'utils/hooks/ui/useCabinetClick';
 import useMediaQuery from 'utils/hooks/ui/useMediaQuery';
@@ -30,15 +33,15 @@ const AccountButtonsList = ({ isOpenMenu }: { isOpenMenu: boolean }) => {
 
   const { onClickBurger } = useAccount();
   const [logout] = useLogoutUserMutation();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const logoutClick = (): void => {
     logout();
-    navigate(actualLocation);
+    router.push(actualLocation);
   };
 
   const handleMenuClick = (url: string): void => {
-    navigate(url);
+    router.push(url);
     onClickBurger();
   };
 

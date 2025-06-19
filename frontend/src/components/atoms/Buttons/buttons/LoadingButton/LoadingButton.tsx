@@ -1,7 +1,6 @@
 import cn from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import loading from 'assets/icons/loading.svg';
 import BaseButton from 'atoms/Buttons/BaseButton';
 
 import cl from './LoadingButton.module.scss';
@@ -33,7 +32,7 @@ const LoadingButton = ({ children, isLoading }: ILoadingButton) => {
             key="loadingImg"
             loading="lazy"
             className={cn({ [cl.loadingImg]: isLoading })}
-            src={loading}
+            src="public/icons/loading.svg"
             alt="Загрузка..."
           />
         )}

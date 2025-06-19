@@ -1,19 +1,20 @@
+'use client';
 import React from 'react';
 
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
-import backwardImg from 'assets/icons/orange-arrow.svg';
-import useUserLocation from 'utils/hooks/navigation/useUserLocation';
-import { useAppSelector } from 'utils/hooks/redux';
+import { useUserLocationContext } from 'app/providers/LocationProvider';
+import orangeArrow from 'public/icons/orange-arrow.svg';
 import useAccount from 'utils/hooks/ui/useAccount';
 import useMediaQuery from 'utils/hooks/ui/useMediaQuery';
 
 import cl from './Backward.module.scss';
 
 const BackwardButton = ({ onClick }: { onClick: () => void }) => {
+  console.log('orangeArrow.src', orangeArrow.src);
   return (
     <div className={cl.wrapper} onClick={onClick}>
-      <img src={backwardImg} loading="lazy" alt="Кнопка обратного возврата" />
+      <img src={orangeArrow.src} loading="lazy" alt="Кнопка обратного возврата" />
     </div>
   );
 };
@@ -23,7 +24,7 @@ const createBackwardStrategy = (
   isRegisterClick: boolean,
   isUrlMainPage: boolean,
   onClickAuth: () => void,
-  navigate: NavigateFunction,
+  router: any,
 ) => {
   const backwardStrategies = {
     account: () => {
@@ -38,7 +39,7 @@ const createBackwardStrategy = (
     },
 
     backwardNavigate: () => {
-      if (!isUrlMainPage) navigate(-1);
+      if (!isUrlMainPage) router.back();
     },
   };
 
@@ -51,17 +52,19 @@ const createBackwardStrategy = (
 
 const Backward = () => {
   const [isShow, setIsShow] = React.useState<boolean>(false);
-  const actualLocation = useAppSelector((state) => state.reducer.userCity.currentCity);
+
   const { isAccountClick, isRegisterClick, onClickAuth } = useAccount();
   const isMobile = useMediaQuery();
-  const navigate = useNavigate();
-  const { isUrlMainPage } = useUserLocation();
+  const router = useRouter();
+
+  const { isUrlMainPage, userLocation } = useUserLocationContext();
+
   const strategy = createBackwardStrategy(
     isAccountClick,
     isRegisterClick,
     isUrlMainPage,
     onClickAuth,
-    navigate,
+    router,
   );
 
   React.useEffect(() => {
@@ -71,7 +74,7 @@ const Backward = () => {
     }
 
     setIsShow(false);
-  }, [actualLocation, isAccountClick, isMobile, isRegisterClick]);
+  }, [userLocation, isAccountClick, isMobile, isRegisterClick]);
 
   return isShow && <BackwardButton onClick={strategy} />;
 };

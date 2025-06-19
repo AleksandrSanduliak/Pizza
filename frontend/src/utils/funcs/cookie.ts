@@ -1,25 +1,30 @@
+'use client';
+
 import { expriesOptions } from 'utils/consts/cookie';
 
-export function setCookie(
-  name: string,
-  value: string,
-  expiresValue: number,
-  expiresType = 'days',
-) {
-  let expires = '';
-  const date = new Date();
+// export async function setCookie(
+//   name: string,
+//   value: string,
+//   expiresValue: number,
+//   expiresType = 'days',
+// ) {
+//   let expires = '';
+//   const date = new Date();
 
-  if (expiresType === 'days')
-    date.setTime(date.getTime() + expiresValue * expriesOptions.day);
+//   if (expiresType === 'days') date.setTime(date.getTime() + expiresValue * expriesOptions.day);
 
-  if (expiresType === 'minutes')
-    date.setTime(date.getTime() + expiresValue * expriesOptions.minutes);
+//   if (expiresType === 'minutes')
+//     date.setTime(date.getTime() + expiresValue * expriesOptions.minutes);
 
-  expires = '; expires=' + date.toUTCString();
-  document.cookie = name + '=' + (value || '') + expires + '; path=/';
-}
+//   expires = '; expires=' + date.toUTCString();
+//   // console.log('document.cookie', document.cookie);
+//   document.cookie = name + '=' + (value || '') + expires + '; path=/';
+//   // console.log('document.cookie', document.cookie, value, name);
+// }
 
 export function getCookie(name: string) {
+  'use client';
+  if (typeof document === 'undefined') return;
   const nameEQ = name + '=';
   const ca = document.cookie.split(';');
   for (let i = 0; i < ca.length; i++) {

@@ -1,5 +1,7 @@
+'use client';
 import Contacts from 'molecules/contacts/Contacts';
 import { BurgerCategories } from 'utils/data/burgerCategories';
+
 import cl from './burger.module.scss';
 
 const BurgerNavigation = () => {

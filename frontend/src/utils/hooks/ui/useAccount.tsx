@@ -1,4 +1,8 @@
+'use client';
+
 import React from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   setAccount,
@@ -8,15 +12,15 @@ import {
   setRegister,
   setShoppingBag,
 } from 'store/slices/accountSlice';
-import { useAppDispatch, useAppSelector } from 'utils/hooks/redux';
 
+// import { useAppDispatch, useAppSelector } from '../../../app/lib/hooks';
 const useAccount = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
-  const isAccountClick = useAppSelector((state) => state.reducer.account.isAccountClick);
-  const isRegisterClick = useAppSelector((state) => state.reducer.account.isRegisterClick);
-  const isBurgerClick = useAppSelector((state) => state.reducer.account.isBurgerClick);
-  const isShoppingBagClick = useAppSelector((state) => state.reducer.account.isShoppingBagClick);
+  const isAccountClick = useSelector((state) => state.reducer.account.isAccountClick);
+  const isRegisterClick = useSelector((state) => state.reducer.account.isRegisterClick);
+  const isBurgerClick = useSelector((state) => state.reducer.account.isBurgerClick);
+  const isShoppingBagClick = useSelector((state) => state.reducer.account.isShoppingBagClick);
 
   const onClickAuth = React.useCallback(() => {
     dispatch(setAccount());
@@ -72,3 +76,6 @@ const useAccount = () => {
 };
 
 export default useAccount;
+function useAppDispatch() {
+  throw new Error('Function not implemented.');
+}

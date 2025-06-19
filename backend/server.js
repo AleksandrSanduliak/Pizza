@@ -1,13 +1,13 @@
 const express = require("express");
+require("dotenv").config();
 const app = express();
-const PORT = 3000;
+const PORT = process.env.BACKEND_PORT;
 const authRouter = require("./Router/authRouter");
 const orderRouter = require("./Router/orderRouter");
 const goodsRouter = require("./Router/goodsRouter");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const ErrorMiddleware = require("./middleware/errorMiddleware");
-require("dotenv").config();
 
 app.use(
   cors({

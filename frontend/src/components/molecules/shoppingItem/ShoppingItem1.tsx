@@ -1,11 +1,12 @@
 import React from 'react';
 
-import crosshair from 'assets/icons/crosshairs/cart-cross.svg';
-import Counter from 'atoms/counter/Counter';
 // import Label from 'atoms/Label/Label';
+import Counter from 'atoms/Counter/Counter';
+import crosshair from 'public/icons/crosshairs/cart-cross.svg';
 import { useDeleteCardItemMutation } from 'store/api/orderApi';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { removeItem } from 'store/slices/cartSlice';
-import { useAppDispatch, useAppSelector } from 'utils/hooks/redux';
+
 // import { pizzaItem } from 'utils/types/types';
 
 import cl from './shoppingitem.module.scss';

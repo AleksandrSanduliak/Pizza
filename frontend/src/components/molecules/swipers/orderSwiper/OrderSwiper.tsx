@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
+// import { Swiper, SwiperSlide };
 // import { Button } from 'atoms/Buttons/Button';
 import SVG from 'react-inlinesvg';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import cl from './orderswiper.module.scss';
 
@@ -62,9 +63,9 @@ const OrderSwiper = ({ array }: { array: [] }) => {
                   <p className={`subtitle ${cl.title}`}>{food.name}</p>
                   {food.weight && <p className={`mini ${cl.subtitle}`}>Порция {food.weight}</p>}
                 </div>
-                <Button primary={true} btnType="card">
+                {/* <Button primary={true} btnType="card">
                   {food?.price} ₽
-                </Button>
+                </Button> */}
               </div>
             </SwiperSlide>
           );

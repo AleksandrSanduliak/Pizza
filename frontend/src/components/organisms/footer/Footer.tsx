@@ -1,7 +1,9 @@
-import cn from 'classnames';
-import { NavLink } from 'react-router-dom';
+'use client';
+import Link from 'next/link';
 
-import Logo from 'atoms/logo/Logo';
+import cn from 'classnames';
+
+import Logo from 'atoms/Logo/Logo';
 import Contacts from 'molecules/contacts/Contacts';
 import { TDataItem, footerCategories } from 'utils/data/footerCategories';
 import useMediaQuery from 'utils/hooks/ui/useMediaQuery';
@@ -17,7 +19,7 @@ const FooterCategories = () => {
           {category.data.map((el: TDataItem) => {
             return (
               <li className="normal" key={el.anchor}>
-                <NavLink to={el.anchor}>{el.text}</NavLink>
+                <Link href={el.anchor}>{el.text}</Link>
               </li>
             );
           })}

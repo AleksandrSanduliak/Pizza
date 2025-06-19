@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+'use client';
+import React from 'react';
 
 const useOverflowBody = (lock: boolean) => {
   React.useEffect(() => {

@@ -1,4 +1,4 @@
-import CheckAdressIcon from 'assets/icons/button/compound/CheckAdressIcon';
+import CheckAdressIcon from 'public/icons/button/compound/CheckAdressIcon';
 
 import cl from './CheckAdressButton.module.scss';
 import BaseButton from '../../BaseButton';

@@ -1,8 +1,26 @@
+'use client';
+import dynamic from 'next/dynamic';
+
 import cn from 'classnames';
-import ChangeCityBlock from 'molecules/ChangeCityBlock/ChangeCityBlock';
-import Account from 'organisms/Account/Account';
+
+import FullScreenLoader from 'atoms/Loaders/FullScreenLoader/FullScreenLoader';
 import useMediaQuery from 'utils/hooks/ui/useMediaQuery';
+
 import cl from './HeaderTop.module.scss';
+
+const ChangeCityBlock = dynamic(() => import('molecules/ChangeCityBlock/ChangeCityBlock'), {
+  loading: () => <FullScreenLoader />,
+  ssr: false,
+});
+const Account = dynamic(() => import('organisms/Account/Account'), {
+  loading: () => <FullScreenLoader />,
+  ssr: false,
+});
+// const useMediaQuery = dynamic(() => import('utils/hooks/ui/useMediaQuery'), {
+//   loading: () => <p>Loading...</p>,
+// });
+// import ChangeCityBlock from 'molecules/ChangeCityBlock/ChangeCityBlock';
+// import Account from 'organisms/Account/Account';
 
 const CafeInformation = () => {
   const isMatching400px = useMediaQuery(400);

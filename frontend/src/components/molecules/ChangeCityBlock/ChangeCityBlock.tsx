@@ -1,16 +1,18 @@
+'use client';
 import React, { FC } from 'react';
 
-import cn from 'classnames';
-import { Link } from 'react-router-dom';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-import crosshair from 'assets/icons/crosshairs/cart-cross.svg';
-import Loc from 'assets/icons/isLogo.svg';
-import FullPageModal from 'molecules/modals/ReusableAbstractModals/Modal/Modal';
-import { getUserCity } from 'store/slices/citySlice';
+import cn from 'classnames';
+
+import { useUserLocationContext } from 'app/providers/LocationProvider';
+import FullPageModal from 'molecules/modals/views/Modal/Modal';
+import crosshair from 'public/icons/crosshairs/cart-cross.svg';
+import logo from 'public/icons/isLogo.svg';
 import { cityInfo } from 'utils/consts/cityInfo';
-import { setCookieAndDispatch } from 'utils/funcs/setCookieAndDispatchUserLocation';
-import useUserLocation from 'utils/hooks/navigation/useUserLocation';
-import { useAppDispatch } from 'utils/hooks/redux';
+import { setCookie } from 'utils/funcs/cookie2';
 import { TUserCityName, TUserLocation } from 'utils/types/appNavigation';
 
 import cl from './ChangeCityBlock.module.scss';
@@ -25,9 +27,10 @@ const CityList = ({
   return (
     <ul className={cl.list}>
       {cityInfo.map((item) => {
+        console.log('item', item);
         return (
           <Link
-            to={item.url}
+            href={item.url}
             className={cn('bigtext', cl.listItem, {
               [cl.isActive]: userCityName === item.title,
             })}
@@ -46,16 +49,22 @@ const CityModal = ({
   userLocation,
   isOpenModal,
   setIsOpenModal,
+  startTransition,
 }: {
   userCityName: TUserCityName;
   userLocation: TUserLocation;
   isOpenModal: boolean;
   setIsOpenModal: (isOpen: boolean) => void;
+  startTransition;
 }) => {
-  const dispatch = useAppDispatch();
+  const router = useRouter();
   const onChangeLocation = (city: string) => {
-    setCookieAndDispatch(city, dispatch, getUserCity);
-    setIsOpenModal(false);
+    startTransition(() => {
+      console.log('city 123', city);
+      setCookie({ name: 'location', value: city, expiresType: 'days', expiresValue: 30 });
+      setIsOpenModal(false);
+      router.push(city);
+    });
   };
   const handleCloseModal = () => setIsOpenModal(false);
 
@@ -64,14 +73,13 @@ const CityModal = ({
       <div className={cl.modalWrapper}>
         <div className={cl.modal}>
           {userLocation && (
-            <img
-              loading="lazy"
-              width="32px"
-              height="32px"
-              src={crosshair}
+            <Image
+              src={crosshair.src}
               alt="Кнопка закрытия окна"
-              className={cl.crosshair}
+              width={32}
+              height={32}
               onClick={() => setIsOpenModal(false)}
+              className={cl.crosshair}
             />
           )}
           <h1 className={cn('h1', cl.modalTitle)}>Выберите город</h1>
@@ -91,7 +99,7 @@ const ActualUserLocation = ({
 }) => {
   return (
     <div className={cl.content}>
-      <img className="icon" src={Loc} loading="lazy" alt="Иконка локации" />
+      <Image src={logo.src} alt="Иконка локации" width={24} height={24} className="icon" />
       <span onClick={() => cb()} className={cn('bigtext', cl.location)}>
         {userCityName ?? 'Выберите город'}
       </span>
@@ -100,9 +108,11 @@ const ActualUserLocation = ({
 };
 
 const ChangeCityBlock: FC = () => {
-  const { userCityName, userLocation } = useUserLocation();
-  const [isOpenModal, setIsOpenModal] = React.useState(false);
+  const { userCityName, userLocation } = useUserLocationContext();
+  console.log('userCityName', userCityName);
 
+  const [isOpenModal, setIsOpenModal] = React.useState(false);
+  const [isChange, startTransition] = React.useTransition();
   React.useEffect(() => {
     if (userLocation === undefined || userLocation === null) {
       setIsOpenModal(true);
@@ -121,6 +131,7 @@ const ChangeCityBlock: FC = () => {
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}
           userLocation={userLocation}
+          startTransition={startTransition}
         />
       )}
       <ActualUserLocation userCityName={userCityName} cb={toggleModal} />

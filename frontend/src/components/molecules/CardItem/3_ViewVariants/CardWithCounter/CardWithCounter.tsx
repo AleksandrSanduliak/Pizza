@@ -2,7 +2,7 @@ import React from 'react';
 
 import cn from 'classnames';
 
-import Counter from 'atoms/counter/Counter';
+import Counter from 'atoms/Counter/Counter';
 import CardItemMobileView from 'molecules/CardItem/2_Views/CardItemMobileView/CardItemMobileView';
 import { useCardContext } from 'molecules/CardItem/CompoundItemContext';
 

@@ -1,4 +1,4 @@
-import { IRegisterFormFields, TLoginFormFields } from 'utils/types/types';
+import { IRegisterFormFields, TLoginFormFields } from 'src/app/utils/types/types';
 
 export const loginFormList: TLoginFormFields[] = [
   {

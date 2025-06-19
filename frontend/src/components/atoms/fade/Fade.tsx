@@ -1,4 +1,5 @@
 import { MouseEventHandler } from 'react';
+
 import cl from './fade.module.scss';
 
 interface IFade {

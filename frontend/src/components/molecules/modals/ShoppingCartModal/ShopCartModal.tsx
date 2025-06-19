@@ -1,13 +1,14 @@
+'use client';
 import cn from 'classnames';
 
-import emptyCard from 'assets/icons/emptyCard.svg';
 // import ShoppingItem from 'molecules/shoppingItem/ShoppingItem';
 import ShoppingItem from 'molecules/CardItem/4_Components/ShoppingItem/ShoppingItem';
+import emptyCard from 'public/icons/emptyCard.svg';
 import { useAppSelector } from 'utils/hooks/redux';
 import useAccount from 'utils/hooks/ui/useAccount';
 
 import cl from './ShopCartModal.module.scss';
-import AsideModal from '../ReusableAbstractModals/AsideModal/AsideModal';
+import AsideModal from '../views/AsideModal/AsideModal';
 
 const EmptyCardContend = () => {
   return (

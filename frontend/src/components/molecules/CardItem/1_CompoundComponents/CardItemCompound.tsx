@@ -5,8 +5,8 @@ import cn from 'classnames';
 import Footer from 'organisms/Footer/Footer';
 
 import cl from './CardItem.module.scss';
+import CardImage from './Components/CardImage/CardImage';
 import FooterWrapper from './Components/FooterWrapper/FooterWrapper';
-import Image from './Components/Image/Image';
 import ImageWrapper from './Components/ImageWrapper/ImageWrapper';
 import Text from './Components/Text/Text';
 
@@ -32,7 +32,7 @@ const CardItemCompound = ({
 };
 
 CardItemCompound.Text = Text;
-CardItemCompound.Image = Image;
+CardItemCompound.Image = CardImage;
 CardItemCompound.ImageWrapper = ImageWrapper;
 CardItemCompound.Footer = Footer;
 CardItemCompound.FooterWrapper = FooterWrapper;

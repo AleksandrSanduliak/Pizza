@@ -1,3 +1,4 @@
+'use client';
 import useAddToCartRedux from 'molecules/CardItem/utils/addToCart/useAddToCartRedux';
 import useMediaQuery from 'utils/hooks/ui/useMediaQuery';
 import { TFoodItem } from 'utils/types/types';

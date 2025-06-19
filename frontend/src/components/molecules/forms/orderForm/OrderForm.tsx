@@ -6,8 +6,8 @@ import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form';
 import { useHookFormMask } from 'use-mask-input';
 
 import Tabs from 'molecules/tabs/Tabs';
-import { useAppSelector } from 'utils/hooks/redux';
-import { orderForm } from 'utils/types/types';
+import { useAppSelector } from 'store/hooks';
+// import { orderForm } from 'utils/types/types';
 import { orderSchema } from 'utils/zodSchemas/orderSchema';
 
 import cl from './orderform.module.scss';
@@ -33,7 +33,7 @@ const OrderForm = ({ saveOrder }: { saveOrder: any }) => {
   });
 
   const { totalPrice } = useAppSelector((state) => state.reducer.cartShopSlice);
-  const onSubmit: SubmitHandler<orderForm> = (data) => {
+  const onSubmit: SubmitHandler<any> = (data) => {
     // setValue("deliveryType", tabs[activeTab]);
     // console.log(data);
     saveOrder({ userInfo: data });
