@@ -1,19 +1,19 @@
 import {
   TCityInUrl,
-  TCityInUrlEqualsList,
-  TPaths,
   TUserLocation,
-  TUserLocationEqualsList,
+  TCityInUrlEqualsList,
   TSetLocationAndNavigateFn,
-} from 'utils/types/appNavigation';
+  TPaths,
+  TUserLocationEqualsList,
+} from '@shared/types/appNavigation';
 
 export type NavigationArgs = {
   router: any;
-  cityInUrl: TCityInUrl;
+  cityFromUrl: TCityInUrl;
   userLocation: TUserLocation;
 };
 
-export type TStaticRouteStrategy = (arg: { router: any; cityInUrl: TCityInUrl }) => boolean;
+export type TStaticRouteStrategy = (arg: { router: any; cityFromUrl: TCityInUrl }) => boolean;
 export type TNoLocationRouteStrategy = (args: NavigationArgs) => boolean;
 export type TDifferentCityInParamsStrategy = (
   args: NavigationArgs & {
@@ -30,7 +30,8 @@ export type TDefaultUseStrategy = (args: {
 
 export type TRouteStrategy = NavigationArgs & {
   setLocationAndNavigate: TSetLocationAndNavigateFn;
-  cityInUrlEqualsList: TCityInUrlEqualsList;
-  userLocationEqualsList: TUserLocationEqualsList;
+  userSelectedLocation: TUserLocation;
+  cityInUrlMatchedInList: TCityInUrlEqualsList;
+  userLocationMatchedInList: TUserLocationEqualsList;
   paths: TPaths;
 };

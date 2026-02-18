@@ -1,16 +1,20 @@
 'use client';
-import { useRef } from 'react';
 
+import { ReactNode, useState } from 'react';
 import { Provider } from 'react-redux';
 
-import { makeStore, AppStore } from '../lib/store';
+import { AppStore, makeStore } from '@shared/store/store';
 
-export default function StoreProvider({ children }: { children: React.ReactNode }) {
-  const storeRef = useRef<AppStore | null>(null);
-  if (!storeRef.current) {
-    // Create the store instance the first time this renders
-    storeRef.current = makeStore();
-  }
+export default function StoreProvider({ children }: { children: ReactNode }) {
+  const [store] = useState<AppStore>(() => makeStore());
 
-  return <Provider store={storeRef.current}>{children}</Provider>;
+  return <Provider store={store}>{children}</Provider>;
+
+  // const storeRef = useRef<AppStore>(undefined);
+  // if (storeRef.current === undefined) {
+  //   storeRef.current = makeStore();
+  // }
+
+  // // eslint-disable-next-line react-hooks/refs
+  // return <Provider store={storeRef.current}>{children}</Provider>;
 }

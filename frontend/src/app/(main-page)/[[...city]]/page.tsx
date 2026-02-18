@@ -1,24 +1,17 @@
-'use client';
-
-import React from 'react';
-
 import dynamic from 'next/dynamic';
 
-import FullScreenLoader from 'atoms/Loaders/FullScreenLoader/FullScreenLoader';
-import { cityInfo } from 'utils/consts/cityInfo';
+import { cityInfo } from '@shared/consts/cityInfo';
+import FullScreenLoader from '@shared/ui/Loaders/FullScreenLoader/FullScreenLoader';
 
-import useAppLogic from './appLogic/useAppLogic';
-
-const CardBlock = dynamic(() => import('organisms/CardBlock/CardBlock'), {
+const CardSections = dynamic(() => import('@widgets/card-sections/card-sections'), {
   loading: () => <FullScreenLoader />,
-  ssr: false,
+  ssr: true,
 });
 
 export default function MainPage() {
-  useAppLogic();
   return (
     <>
-      <CardBlock />
+      <CardSections />
     </>
   );
 }

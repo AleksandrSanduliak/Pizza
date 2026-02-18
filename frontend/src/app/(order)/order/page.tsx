@@ -2,17 +2,13 @@
 import React from 'react';
 
 // import Image from 'next/image';
-
-import Loader from 'atoms/Loaders/FullScreenLoader/FullScreenLoader';
-import OrderForm from 'molecules/forms/orderForm/OrderForm';
-import PromoCode from 'molecules/promoCode/PromoCode';
-import ShoppingItem from 'molecules/shoppingItem/ShoppingItem1';
-import OrderSwiper from 'molecules/swipers/orderSwiper/OrderSwiper';
-import SuccesDelivery from 'public/imgs/order/succesDelivery.webp';
-import { useSaveOrderMutation } from 'store/api/orderApi';
-import { useAppSelector } from 'store/hooks';
-import { orderFood, orderSauces } from 'utils/data/orderItems';
-import NotificationFacade from 'utils/funcs/facades/NotificationFacade';
+import PromoCode from '@features/promoCode/PromoCode';
+import ShoppingItem from '@features/shoppingItem/ShoppingItem1';
+import { useSaveOrderMutation } from '@app/(order)/order/orderApi';
+import { useAppSelector } from '@shared/lib/store/hooks';
+import Loader from '@shared/ui/Loaders/Loader/Loader';
+import NotificationFacade from '@shared/utils/funcs/facades/NotificationFacade';
+// import SuccesDelivery from '/public/imgs/order/succesDelivery.webp';
 
 // import cl from './order.module.scss';
 

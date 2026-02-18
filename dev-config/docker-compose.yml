@@ -1,0 +1,80 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../dev-config/Dockerfile.frontend
+    stdin_open: true
+    tty: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../frontend:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - backend
+
+  # admin-panel:
+  #   build:
+  #     context: ../admin-panel
+  #     dockerfile: ../dev-config/Dockerfile.admin-panel
+  #   stdin_open: true
+  #   tty: true
+  #   ports:
+  #     - "3054:3054"
+  #   volumes:
+  #     - ../admin-panel:/usr/app
+  #     - /usr/app/node_modules
+  #   depends_on:
+  #     - backend
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../dev-config/Dockerfile.backend
+    ports:
+      - "3001:3001"
+    env_file:
+      - ../backend/.env  
+    volumes:
+      - ../backend:/usr/app
+      - /usr/app/node_modules
+      - ./nodemon.json:/app/nodemon.json
+
+  postgres:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  redis:    
+    image: redis:latest
+    container_name: redis
+    restart: unless-stopped  
+    ports:  
+      - ${REDIS_PORT}:${REDIS_PORT}  
+    volumes:  
+      - ./redisdata:/data 
+    environment:  
+      REDIS_PASSWORD: ${REDIS_PASSWORD}  
+      REDIS_PORT: ${REDIS_PORT}  
+      REDIS_DB: ${REDIS_DB}  
+      REDIS_IO_THREADS: 4  
+      REDIS_IO_THREADS_DO_READS: yes  
+      REDIS_DISABLE_COMMANDS: FLUSHDB,FLUSHALL  
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "$REDIS_PASSWORD", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    tty: true
+    stdin_open: true
+volumes:
+  postgres:
+  redis_data:

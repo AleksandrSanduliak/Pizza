@@ -7,41 +7,43 @@ import {
   TStaticRouteStrategy,
 } from './routerStrategiesTypes';
 
-const staticRouteStrategy: TStaticRouteStrategy = ({ router, cityInUrl }) => {
+const staticRouteStrategy: TStaticRouteStrategy = ({ router, cityFromUrl }) => {
   const staticRoutes = [
     {
       path: 'settings',
     },
   ];
   // парсинг url на наличие статичных маршрутов
-  const urlInRouteIsStatic = staticRoutes?.find((item) => cityInUrl === item.path) ?? '';
+  const urlInRouteIsStatic = staticRoutes?.find((item) => cityFromUrl === item.path) ?? '';
   if (!urlInRouteIsStatic) return false;
   router.push(urlInRouteIsStatic.path);
 
   return true;
 };
 
-const noLocationStrategy: TNoLocationRouteStrategy = ({ router, userLocation, cityInUrl }) => {
+const noLocationStrategy: TNoLocationRouteStrategy = ({ router, userLocation, cityFromUrl }) => {
   // проверка на наличие города в LS и в queryParams
-  return !userLocation && !cityInUrl ? (router.push('/'), true) : false;
+  console.log('userLocation', userLocation);
+  return !userLocation && !cityFromUrl ? (router.push('/'), true) : false;
 };
 
 const differentCityInParamsStrategy: TDifferentCityInParamsStrategy = ({
   router,
-  cityInUrl,
+  cityFromUrl,
   userLocation,
   setLocationAndNavigate,
   cityInUrlEqualsList,
   paths,
 }) => {
   // если город в queryparams !== list перенаправляем его, данные не записываем
-  if (cityInUrl && cityInUrl !== userLocation) {
+  if (cityFromUrl && cityFromUrl !== userLocation) {
     if (!cityInUrlEqualsList) {
-      router.push(cityInUrl);
+      router.push(cityFromUrl);
       return true;
     }
+    console.log('paths', paths);
     // проверка на наличие города в queryParams, проверка если город в url !== город в LS
-    setLocationAndNavigate(cityInUrl, paths);
+    setLocationAndNavigate(cityFromUrl, paths);
     return true;
   }
   return false;
@@ -55,13 +57,15 @@ const defaultUserStrategy: TDefaultUseStrategy = ({
   // проверка города со списком
   // console.log('userLocationEqualsList', userLocationEqualsList);
   if (!userLocationEqualsList) return false;
+  console.log('paths', paths);
+  console.log('userLocationEqualsList.name', userLocationEqualsList.name);
   setLocationAndNavigate(userLocationEqualsList.name, paths);
   return true;
 };
 
 const routeStrategiesHandlers = ({
   router,
-  cityInUrl,
+  cityFromUrl,
   userLocation,
   setLocationAndNavigate,
   cityInUrlEqualsList,
@@ -69,12 +73,12 @@ const routeStrategiesHandlers = ({
   paths,
 }: TRouteStrategy): Array<() => boolean> => {
   return [
-    () => staticRouteStrategy({ router, cityInUrl }),
-    () => noLocationStrategy({ router, userLocation, cityInUrl }),
+    () => staticRouteStrategy({ router, cityFromUrl }),
+    () => noLocationStrategy({ router, userLocation, cityFromUrl }),
     () =>
       differentCityInParamsStrategy({
         router,
-        cityInUrl,
+        cityFromUrl,
         userLocation,
         setLocationAndNavigate,
         cityInUrlEqualsList,

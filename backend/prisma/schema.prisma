@@ -1,0 +1,128 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  password       String
+  name           String
+  phone          String
+  dateBirth      DateTime @db.Date
+  role           Roles    @default(User)
+  isActivated    Boolean
+  bonuses        Int
+  activationLink String
+  salt           String
+}
+
+enum Roles {
+  Admin
+  User
+}
+
+model NutritionFacts {
+  id                        Int                         @id @default(autoincrement())
+  fats                      Int                         @default(0)
+  proteins                  Int                         @default(0)
+  carbs                     Int                         @default(0)
+  calories                  Int                         @default(0)
+  weight                    Int                         @default(0)
+  globalProductItemVariants GlobalProductItemVariants[]
+}
+
+model GlobalProductItemVariants {
+  id          Int     @id @default(autoincrement())
+  title       String
+  desc        String
+  imageUrl    String
+  size        String?
+  sizeName    String?
+  variationId String  @unique @default(uuid())
+
+  nutritionFacts    NutritionFacts     @relation(fields: [nutritionFactsId], references: [id], onDelete: Cascade)
+  nutritionFactsId  Int
+  globalProduct     GlobalProduct      @relation(fields: [globalProductId], references: [id], onDelete: Cascade)
+  globalProductId   Int
+  localProductItems LocalProductItem[]
+}
+
+model GlobalProduct {
+  id              Int                         @id @default(autoincrement())
+  category        String
+  title           String
+  desc            String
+  imageUrl        String
+  caption         String
+  variants        GlobalProductItemVariants[]
+  productCategory ProductCategory             @relation(fields: [category], references: [category])
+  localProducts   LocalProduct[]
+}
+
+model ProductCategory {
+  id              Int             @id @default(autoincrement())
+  category        String          @unique
+  categoryTitle   String
+  products        GlobalProduct[]
+  localCategories LocalCategory[]
+}
+
+model LocalProductItem {
+  id                     Int                        @id @default(autoincrement())
+  price                  Int
+  localProductId         Int
+  localProduct           LocalProduct?              @relation(fields: [localProductId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  globalProductVariantId Int
+  globalProductVariant   GlobalProductItemVariants? @relation(fields: [globalProductVariantId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  // @@unique([localProductId, globalProductVariantId])
+}
+
+model LocalProduct {
+  id                Int                @id @default(autoincrement())
+  price             String
+  order             Int?               @default(1)
+  localProductItems LocalProductItem[]
+
+  globalProductId Int
+  globalProduct   GlobalProduct? @relation(fields: [globalProductId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  localCategory   LocalCategory? @relation(fields: [localCategoryId], references: [id])
+  localCategoryId Int
+}
+
+model LocalCategory {
+  id       Int            @id @default(autoincrement())
+  products LocalProduct[]
+
+  category        String
+  productCategory ProductCategory? @relation(fields: [category], references: [category], onUpdate: Cascade, onDelete: Cascade)
+  cityId          Int
+  city            City?            @relation(fields: [cityId], references: [id])
+
+  @@unique([cityId, category])
+}
+
+model Restaurants {
+  id           Int    @id @default(autoincrement())
+  deliverytime String
+  address      String
+  City         City   @relation(fields: [cityId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  cityId       Int
+}
+
+model City {
+  id          Int             @id @default(autoincrement())
+  city        String          @unique
+  name        String
+  isActive    Boolean
+  url         String
+  restaurants Restaurants[]
+  categories  LocalCategory[]
+}

@@ -1,0 +1,14 @@
+# Игнорируем
+node_modules
+dist
+build
+.next
+out
+coverage
+*.log
+.DS_Store
+*.local
+.env*.local
+.vscode
+.idea
+public

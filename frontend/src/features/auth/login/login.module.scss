@@ -1,0 +1,41 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.inner {
+  margin-bottom: 1.25rem;
+}
+
+.title {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.subtitle {
+  margin-bottom: 1.25rem;
+  text-align: center;
+
+  br {
+    display: none;
+  }
+}
+
+.register {
+  text-align: center;
+}
+
+.registration {
+  cursor: pointer;
+  border-bottom: 0.125rem solid $black;
+  color: $black;
+  transition: $fastColorTransition, $fastBorderTransition;
+
+  &:hover,
+  &:focus {
+    border-bottom: 0.125rem solid $primary;
+    color: $primary;
+    transition: $fastColorTransition, $fastBorderTransition;
+  }
+}

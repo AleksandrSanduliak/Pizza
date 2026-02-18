@@ -1,11 +1,10 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import { useRouter } from 'next/navigation';
-
-import { useUserLocationContext } from 'app/providers/LocationProvider';
-import useUserActions from 'utils/hooks/navigation/useUserActions';
+import { useUserLocationContext } from '@app/providers/LocationProvider';
+import useUserActions from '@shared/hooks/navigation/useUserActions';
 
 import { routeStrategiesHandlers } from './routerStrategies';
 

@@ -1,0 +1,19 @@
+.formLogin {
+  @include flex-column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.descriptionText {
+  margin-top: 0.75rem;
+  padding: 0 1rem;
+  text-align: center;
+  opacity: 0.4;
+  color: $black;
+}

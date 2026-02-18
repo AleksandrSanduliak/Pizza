@@ -1,0 +1,9 @@
+-- AlterTable
+ALTER TABLE "GlobalProductItemVariants" ADD COLUMN     "sizeName" TEXT,
+ALTER COLUMN "size" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "NutritionFacts" ALTER COLUMN "fats" SET DATA TYPE TEXT,
+ALTER COLUMN "proteins" SET DATA TYPE TEXT,
+ALTER COLUMN "carbs" SET DATA TYPE TEXT,
+ALTER COLUMN "calories" SET DATA TYPE TEXT;

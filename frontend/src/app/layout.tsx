@@ -1,39 +1,23 @@
-'use client';
-
+import 'react-toastify/dist/ReactToastify.css';
+import '@shared/styles/shadcn.css';
+import '@shared/styles/App.scss';
+import dynamic from 'next/dynamic';
 import React, { Suspense } from 'react';
 
-import dynamic from 'next/dynamic';
+// import { ToastContainer } from 'react-toastify';
+import { AppProvider } from '@app/providers/AppProvider';
+import FullScreenLoader from '@shared/ui/Loaders/FullScreenLoader/FullScreenLoader';
+import { Toaster } from '@shared/ui/sonner';
 
-// import type { Metadata } from 'next';
-import { ToastContainer } from 'react-toastify';
-
-import FullScreenLoader from 'atoms/Loaders/FullScreenLoader/FullScreenLoader';
-
-// import LocationProvider from './locationData/LocationProvider';
-import StoreProvider from './providers/StoreProvider';
-
-import 'react-toastify/dist/ReactToastify.css';
-import '../styles/App.scss';
-
-const Header = dynamic(() => import('organisms/Header/Header'), {
+const Header = dynamic(() => import('@widgets/header/header'), {
   loading: () => <FullScreenLoader />,
   ssr: true,
 });
-const Footer = dynamic(() => import('organisms/Footer/Footer'), {
+const Footer = dynamic(() => import('@widgets/footer/footer'), {
   loading: () => <FullScreenLoader />,
   ssr: true,
 });
-const LocationProvider = dynamic(() => import('./providers/LocationProvider'), {
-  loading: () => <FullScreenLoader />,
-  ssr: false,
-});
 
-// export const metadata: Metadata = {
-//   title: 'ToTo Pizza - React/TS',
-// };
-
-// const ymaps3Reactify = await ymaps3.import('@yandex/ymaps3-reactify');
-// const reactify = ymaps3Reactify.reactify.bindTo(React, ReactDOM); // todo
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -45,32 +29,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <Suspense fallback={<FullScreenLoader />}>
-          <StoreProvider>
-            <LocationProvider>
-              <div id="root">
-                <div className="wrapper">
-                  <Header />
-                  <main className="main">{children}</main>
-                  <Footer />
-                </div>
+          <AppProvider>
+            <div id="root">
+              <div className="wrapper">
+                <Header />
+                <main className="main">{children}</main>
+                <Footer />
               </div>
-              <div id="modal-root" />
-              <div id="fullscreen-loader-root" />
-              <div id="dropdown-root" />
-            </LocationProvider>
-          </StoreProvider>
-          <ToastContainer className="toast-root" />
+            </div>
+            <div id="modal-root" />
+            <div id="fullscreen-loader-root" />
+            <div id="dropdown-root" />
+            <Toaster richColors className="toast-root pointer-events-auto" />
+            {/* <ToastContainer className="toast-root" /> */}
+          </AppProvider>
         </Suspense>
       </body>
     </html>
   );
 }
-
-/* <!-- <script src="https://api-maps.yandex.ru/2.1/?apikey=ca13e5b7-6cd4-430e-9943-3a37419ee06e&lang=ru_RU"
-    type="text/javascript">
-    </script> --> */
-// <div id="modal-root" />
-// <div id="fullscreen-loader-root" />
-// <div id="dropdown-root" />
-// <script src="https://api-maps.yandex.ru/v3/?apikey=ca13e5b7-6cd4-430e-9943-3a37419ee06e&lang=ru_RU" />
-// <script type="module" src="/src/main.tsx" />

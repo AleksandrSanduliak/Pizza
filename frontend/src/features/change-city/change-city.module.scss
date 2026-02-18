@@ -1,0 +1,42 @@
+.location {
+  cursor: pointer;
+  font-family: $secondary-font;
+  transition: $fastColorTransition;
+  color: $black;
+  &:hover {
+    color: $primary;
+    transition: $fastColorTransition;
+  }
+
+  @media (max-width: 768.98px) {
+    overflow: unset;
+    text-overflow: unset;
+    max-width: none;
+    width: 9rem;
+  }
+}
+
+.list {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  padding: 0 1rem;
+}
+
+.listItem {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: $fastColorTransition;
+
+  &:hover {
+    color: $primary;
+    transition: $fastColorTransition;
+  }
+}
+
+.isActive {
+  color: $primary;
+}

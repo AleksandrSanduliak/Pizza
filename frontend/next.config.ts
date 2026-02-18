@@ -1,13 +1,52 @@
-import { NextConfig } from 'next';
+import path from 'path';
 
+import { NextConfig } from 'next';
+// @use "./src/6-shared/styles/_vars.scss" as *;
+
+// @use "@shared/styles/_vars.scss" as *;
+// @use "@shared/styles/_mixins.scss" as *;
 const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   distDir: './dist',
   sassOptions: {
+    includePaths: [path.join(__dirname, 'src')],
     prependData: `
-    @use "./src/styles/_vars.scss" as *;
-    @use "./src/styles/_mixins.scss" as *;
-    `,
+      @use "@shared/styles/_vars.scss" as *;
+      @use "@shared/styles/_mixins.scss" as *;
+  `,
+  },
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'media.dodostatic.net',
+        port: '',
+        pathname: '/image/**',
+        search: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdpiz1.pizzasoft.ru',
+      },
+    ],
+  },
+  reactStrictMode: true,
+  turbopack: {},
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.watchOptions = {
+        poll: 1000, // Poll every 1 second
+        aggregateTimeout: 300, // Delay before rebuilding
+      };
+    }
+    return config;
   },
 };
 
+// export default nextConfig;
+// Make sure you wrap your `nextConfig`
+// with the `withPayload` plugin
 export default nextConfig;

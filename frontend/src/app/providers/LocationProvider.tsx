@@ -1,11 +1,11 @@
 'use client';
-import React from 'react';
 
 import { usePathname } from 'next/navigation';
+import React from 'react';
 
-import { getCookie } from 'utils/funcs/cookie';
-import useUserActions from 'utils/hooks/navigation/useUserActions';
-import { TUseUserLocationResult } from 'utils/types/appNavigation';
+import { getCookie } from '@shared/funcs/cookie';
+import useUserActions from '@shared/hooks/navigation/useUserActions';
+import { TUseUserLocationResult } from '@shared/types/appNavigation';
 
 const Context = React.createContext<TUseUserLocationResult | null>(null);
 const LocationProvider = ({ children }: { children: React.ReactNode }) => {
