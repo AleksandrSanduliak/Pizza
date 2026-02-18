@@ -7,8 +7,8 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { useLoginUser } from '@features/auth/authApi';
 import { LoginFields, loginSchema } from '@features/auth/login/login.model';
-import FormItem from '@features/forms/FormItem/FormItem';
 import { Button } from '@shared/ui/button/button';
+import FormItem from '@shared/ui/inptuts/form-items/form-item';
 
 import styles from './login-form.module.scss';
 

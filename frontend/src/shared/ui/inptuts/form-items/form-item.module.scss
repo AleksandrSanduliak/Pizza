@@ -1,0 +1,22 @@
+.input {
+  color: $black;
+  padding-left: 1rem;
+
+  transition: $fastBorderTransition;
+  outline: none;
+
+  &:focus {
+    transition: $fastBorderTransition;
+    border: 0.125rem solid $primary;
+  }
+}
+
+.inputError {
+  transition: $fastBorderTransition;
+  border: 0.125rem solid $red;
+
+  &:focus {
+    transition: $fastBorderTransition;
+    border: 0.125rem solid $red;
+  }
+}

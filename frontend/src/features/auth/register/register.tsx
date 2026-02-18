@@ -10,8 +10,7 @@ import useUserMenu from '@entities/user-menu/useUserMenu';
 import { useRegisterUser } from '@features/auth/authApi';
 import { TFormRegister, registerSchema } from '@features/auth/register/register.model';
 import { Button } from '@shared/ui/button/button';
-
-import FormItem from '../../forms/FormItem/FormItem';
+import FormItem from '@shared/ui/inptuts/form-items/form-item';
 
 import styles from './register.module.scss';
 
