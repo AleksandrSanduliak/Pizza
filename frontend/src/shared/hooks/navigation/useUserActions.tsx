@@ -1,7 +1,6 @@
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import { cityInfo } from '@shared/consts/cityInfo';
 import { setCookie } from '@shared/funcs/cookie2';
 import { TSetLocationAndNavigateFn } from '@shared/types/appNavigation';
 

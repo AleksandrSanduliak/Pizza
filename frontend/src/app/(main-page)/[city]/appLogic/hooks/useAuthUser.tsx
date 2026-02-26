@@ -5,14 +5,16 @@ import { getCookie } from '@shared/funcs/cookie';
 import FullScreenLoader from '@shared/ui/Loaders/FullScreenLoader/FullScreenLoader';
 
 const useAuthUser = () => {
-  // const refresh = useRefreshToken();
+  const { refetch } = useRefreshToken();
+  console.log('auth iser');
   // const [refreshToken, { isLoading: isLoadRefreshToken }] = useLazyRefreshTokenQuery();
-  // React.useEffect(() => {
-  //   const accessToken = getCookie('accessToken');
-
-  //   if (!accessToken) return;
-  //   refreshToken();
-  // }, [refreshToken]);
+  React.useEffect(() => {
+    const accessToken = getCookie('accessToken');
+    console.log('accessToken', accessToken);
+    refetch();
+    if (!accessToken) return;
+    refetch();
+  }, [refetch]);
 
   // if (isLoadRefreshToken) return <FullScreenLoader />;
   return null;

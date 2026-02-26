@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   HttpException,
+  Param,
   Req,
   Res,
 } from '@nestjs/common';
@@ -13,18 +14,23 @@ import { GoodsService } from './goods.service';
 @Controller('api/v1/goods')
 export class GoodsController {
   constructor(private readonly goodsService: GoodsService) {}
-  @Get('getGoods')
+  @Get(':city')
   async getGoods(
+    @Param('city') city: string,
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ) {
-    console.log('req, req', req.cookies);
-    const cookie = req.cookies;
-    if (!cookie?.location)
+    if (!city)
       throw new BadRequestException('Отсутствует локация', {
         cause: new Error(),
         description: 'Отсутствует локация',
       });
-    return await this.goodsService.getGoods(cookie.location);
+    const cityData = await this.goodsService.getGoods(city);
+    if (!cityData)
+      throw new BadRequestException('Отсутствует локация', {
+        cause: new Error(),
+        description: `Отсутствуют данные по городу ${city}`,
+      });
+    return cityData;
   }
 }

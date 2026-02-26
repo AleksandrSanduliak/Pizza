@@ -9,6 +9,7 @@ import { useLoginUser } from '@features/auth/authApi';
 import { LoginFields, loginSchema } from '@features/auth/login/login.model';
 import { Button } from '@shared/ui/button/button';
 import FormItem from '@shared/ui/inptuts/form-items/form-item';
+import PasswordInput from '@shared/ui/inptuts/password-input/PasswordInput';
 
 import styles from './login-form.module.scss';
 

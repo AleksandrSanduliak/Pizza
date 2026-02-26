@@ -1,13 +1,12 @@
 import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
-
-// import { setItems } from '@entities/basket/cartSlice';
 import { isAxiosError } from 'axios';
 
 import useUserMenu from '@entities/user-menu/useUserMenu';
 import { setUser, logout } from '@features/auth/authSlice';
 import { LoginUseRequestData, LoginUserResponseData } from '@features/auth/model/api.interface';
-import { AUTH_API_URL } from '@shared/consts/api-list';
-import { axiosInstance } from '@shared/consts/axios';
+import { AUTH_API_URL } from '@shared/api/api-list';
+import { axiosInstance } from '@shared/api/axios';
+import { CONFIG } from '@shared/consts/config';
 import NotificationFacade from '@shared/funcs/facades/NotificationFacade';
 import { useAppDispatch } from '@shared/store/hooks';
 
@@ -93,9 +92,16 @@ export const useLogoutUser = () => {
   });
 };
 
-export const refreshRequest = async () => {
-  const response = await axiosInstance.get(`${AUTH_API_URL}/refresh`);
-  return response.data;
+export const refreshRequest = async (cookies: string) => {
+  const response = await fetch(`${CONFIG.backendUrl}/api/v1/auth/refresh`, {
+    credentials: 'include',
+    method: 'GET',
+    headers: {
+      Cookie: cookies,
+    },
+  });
+  console.log('REFRESH REQ', response);
+  return response.json();
 };
 
 export const useRefreshToken = () => {
@@ -104,7 +110,13 @@ export const useRefreshToken = () => {
 
   return useQuery({
     queryKey: ['refreshToken'],
-    queryFn: async () => refreshRequest,
+    queryFn: async () => {
+      const response = await axiosInstance.get(`${AUTH_API_URL}/refresh`, {
+        withCredentials: true,
+      });
+      console.log('REFRESH REQ', response);
+      return response.data;
+    },
     enabled: false,
     retry: false,
     onSuccess: (data: TUserResponse) => {

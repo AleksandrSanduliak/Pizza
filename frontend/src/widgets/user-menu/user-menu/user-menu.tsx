@@ -34,21 +34,19 @@ interface IAccoutList {
 }
 
 const AccountButtonsList = ({ isOpenMenu }: { isOpenMenu: boolean }) => {
-  // const actualLocation = useAppSelector((state) => state.userCity.currentCity);
   const bonuses = useAppSelector((state) => state.auth.bonuses);
 
-  const { onClickBurger } = useUserMenu();
-  // const [logout] = useLogoutUserMutation();
+  const { actions } = useUserMenu();
+
   const router = useRouter();
 
   const logoutClick = (): void => {
-    // logout();
     router.push(actualLocation);
   };
 
   const handleMenuClick = (url: string): void => {
     router.push(url);
-    onClickBurger();
+    actions.toggleBurger();
   };
 
   const accoutList: Array<IAccoutList> = [
@@ -61,7 +59,7 @@ const AccountButtonsList = ({ isOpenMenu }: { isOpenMenu: boolean }) => {
     {
       key: 'orderhistory',
       text: 'История заказов',
-      onClick: () => handleMenuClick(`${actualLocation}/orderhistory`),
+      onClick: () => handleMenuClick(`/orderhistory`),
       className: cn('normal', styles.text),
       animation: itemVariants,
     },
@@ -115,7 +113,9 @@ const UserCabinet = () => {
   return (
     <div ref={accountWrapper}>
       {/* <AccountButton title="Личный кабинет" isActive={isOpenMenu} onClickCb={onClick} /> */}
-      <Button variant="default">Личный кабинет </Button>
+      <Button onClick={onClick} variant="default">
+        Личный кабинет
+      </Button>
       <AccountButtonsList isOpenMenu={isOpenMenu} />
     </div>
   );

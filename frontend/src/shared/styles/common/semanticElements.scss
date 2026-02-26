@@ -34,7 +34,7 @@ input[type='number'] {
 input[type='radio'] {
   -webkit-appearance: none;
   appearance: none;
-  background-color: var($primary);
+  background-color: $primary;
   margin: 0;
 
   color: $primary;

@@ -1,22 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '@reduxjs/toolkit/query';
 
-import { LoginUserResponseData } from '@features/auth/model/api.interface';
+import { AuthData } from '@features/auth/auth.interface';
 import { eraseCookie } from '@shared/funcs/cookie';
 import { setCookie } from '@shared/funcs/cookie2';
-import { rootReducers } from '@shared/store/store';
+import { rootReducers, RootState } from '@shared/store/store';
 
-interface AuthSlice {
-  email: string | null;
-  name: string | null;
-  bonuses: number;
-  tokens: {
-    accessToken: string | null;
-  };
-  isAuth: boolean;
-}
-
-const initialState: AuthSlice = {
+const initialState: AuthData = {
   email: null,
   name: null,
   tokens: {
@@ -31,13 +20,12 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       state = initialState;
 
       eraseCookie('accessToken');
     },
 
-    setUser: (state, action: PayloadAction<LoginUserResponseData>) => {
+    setUser: (state, action: PayloadAction<AuthData>) => {
       console.log(' action.payload', action.payload);
       const { email, name, bonuses } = action.payload;
       const { accessToken } = action.payload.tokens;
@@ -67,6 +55,6 @@ const authSlice = createSlice({
 
 export default authSlice.reducer;
 
-export const selectIsAuth = (state: AuthSlice) => state?.auth?.isAuth ?? false;
+export const selectIsAuth = (state: RootState) => state?.auth?.isAuth ?? false;
 
 export const { logout, setUser, setUserData } = authSlice.actions;

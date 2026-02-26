@@ -5,11 +5,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import { categories } from '@shared/data/categories';
+import { Categories } from '@entities/city/city.schema';
 import { useAppSelector } from '@shared/store/hooks';
 import ConvertStrSvgToComponent from '@shared/ui/ConvertStrSvgToComponent/ConvertStrSvgToComponent';
 import Logo from '@shared/ui/logo/Logo';
 
+import { categoriesData } from './categories';
 import styles from './header-navigation.module.scss';
 
 const ANIMATION_CONFIG = {
@@ -65,24 +66,12 @@ const NavigationItem = ({ name, img, path }: NavigationItemProps) => {
   );
 };
 
-const ProductCategories = () => {
-  return (
-    <>
-      {categories.map((category) => (
-        <NavigationItem
-          key={category.name}
-          name={category.name}
-          img={category.img}
-          path={category.path}
-        />
-      ))}
-    </>
-  );
-};
-
-const NavigationList = () => {
+const NavigationList = ({ categories }: { categories: Categories }) => {
   const draggableElementRef = React.useRef<HTMLUListElement>(null);
-
+  const categoriesList = categories.map((item) => item.category);
+  const currentCategories = categoriesData.filter((item) => categoriesList.includes(item.path));
+  console.log('categoriesList', categoriesList);
+  console.log('currentCategories', currentCategories);
   return (
     <motion.ul
       layoutScroll
@@ -90,14 +79,22 @@ const NavigationList = () => {
       animate={ANIMATION_CONFIG.header}
       className={styles.navList}>
       <NavigationLogo />
-      <ProductCategories />
+      {currentCategories.map((category) => (
+        <NavigationItem
+          key={category.name}
+          name={category.name}
+          img={category.img}
+          path={category.path}
+        />
+      ))}
     </motion.ul>
   );
 };
 
-const HeaderNavigation = () => {
+const HeaderNavigation = ({ data }) => {
   const isVisible = useAppSelector((store) => store.headerNavigation.isVisible);
   console.log('isVisible', isVisible);
+  console.log('categories', data);
   return (
     <section className={styles.headerNavigation}>
       <div className={styles.headerNavigationWrapper}>
@@ -107,7 +104,7 @@ const HeaderNavigation = () => {
             [`fixed-header & ${styles.fixedHeaderWrapper}`]: isVisible,
           })}>
           <motion.div className="headerNavigation__container">
-            <NavigationList />
+            <NavigationList categories={data} />
           </motion.div>
         </motion.div>
       </div>

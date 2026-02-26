@@ -4,13 +4,13 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 
 import { getCookie } from '@shared/funcs/cookie';
-import useUserActions from '@shared/hooks/navigation/useUserActions';
+// import useUserActions from '@shared/hooks/navigation/useUserActions';
 import { TUseUserLocationResult } from '@shared/types/appNavigation';
 
 const Context = React.createContext<TUseUserLocationResult | null>(null);
 const LocationProvider = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
-  const { findCityInList } = useUserActions();
+  // const { findCityInList } = useUserActions();
 
   const data = React.useMemo((): TUseUserLocationResult => {
     const userSelectedLocation = getCookie('location') ?? null;
@@ -22,24 +22,24 @@ const LocationProvider = ({ children }: { children: React.ReactNode }) => {
     // HASH в url
     const urlHash = pathname.split('#')[1] ?? null;
 
-    const cityInUrlMatchedInList = userSelectedLocation
-      ? findCityInList(userSelectedLocation as string)
-      : null;
-    const userSelectedCityName = cityInUrlMatchedInList?.title;
-    const userLocationMatchedInList = userSelectedLocation ? findCityInList(cityFromUrl) : null;
-    const isMainPage = !subPaths || (subPaths.length === 0 && cityFromUrl === userSelectedLocation); // проверка нахождения на главной странице http://localhost/moscow
+    // const cityInUrlMatchedInList = userSelectedLocation
+    //   ? findCityInList(userSelectedLocation as string)
+    //   : null;
+    // const userSelectedCityName = cityInUrlMatchedInList?.title;
+    // const userLocationMatchedInList = userSelectedLocation ? findCityInList(cityFromUrl) : null;
+    // const isMainPage = !subPaths || (subPaths.length === 0 && cityFromUrl === userSelectedLocation); // проверка нахождения на главной странице http://localhost/moscow
 
     return {
       userSelectedLocation,
-      userSelectedCityName,
+      // userSelectedCityName,
       cityFromUrl,
       subPaths,
-      isMainPage,
+      // isMainPage,
       urlHash,
-      userLocationMatchedInList,
-      cityInUrlMatchedInList,
+      // userLocationMatchedInList,
+      // cityInUrlMatchedInList,
     };
-  }, [findCityInList, pathname]);
+  }, [pathname]);
 
   return <Context.Provider value={{ ...data }}>{children}</Context.Provider>;
 };

@@ -10,4 +10,18 @@ export class CityController {
     console.log('cityList', cityList);
     return cityList;
   }
+
+  @Get('cityInfo')
+  async getCityInfo() {
+    const cityList = await this.cityService.cityList();
+    console.log('cityList', cityList);
+    return cityList;
+  }
+
+  // @Get('cityGoods')
+  // async getCityInfo() {
+  //   const cityList = await this.cityService.cityList();
+  //   console.log('cityList', cityList);
+  //   return cityList;
+  // }
 }

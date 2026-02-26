@@ -30,9 +30,10 @@ $fastFilterTransition: 0.2s filter ease-in 0s;
 $shadow: 0px 0.5px 1px 0.5px rgba(0, 0, 0, 0.5);
 
 // filters
-$primary-filter: invert(63%) sepia(40%) saturate(7042%) hue-rotate(352deg) brightness(101%) contrast(101%);
-$red-filter: brightness(0) saturate(100%) invert(30%) sepia(24%) saturate(3621%) hue-rotate(332deg) brightness(113%) contrast(100%);
-
+$primary-filter: invert(63%) sepia(40%) saturate(7042%) hue-rotate(352deg) brightness(101%)
+  contrast(101%);
+$red-filter: brightness(0) saturate(100%) invert(30%) sepia(24%) saturate(3621%) hue-rotate(332deg)
+  brightness(113%) contrast(100%);
 
 // :export {
 //   primary-font: $primary-font;

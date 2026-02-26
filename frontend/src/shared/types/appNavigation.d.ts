@@ -15,13 +15,13 @@ export type TUserCityName = string | undefined;
 
 type TUseUserLocationResult = {
   userSelectedLocation: TUserLocation;
-  userSelectedCityName: TUserCityName;
+  // userSelectedCityName: TUserCityName;
   cityFromUrl: TCityInUrl;
   subPaths: TPaths;
-  isMainPage: TIsUrlMainPage;
+  // isMainPage: TIsUrlMainPage;
   urlHash: TAppHash;
-  userLocationMatchedInList: TUserLocationEqualsList;
-  cityInUrlMatchedInList: TCityInUrlEqualsList;
+  // userLocationMatchedInList: TUserLocationEqualsList;
+  // cityInUrlMatchedInList: TCityInUrlEqualsList;
 };
 
 export type TUseUseLocation = () => TUseUserLocationResult;

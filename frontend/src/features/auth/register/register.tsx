@@ -22,7 +22,6 @@ const FormFields = () => {
       <FormItem
         name="phone"
         title="Номер телефона"
-        isRegisterMask={true}
         mask={['+7 999 999-99-99']}
         maskOptions={{
           required: true,
@@ -31,7 +30,6 @@ const FormFields = () => {
       <FormItem
         name="dateBirth"
         title="День рождения"
-        isRegisterMask={true}
         mask="datetime"
         maskOptions={{
           inputFormat: 'dd-mm-yyyy',

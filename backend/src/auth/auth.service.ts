@@ -65,10 +65,10 @@ export class AuthService {
     console.log('tokens', tokens);
 
     return {
-        email: userData.email,
-        name: userData.name,
-        bonuses: userData.bonuses,
-        tokens,
+      email: userData.email,
+      name: userData.name,
+      bonuses: userData.bonuses,
+      tokens,
     };
   }
 
@@ -87,10 +87,10 @@ export class AuthService {
     const tokens = await this.tokenService.generateTokens({ email });
     await this.redis.set(email, JSON.stringify(tokens));
     return {
-        email: user.email,
-        name: user.name,
-        bonuses: user.bonuses,
-        tokens,
+      email: user.email,
+      name: user.name,
+      bonuses: user.bonuses,
+      tokens,
     };
   }
 
@@ -102,9 +102,20 @@ export class AuthService {
     const isValidRefreshToken =
       await this.tokenService.validateRefreshToken(refreshToken);
     console.log('isValidRefreshToken', isValidRefreshToken);
-    if (!isValidRefreshToken || !isValidRefreshToken.mail)
+    console.log(
+      '!isValidRefreshToken || !isValidRefreshToken.email',
+      !isValidRefreshToken || !isValidRefreshToken.email,
+    );
+    console.log('!isValidRefreshToken', !isValidRefreshToken);
+    console.log(
+      '!isValidRefreshToken.mail',
+      !isValidRefreshToken.email,
+      isValidRefreshToken.email,
+    );
+    if (!isValidRefreshToken || !isValidRefreshToken.email)
       throw new UnauthorizedException();
     const { email } = isValidRefreshToken;
+    console.log('after throw error');
     const tokens = JSON.parse(await this.redis.get(email));
     if (!tokens) throw new UnauthorizedException();
     console.log('tokens', tokens);
@@ -120,10 +131,10 @@ export class AuthService {
     );
     console.log('user refresh', userData);
     return {
-        email: isValidRefreshToken.email,
-        name: userData.name,
-        bonuses: userData.bonuses,
-        tokens,
+      email: isValidRefreshToken.email,
+      name: userData.name,
+      bonuses: userData.bonuses,
+      tokens,
     };
   }
 

@@ -2,12 +2,13 @@
 import React from 'react';
 
 // import Image from 'next/image';
+import { useSaveOrderMutation } from '@app/(order)/order/orderApi';
 import PromoCode from '@features/promoCode/PromoCode';
 import ShoppingItem from '@features/shoppingItem/ShoppingItem1';
-import { useSaveOrderMutation } from '@app/(order)/order/orderApi';
-import { useAppSelector } from '@shared/lib/store/hooks';
+import NotificationFacade from '@shared/funcs/facades/NotificationFacade';
+import { useAppSelector } from '@shared/store/hooks';
 import Loader from '@shared/ui/Loaders/Loader/Loader';
-import NotificationFacade from '@shared/utils/funcs/facades/NotificationFacade';
+
 // import SuccesDelivery from '/public/imgs/order/succesDelivery.webp';
 
 // import cl from './order.module.scss';

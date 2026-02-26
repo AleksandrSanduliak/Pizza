@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { rootReducers } from '@shared/store/store';
 
-import { setAuthMobile } from '../../entities/user-menu/user-menu.slice';
+// import { setAuthMobile } from '../../../entities/user-menu/user-menu.slice';
 
 type TInitialState = {
   isVisible: boolean;

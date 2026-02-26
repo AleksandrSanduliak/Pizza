@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { setDiscountPrice, setItems, setOrderId } from '@entities/basket/cartSlice';
-import { orderApiUrl } from '@shared/consts/api-list';
+import { orderApiUrl } from '@shared/api/api-list';
 import { TFoodItem } from '@shared/types/types';
 
 export const orderApi = createApi({

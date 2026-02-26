@@ -17,10 +17,11 @@ const Login = () => {
           Сможете быстро оформлять заказы, использовать накопленные бонусы, промокоды, скидки и
           уникальные акции
         </p>
-        <p
-          className={cn('normal', styles.register)}
-          onClick={() => actions.toggleRegister()}>
-          Отсутствует аккаунт?&nbsp;<span className={styles.registration}>Зарегистрируйтесь</span>
+        <p className={cn('normal', styles.register)}>
+          Отсутствует аккаунт?&nbsp;
+          <span onClick={() => actions.toggleRegister()} className={styles.registration}>
+            Зарегистрируйтесь
+          </span>
         </p>
       </div>
       <LoginForm />

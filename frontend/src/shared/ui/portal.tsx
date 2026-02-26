@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 interface IPortal {
@@ -8,7 +8,7 @@ interface IPortal {
 }
 
 const Portal = ({ target, isShow, children }: IPortal) => {
-  const ref = React.useRef<Element | null>();
+  const ref = useRef<Element | null>();
   React.useEffect(() => {
     ref.current = document.getElementById(target);
   }, [target]);

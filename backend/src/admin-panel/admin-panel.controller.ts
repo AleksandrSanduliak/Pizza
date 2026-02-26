@@ -74,7 +74,7 @@ export class AdminPanelController {
   @Get('getGlobalCategories')
   async getGlobalCategories(@Res() res: Response) {
     const { totalCount, globalCategories } = await this.adminPanelService.getGlobalCategories();
-    console.log('totalCount, globalCategories', totalCount, globalCategories)
+    // console.log('totalCount, globalCategories', totalCount, globalCategories)
     // res.header('X-Total-Count', totalCount);
     // headers('X-Total-Count', totalCount)
     res.header('Access-Control-Expose-Headers', 'X-Total-Count')

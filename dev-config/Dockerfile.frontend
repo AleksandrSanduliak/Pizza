@@ -9,5 +9,12 @@ RUN npm install --force
 COPY . .
 
 ENV HOSTNAME="0.0.0.0"
+# ENV PORT=3000
+# ENV NODE_ENV=development
+# ENV CHOKIDAR_USEPOLLING=true
+# ENV NEXT_WEBPACK_USEPOLLING=true
+
+# Важно для Next.js в Docker
+ENV WATCHPACK_POLLING=true
 
 CMD [ "npm", "run", "dev" ]

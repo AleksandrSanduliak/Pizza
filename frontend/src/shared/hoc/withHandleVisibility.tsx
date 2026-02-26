@@ -3,7 +3,7 @@
 import { RefObject, useEffect, useRef } from 'react';
 
 import { useAppDispatch } from '@shared/store/hooks';
-import { visibleStatus } from '@widgets/header/header-navigation.slice';
+import { visibleStatus } from '@widgets/card-sections/header-navigation/header-navigation.slice';
 
 const useElementVisibility = (
   ref: RefObject<HTMLElement | null>,
@@ -26,6 +26,7 @@ const useElementVisibility = (
 
 const withHandleVisibility = (Component: React.ComponentType) => {
   return function WithVisibility(props: any) {
+    console.log('props', props);
     const dispatch = useAppDispatch();
     const wrapperRef = useRef<HTMLDivElement>(null);
 

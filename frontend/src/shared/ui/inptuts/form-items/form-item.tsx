@@ -4,6 +4,9 @@ import React from 'react';
 import { FieldError, RegisterOptions, useFormContext } from 'react-hook-form';
 import { Mask, useHookFormMask } from 'use-mask-input';
 
+import { Input } from '@shared/ui/input/input';
+import { Label } from '@shared/ui/label';
+
 import cl from './form-item.module.scss';
 
 interface Field {
@@ -36,7 +39,7 @@ interface FormItem {
   mask?: Mask;
   maskOptions?: RegisterOptions;
 }
-const FormItem = ({ name, title, type, mask, maskOptions, isRegisterMask }: FormItem) => {
+const FormItem = ({ name, title, type, mask, maskOptions }: FormItem) => {
   const {
     register,
     formState: { errors },

@@ -1,11 +1,13 @@
-import 'react-toastify/dist/ReactToastify.css';
 import '@shared/styles/shadcn.css';
 import '@shared/styles/App.scss';
 import dynamic from 'next/dynamic';
-import React, { Suspense } from 'react';
+import { cookies } from 'next/headers';
+import React, { cloneElement, ReactNode, Suspense } from 'react';
 
-// import { ToastContainer } from 'react-toastify';
+import { getCityInfo } from '@app/actions/getCityInfo';
 import { AppProvider } from '@app/providers/AppProvider';
+import { refreshRequest } from '@features/auth/authApi';
+import { CityData } from '@shared/interfaces/city';
 import FullScreenLoader from '@shared/ui/Loaders/FullScreenLoader/FullScreenLoader';
 import { Toaster } from '@shared/ui/sonner';
 
@@ -18,22 +20,38 @@ const Footer = dynamic(() => import('@widgets/footer/footer'), {
   ssr: true,
 });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const getUserData = async () => {
+  const cookieStorie = cookies();
+  const accessToken = (await cookieStorie).get('accessToken')?.value;
+  console.log('accessToken', accessToken);
+  if (!accessToken) return;
+  console.log('startrefresh');
+  const allCookies = (await cookies()).toString();
+  const refresh = await refreshRequest(allCookies);
+  console.log('refresh', refresh);
+  return refresh;
+};
+
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+  rootSlot: (cityData: CityData) => ReactNode;
+}) {
+  const userData = await getUserData();
+  const cityData = await getCityInfo();
+  console.log('userData', userData);
+  console.log('cityData', cityData);
   return (
     <html lang="en">
-      <head>
-        {/* <meta charSet="UTF-8" /> */}
-        {/* <link rel="icon" type="image/svg+xml" href="./src/assets/icons/pizzaLogo.ico" /> */}
-        {/* <meta name="viewport" content="width=device-width, initial-scale=1.0" /> */}
-        {/* <title>ToTo Pizza - React/TS</title> */}
-      </head>
       <body>
         <Suspense fallback={<FullScreenLoader />}>
-          <AppProvider>
+          <AppProvider initialState={{ userData, cityData }}>
             <div id="root">
               <div className="wrapper">
-                <Header />
+                <Header data={cityData} />
                 <main className="main">{children}</main>
+                {/* <main className="main">{cloneElement(children, { cityData })}</main> */}
                 <Footer />
               </div>
             </div>
@@ -41,7 +59,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div id="fullscreen-loader-root" />
             <div id="dropdown-root" />
             <Toaster richColors className="toast-root pointer-events-auto" />
-            {/* <ToastContainer className="toast-root" /> */}
           </AppProvider>
         </Suspense>
       </body>

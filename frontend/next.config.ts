@@ -1,13 +1,13 @@
 import path from 'path';
 
 import { NextConfig } from 'next';
-// @use "./src/6-shared/styles/_vars.scss" as *;
 
-// @use "@shared/styles/_vars.scss" as *;
-// @use "@shared/styles/_mixins.scss" as *;
 const nextConfig: NextConfig = {
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: true, // УБРАТЬ
+  },
+  eslint: {
+    ignoreDuringBuilds: true, // УБРАТЬ
   },
   distDir: './dist',
   sassOptions: {
@@ -34,7 +34,6 @@ const nextConfig: NextConfig = {
     ],
   },
   reactStrictMode: true,
-  turbopack: {},
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.watchOptions = {

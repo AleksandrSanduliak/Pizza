@@ -12,6 +12,7 @@ const ChangeCity = dynamic(() => import('@features/change-city/change-city'), {
   loading: () => <FullScreenLoader />,
   ssr: false,
 });
+
 const UserMenu = dynamic(() => import('@widgets/user-menu/user-menu/user-menu'), {
   loading: () => <FullScreenLoader />,
   ssr: false,

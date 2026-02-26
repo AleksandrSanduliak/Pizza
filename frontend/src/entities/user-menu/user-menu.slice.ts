@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { rootReducers } from '@shared/store/store';
 
 const initialState = {
-  isLogginClicked: false,
+  isLoginClicked: false,
   isRegisterClicked: false,
   isBurgerClicked: false,
   isBasketClicked: false,
@@ -14,11 +14,11 @@ const userMenuSlice = createSlice({
   initialState,
   reducers: {
     toggleLoginMenu: (state) => {
-      if (!state.isLogginClicked && state.isRegisterClicked) {
+      if (!state.isLoginClicked && state.isRegisterClicked) {
         // desktop: при закрытии модалки авторизации сбрасываем флаг регистрации
         state.isRegisterClicked = !state.isRegisterClicked;
       }
-      state.isLogginClicked = !state.isLogginClicked;
+      state.isLoginClicked = !state.isLoginClicked;
     },
     toggleRegisterMenu: (state) => {
       state.isRegisterClicked = !state.isRegisterClicked;
