@@ -1,31 +1,17 @@
-'use client';
-
 import cn from 'clsx';
-import dynamic from 'next/dynamic';
 
-import useMediaQuery from '@shared/hooks/ui/useMediaQuery';
-import FullScreenLoader from '@shared/ui/Loaders/FullScreenLoader/FullScreenLoader';
+import { CityInfo } from '@entities/city/city.schema';
+import HeaderChangeCity from '@widgets/header/header-change-city';
+import UserMenu from '@widgets/user-menu/user-menu/user-menu';
 
 import styles from './header-top.module.scss';
 
-const ChangeCity = dynamic(() => import('@features/change-city/change-city'), {
-  loading: () => <FullScreenLoader />,
-  ssr: false,
-});
-
-const UserMenu = dynamic(() => import('@widgets/user-menu/user-menu/user-menu'), {
-  loading: () => <FullScreenLoader />,
-  ssr: false,
-});
-
 const CafeInformation = () => {
-  const isMatching400px = useMediaQuery(400);
-
   return (
     <>
       <div className={styles.leftBlock}>
         <p className={cn('mini', styles.delivery)}>
-          {isMatching400px ? 'Ср.' : 'Среднее '}время доставки*:
+          Среднее время доставки*:
           <br />
           <span className="minibold">00:24:19</span>
         </p>
@@ -40,16 +26,15 @@ const CafeInformation = () => {
   );
 };
 
-const HeaderTop = () => {
-  const isMobile = useMediaQuery();
-
+const HeaderTop = ({ data }: { data: CityInfo }) => {
+  const { name } = data;
   return (
     <header className={styles.headerTop}>
       <div className="header__container">
         <div className={styles.headerTopInner}>
-          <ChangeCity />
+          <HeaderChangeCity currentCity={name} />
           <CafeInformation />
-          {!isMobile && <UserMenu />}
+          <UserMenu />
         </div>
       </div>
     </header>

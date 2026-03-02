@@ -1,54 +1,33 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import cn from 'clsx';
-// import { Link } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { ReactNode, useState } from 'react';
 
-import { CITY_API_URL } from '@shared/api/api-list';
-import { axiosInstance } from '@shared/api/axios';
+import { CitiesList, type CityList } from '@entities/city/client-api';
 import { setCookie } from '@shared/funcs/cookie2';
 import { CityData } from '@shared/interfaces/city';
 import { TUserCityName } from '@shared/types/appNavigation';
-import { Button } from '@shared/ui/button/button';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@shared/ui/dialog';
-import logo from 'public/icons/isLogo.svg';
+import { cn } from '@shared/utils/shadcn-utils';
 
 import styles from './change-city.module.scss';
 
-const UseCityList = () => {
-  return useQuery({
-    queryKey: [],
-    queryFn: async () => {
-      const cityListResponse = await axiosInstance(`${CITY_API_URL}/cityList`, {
-        withCredentials: false,
-      });
-      console.log('cityListResponse', cityListResponse);
-      return cityListResponse.data;
-    },
-    retry: false,
-  });
-};
-
 const CityList = ({
   userCityName,
+  cityList,
   cb,
 }: {
   userCityName: TUserCityName;
+  cityList: CityList;
   cb: (name: string) => void;
 }) => {
-  const { data: cityList, isError, isLoading, error } = UseCityList();
-  console.log('cityList', cityList);
   return (
     <ul className={styles.list}>
       {cityList?.length > 0 &&
@@ -70,45 +49,43 @@ const CityList = ({
   );
 };
 
-const ActualUserLocation = ({ userCityName }: { userCityName: TUserCityName }) => {
-  return (
-    <div className="flex items-center">
-      <Image src={logo.src} alt="Иконка локации" width={24} height={24} className="icon" />
-      <span className={cn('bigtext', styles.location)}>{userCityName ?? 'Выберите город'}</span>
-    </div>
-  );
-};
-
-const ChangeCity = () => {
+function ChangeCity({
+  currentCity,
+  isOpenModal = false,
+  buttonSlot,
+  cityList,
+  renderPropButton,
+}: {
+  currentCity: string;
+  isOpenModal?: boolean;
+  cityList: CitiesList;
+  buttonSlot?: React.ReactNode;
+  renderPropButton?: (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>) => ReactNode;
+}) {
+  console.log('cityList', cityList);
   const router = useRouter();
-  const city = 'Москва';
+  const [isOpen, setIsOpen] = useState<boolean>(isOpenModal);
   const onChangeLocation = (city: string) => {
     console.log('city 123', city);
     setCookie({ name: 'location', value: city, expiresType: 'days', expiresValue: 30 });
     router.push(city);
   };
-
   return (
     <div className={styles.cityModal}>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button>
-            <ActualUserLocation userCityName={city} />
-          </Button>
-        </DialogTrigger>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        {buttonSlot}
+        {renderPropButton && renderPropButton(setIsOpen)}
         <DialogContent className="min-h-[15rem] bg-white">
           <DialogHeader>
             <DialogTitle className="mt-4">
               <p className="h1 text-center">Выберите город</p>
-              <DialogDescription />
             </DialogTitle>
+            <DialogDescription />
           </DialogHeader>
-
-          <CityList userCityName={city} cb={onChangeLocation} />
+          <CityList cityList={cityList} userCityName={currentCity} cb={onChangeLocation} />
         </DialogContent>
       </Dialog>
     </div>
   );
-};
-
+}
 export default ChangeCity;

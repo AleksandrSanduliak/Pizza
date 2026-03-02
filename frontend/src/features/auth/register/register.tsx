@@ -8,7 +8,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import useUserMenu from '@entities/user-menu/useUserMenu';
 import { useRegisterUser } from '@features/auth/authApi';
-import { TFormRegister, registerSchema } from '@features/auth/register/register.model';
+import { Register, registerSchema } from '@features/auth/register/register.model';
 import { Button } from '@shared/ui/button/button';
 import FormItem from '@shared/ui/inptuts/form-items/form-item';
 
@@ -45,11 +45,11 @@ const FormFields = () => {
 const RegisterForm = () => {
   const { actions } = useUserMenu();
 
-  const form = useForm<TFormRegister>({
+  const form = useForm<Register>({
     resolver: zodResolver(registerSchema),
   });
   const { mutate: mutationFn, isPending } = useRegisterUser();
-  const onSubmit: SubmitHandler<TFormRegister> = (data) => mutationFn(data);
+  const onSubmit: SubmitHandler<Register> = (data) => mutationFn(data);
 
   React.useEffect(() => {
     form.setFocus('name');

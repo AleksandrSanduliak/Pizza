@@ -2,15 +2,14 @@
 import cn from 'classnames';
 import React from 'react';
 
-
 import cl from './Loader.module.scss';
 
 interface ILoader {
-  loaderClassName?: string;
+  className?: string;
 }
 
-const Loader = ({ loaderClassName }: ILoader) => {
-  return <div className={cn(cl.loader, loaderClassName)} />;
+const Loader = ({ className }: ILoader) => {
+  return <div className={cn(cl.loader, className)} />;
 };
 
 export default Loader;

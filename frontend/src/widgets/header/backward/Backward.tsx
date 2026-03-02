@@ -51,32 +51,32 @@ const createBackwardStrategy = (
 };
 
 const Backward = () => {
-  const [isShow, setIsShow] = React.useState<boolean>(false);
+  // const [isShow, setIsShow] = React.useState<boolean>(false);
 
-  const { isAccountClick, isRegisterClick, onClickAuth } = useUserMenu();
-  const isMobile = useMediaQuery();
-  const router = useRouter();
+  // const { isAccountClick, isRegisterClick, onClickAuth } = useUserMenu();
+  // const isMobile = useMediaQuery();
+  // const router = useRouter();
 
-  const { isUrlMainPage, userLocation } = useUserLocationContext();
+  // const { isUrlMainPage, userLocation } = useUserLocationContext();
 
-  const strategy = createBackwardStrategy(
-    isAccountClick,
-    isRegisterClick,
-    isUrlMainPage,
-    onClickAuth,
-    router,
-  );
+  // const strategy = createBackwardStrategy(
+  //   isAccountClick,
+  //   isRegisterClick,
+  //   isUrlMainPage,
+  //   onClickAuth,
+  //   router,
+  // );
 
-  React.useEffect(() => {
-    if ((isMobile && isAccountClick) || (isMobile && isRegisterClick)) {
-      setIsShow(true);
-      return;
-    }
+  // React.useEffect(() => {
+  //   if ((isMobile && isAccountClick) || (isMobile && isRegisterClick)) {
+  //     setIsShow(true);
+  //     return;
+  //   }
 
-    setIsShow(false);
-  }, [userLocation, isAccountClick, isMobile, isRegisterClick]);
+  //   setIsShow(false);
+  // }, [userLocation, isAccountClick, isMobile, isRegisterClick]);
 
-  return isShow && <BackwardButton onClick={strategy} />;
+  return <BackwardButton />;
 };
 
 export default Backward;

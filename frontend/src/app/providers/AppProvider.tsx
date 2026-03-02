@@ -3,8 +3,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 
-import { City } from '@entities/city/city';
-import { AuthData } from '@features/auth/auth.interface';
+import { City } from '@entities/city/city.schema';
+import { AuthState } from '@features/auth/authSlice';
 
 import LocationProvider from './LocationProvider';
 import StoreProvider from './StoreProvider';
@@ -29,14 +29,18 @@ export function AppProvider({
 }: {
   children: React.ReactNode;
   initialState: {
-    userData: AuthData;
+    userData: AuthState;
     cityData: City;
   };
 }) {
   return (
     <QueryClientProvider client={queryClient}>
       <StoreProvider initialState={initialState}>
-        <LocationProvider>{children}</LocationProvider>
+        {/* <LocationProvider>
+          {children}
+
+        </LocationProvider> */}
+        {children}
       </StoreProvider>
     </QueryClientProvider>
   );

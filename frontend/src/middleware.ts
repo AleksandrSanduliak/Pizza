@@ -3,8 +3,10 @@ import type { NextRequest } from 'next/server';
 
 export async function middleware(request: NextRequest) {
   const location = request.cookies.get('location')?.value;
+  console.log('location', location);
   if (!location) {
-    return NextResponse.redirect(new URL('/', request.url));
+    console.log('!location', !location);
+    return NextResponse.next();
   }
   return NextResponse.redirect(new URL(`/${location}`, request.url));
 }

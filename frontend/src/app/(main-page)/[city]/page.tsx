@@ -1,23 +1,22 @@
 import dynamic from 'next/dynamic';
 
-import { getCityInfoByParams } from '@app/actions/getCityInfo';
-import { CONFIG } from '@shared/consts/config';
-import { CityData } from '@shared/interfaces/city';
-import FullScreenLoader from '@shared/ui/Loaders/FullScreenLoader/FullScreenLoader';
+import { getCityList } from '@entities/city/api/cities-list';
+import { getCityCategories } from '@entities/city/api/city-categories';
+import { Categories } from '@entities/city/city.schema';
+import { CityItem } from '@entities/city/model/city-list-schema';
 
 const CardSections = dynamic(() => import('@widgets/card-sections/card-sections'), {
-  loading: () => <FullScreenLoader />,
+  loading: () => <div>...loading</div>,
   ssr: true,
 });
 
-export default async function MainPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function MainPage({ params }: { params: Promise<{ city: Categories }> }) {
   const { city } = await params;
+  console.log('params', city);
   const cityStr = city.toString();
-  const cityData = await getCityInfoByParams(cityStr);
-  const categories = cityData?.categories ?? [];
-  console.log('params', cityStr);
+  const cityData = await getCityCategories(cityStr);
   console.log('cityData', cityData);
-  // console.log('categories', categories);
+  const categories = cityData ?? [];
   return (
     <>
       <CardSections data={categories} />
@@ -26,22 +25,10 @@ export default async function MainPage({ params }: { params: Promise<{ slug: str
 }
 
 export async function generateStaticParams() {
-  const cityList = await fetch(`${CONFIG.backendUrl}/api/v1/city/cityList`).then((res) =>
-    res.json(),
-  );
-  console.log('posts', cityList);
+  const cityList = await getCityList();
+  if (!cityList) throw new Error('Ошибка получения городов');
 
-  const params = await Promise.all(
-    cityList.map(async (cityData: CityData) => {
-      // Получаем данные для каждого города
-      const cityInfo = await getCityInfoByParams(cityData.city.toString());
-
-      return {
-        city: cityData.city.toString(),
-        // Можно добавить дополнительные параметры если нужно
-        ...cityInfo,
-      };
-    }),
-  );
-  return params;
+  return cityList.map((item: CityItem) => {
+    return { city: item.city };
+  });
 }

@@ -6,21 +6,20 @@ import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { useLoginUser } from '@features/auth/authApi';
-import { LoginFields, loginSchema } from '@features/auth/login/login.model';
+import { Login, loginSchema } from '@features/auth/login/login.model';
 import { Button } from '@shared/ui/button/button';
 import FormItem from '@shared/ui/inptuts/form-items/form-item';
-import PasswordInput from '@shared/ui/inptuts/password-input/PasswordInput';
 
 import styles from './login-form.module.scss';
 
 const LoginForm: React.FC = () => {
   const { mutate: loginRequest, isPending } = useLoginUser();
 
-  const form = useForm<LoginFields>({
+  const form = useForm<Login>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit: SubmitHandler<LoginFields> = (data) => {
+  const onSubmit: SubmitHandler<Login> = (data) => {
     loginRequest(data);
   };
 

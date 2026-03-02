@@ -5,11 +5,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import useUserMenu from '@entities/user-menu/useUserMenu';
+import { useLogoutUser } from '@features/auth/authApi';
 import { selectIsAuth } from '@features/auth/authSlice';
 import Login from '@features/auth/login/login';
 import RegisterForm from '@features/auth/register/register';
 import { itemVariants, parentVariants } from '@shared/animations/dropdownAnim';
-import useMediaQuery from '@shared/hooks/ui/useMediaQuery';
 import { useAppSelector } from '@shared/store/hooks';
 import { Button } from '@shared/ui/button/button';
 import {
@@ -34,14 +34,16 @@ interface IAccoutList {
 }
 
 const AccountButtonsList = ({ isOpenMenu }: { isOpenMenu: boolean }) => {
-  const bonuses = useAppSelector((state) => state.auth.bonuses);
-
+  const { mutate: logout } = useLogoutUser();
   const { actions } = useUserMenu();
+  const bonuses = useAppSelector((state) => state.auth.bonuses);
+  console.log('bonuses', bonuses);
 
   const router = useRouter();
 
   const logoutClick = (): void => {
-    router.push(actualLocation);
+    logout();
+    router.push('/moscow');
   };
 
   const handleMenuClick = (url: string): void => {
@@ -59,14 +61,14 @@ const AccountButtonsList = ({ isOpenMenu }: { isOpenMenu: boolean }) => {
     {
       key: 'orderhistory',
       text: 'История заказов',
-      onClick: () => handleMenuClick(`/orderhistory`),
+      onClick: () => handleMenuClick(ROUTES.ORDERHISTORY),
       className: cn('normal', styles.text),
       animation: itemVariants,
     },
     {
       key: 'settings',
       text: 'Настройки',
-      onClick: () => handleMenuClick('/settings'),
+      onClick: () => handleMenuClick(ROUTES.SETTINGS),
       className: cn('normal', styles.text),
       animation: itemVariants,
     },
@@ -112,7 +114,6 @@ const UserCabinet = () => {
 
   return (
     <div ref={accountWrapper}>
-      {/* <AccountButton title="Личный кабинет" isActive={isOpenMenu} onClickCb={onClick} /> */}
       <Button onClick={onClick} variant="default">
         Личный кабинет
       </Button>
@@ -145,7 +146,6 @@ const AuthModal = () => {
 const UserMenu = () => {
   const isAuth = useAppSelector(selectIsAuth);
 
-  console.log('isAuth', isAuth);
   return (
     <div className={styles.userMenu}>
       <Image

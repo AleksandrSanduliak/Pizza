@@ -3,7 +3,7 @@
 import cn from 'clsx';
 import Link from 'next/link';
 
-import { useUserLocationContext } from '@app/providers/LocationProvider';
+import { CityInfo } from '@entities/city/city.schema';
 import useUserMenu from '@entities/user-menu/useUserMenu';
 import ShoppingBag from '@features/shoppingBag/ShoppingBag';
 import useMediaQuery from '@shared/hooks/ui/useMediaQuery';
@@ -14,8 +14,7 @@ import BurgerContent from '@widgets/user-menu/burger-user-menu/BurgerContent';
 
 import styles from './header-main.module.scss';
 
-const HeaderLogo = () => {
-  const { userLocation } = useUserLocationContext();
+const HeaderLogo = ({ userLocation }: { userLocation: string }) => {
   const href: string = (userLocation as string) ?? '/';
   return (
     <div className={styles.logoWrapper}>
@@ -27,38 +26,29 @@ const HeaderLogo = () => {
   );
 };
 
-const HeaderControlBar = () => {
-  const { isUrlMainPage } = useUserLocationContext();
+const HeaderMain = ({ data }: { data: CityInfo }) => {
   const isMobile = useMediaQuery();
-
-  return (
-    <div className={styles.headerMiddle}>
-      <div className="header__container">
-        <div className={styles.headerMiddleInner}>
-          <HeaderLogo />
-          {isUrlMainPage && <ShoppingBag />}
-          {isMobile && <BurgerButton />}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const HeaderMiddle = () => {
-  const isMobile = useMediaQuery();
-  const { isBurgerClick } = useUserMenu();
+  const { state } = useUserMenu();
 
   return (
     <header className={styles.headerNav}>
       <nav
         className={cn(styles.headerNavWrapper, {
-          [styles.headerOverflowScroll]: isBurgerClick,
+          [styles.headerOverflowScroll]: state.isBurgerClicked,
         })}>
-        <HeaderControlBar />
-        {isMobile && isBurgerClick && <BurgerContent />}
+        <div className={styles.headerMiddle}>
+          <div className="header__container">
+            <div className={styles.headerMiddleInner}>
+              <HeaderLogo userLocation={data.city} />
+              <ShoppingBag />
+              {isMobile && <BurgerButton />}
+            </div>
+          </div>
+        </div>
+        {isMobile && state.isBurgerClicked && <BurgerContent />}
       </nav>
     </header>
   );
 };
 
-export default HeaderMiddle;
+export default HeaderMain;

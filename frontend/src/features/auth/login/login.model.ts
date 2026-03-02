@@ -11,4 +11,4 @@ export const loginSchema = z.object({
     .max(38, { message: 'Пароль должен быть менее 38 символов' }),
 });
 
-export type LoginFields = z.infer<typeof loginSchema>;
+export type Login = z.infer<typeof loginSchema>;

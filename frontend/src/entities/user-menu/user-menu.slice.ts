@@ -2,7 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { rootReducers } from '@shared/store/store';
 
-const initialState = {
+interface UserMenuState {
+  isLoginClicked: boolean;
+  isRegisterClicked: boolean;
+  isBurgerClicked: boolean;
+  isBasketClicked: boolean;
+}
+
+const initialState: UserMenuState = {
   isLoginClicked: false,
   isRegisterClicked: false,
   isBurgerClicked: false,

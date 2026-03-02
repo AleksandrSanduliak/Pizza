@@ -26,7 +26,7 @@ const ANIMATION_CONFIG = {
 } as const;
 
 const NavigationLogo = () => {
-  const isVisible = useAppSelector((store) => store.headerNavigation.isVisible);
+  const isVisible = useAppSelector((store) => store?.headerNavigation?.isVisible) ?? false;
 
   return (
     <AnimatePresence>
@@ -70,7 +70,7 @@ const NavigationList = ({ categories }: { categories: Categories }) => {
   const draggableElementRef = React.useRef<HTMLUListElement>(null);
   const categoriesList = categories.map((item) => item.category);
   const currentCategories = categoriesData.filter((item) => categoriesList.includes(item.path));
-  console.log('categoriesList', categoriesList);
+  // console.log('categoriesList', categoriesList);
   console.log('currentCategories', currentCategories);
   return (
     <motion.ul
@@ -92,7 +92,7 @@ const NavigationList = ({ categories }: { categories: Categories }) => {
 };
 
 const HeaderNavigation = ({ data }) => {
-  const isVisible = useAppSelector((store) => store.headerNavigation.isVisible);
+  const isVisible = useAppSelector((store) => store?.headerNavigation?.isVisible) ?? false;
   console.log('isVisible', isVisible);
   console.log('categories', data);
   return (

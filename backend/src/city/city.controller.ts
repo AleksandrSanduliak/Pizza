@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { CityService } from './city.service';
 
 @Controller('api/v1/city')
@@ -11,9 +11,16 @@ export class CityController {
     return cityList;
   }
 
-  @Get('cityInfo')
-  async getCityInfo() {
-    const cityList = await this.cityService.cityList();
+  @Get('cityInfo/:city')
+  async getCityInfo(@Param('city') city: string) {
+    const cityList = await this.cityService.cityInfo(city);
+    console.log('cityList', cityList);
+    return cityList;
+  }
+
+  @Get('cityCatalog/:city')
+  async getCityCatalog(@Param('city') city: string) {
+    const cityList = await this.cityService.cityCatalog(city);
     console.log('cityList', cityList);
     return cityList;
   }

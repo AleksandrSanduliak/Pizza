@@ -1,11 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AuthData } from '@features/auth/auth.interface';
 import { eraseCookie } from '@shared/funcs/cookie';
 import { setCookie } from '@shared/funcs/cookie2';
 import { rootReducers, RootState } from '@shared/store/store';
 
-const initialState: AuthData = {
+export interface AuthState {
+  email: string | null;
+  name: string | null;
+  bonuses: number;
+  tokens: {
+    accessToken: string | null;
+  };
+  isAuth: boolean;
+}
+
+const initialState: AuthState = {
   email: null,
   name: null,
   tokens: {
@@ -21,28 +30,30 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state = initialState;
-
-      eraseCookie('accessToken');
+      // state.isAuth = false;
+      console.log('state', state);
+      eraseCookie('accessToken'); // todo убрать должна быть чистая функция
+      return initialState;
     },
 
-    setUser: (state, action: PayloadAction<AuthData>) => {
+    setUser: (state, action: PayloadAction<AuthState>) => {
       console.log(' action.payload', action.payload);
+      if (!action.payload?.tokens?.accessToken) {
+        state.isAuth = false;
+        return;
+      }
       const { email, name, bonuses } = action.payload;
-      const { accessToken } = action.payload.tokens;
+      const { accessToken } = action.payload?.tokens;
       state.email = email;
       state.name = name;
       state.tokens.accessToken = accessToken;
-
-      if (!accessToken) {
-        state.isAuth = false;
-      }
 
       setCookie({
         name: 'accessToken',
         value: accessToken as string,
         expiresType: 'minutes',
         expiresValue: 15,
-      });
+      }); // todo убрать должна быть чистая функция
       state.isAuth = true;
       state.bonuses = bonuses;
     },

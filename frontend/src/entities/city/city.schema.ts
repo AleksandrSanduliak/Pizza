@@ -33,7 +33,7 @@ const productSchema = z.object({
   variants: z.array(variantSchema).optional(),
 });
 
-const categoriesSchema = z.object({
+export const categoriesSchema = z.object({
   category: z.string(),
   categoryTitle: z.string(),
   cityId: z.number(),
@@ -42,7 +42,7 @@ const categoriesSchema = z.object({
 });
 
 export const citySchema = z.object({
-  categories: z.array(categoriesSchema),
+  // categories: z.array(categoriesSchema),
   city: z.string(),
   id: z.number(),
   isActive: z.boolean(),
@@ -51,5 +51,5 @@ export const citySchema = z.object({
   url: z.string(),
 });
 
-export type City = z.infer<typeof citySchema>;
+export type CityInfo = z.infer<typeof citySchema>;
 export type Categories = z.infer<typeof categoriesSchema>;

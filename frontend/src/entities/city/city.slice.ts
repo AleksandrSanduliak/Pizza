@@ -1,28 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { City } from '@entities/city/city';
+import { City } from '@entities/city/city.schema';
 import { rootReducers } from '@shared/store/store';
 
 const initialState: City | object = {
-  // categories: [],
-  // city: null,
-  // id: null,
-  // isActive: false,
-  // name: null,
-  // restaurants: [],
-  // url: null,
+  categories: [],
+  city: null,
+  id: null,
+  isActive: false,
+  name: null,
+  restaurants: [],
+  url: null,
 };
 
 const citySlice = createSlice({
-  name: 'cityInfo',
+  name: 'city',
   initialState,
   reducers: {
     setCityInfo: (state, action) => {
-      state = action.payload;
+      console.log('action', action);
+      state.city = action.payload.city;
+      state.name = action.payload.name;
     },
   },
 }).injectInto(rootReducers);
 
 export default citySlice.reducer;
 
-export const { setCityInfo } = citySlice;
+export const { setCityInfo } = citySlice.actions;

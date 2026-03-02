@@ -1,9 +1,9 @@
-import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
+import { useQueryClient, useMutation, useQuery, Register } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 
 import useUserMenu from '@entities/user-menu/useUserMenu';
 import { setUser, logout } from '@features/auth/authSlice';
-import { LoginUseRequestData, LoginUserResponseData } from '@features/auth/model/api.interface';
+import { Login } from '@features/auth/login/login.model';
 import { AUTH_API_URL } from '@shared/api/api-list';
 import { axiosInstance } from '@shared/api/axios';
 import { CONFIG } from '@shared/consts/config';
@@ -14,7 +14,7 @@ export const useRegisterUser = () => {
   const queryClient = useQueryClient();
   const { actions } = useUserMenu();
   return useMutation({
-    mutationFn: async (data: any) => {
+    mutationFn: async (data: Register) => {
       const response = await axiosInstance.post(`${AUTH_API_URL}/register`, data);
       return response.data;
     },
@@ -48,11 +48,11 @@ export const useLoginUser = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: LoginUseRequestData) => {
+    mutationFn: async (data: Login) => {
       const response = await axiosInstance.post(`${AUTH_API_URL}/login`, data);
       return response.data;
     },
-    onSuccess: (data: LoginUserResponseData) => {
+    onSuccess: (data) => {
       console.log('data', data);
       dispatch(setUser(data));
       // dispatch(setItems(data.userCard)); // TODO
@@ -83,8 +83,10 @@ export const useLogoutUser = () => {
       return response.data;
     },
     onSuccess: () => {
+      queryClient.removeQueries({ queryKey: ['user'] });
+      queryClient.setQueryData(['user'], undefined);
       dispatch(logout());
-      queryClient.clear();
+      // queryClient.clear();
     },
     onError: (error) => {
       console.log('Logout error:', error);
@@ -104,28 +106,28 @@ export const refreshRequest = async (cookies: string) => {
   return response.json();
 };
 
-export const useRefreshToken = () => {
-  const dispatch = useAppDispatch();
-  const queryClient = useQueryClient();
+// export const useRefreshToken = () => {
+//   const dispatch = useAppDispatch();
+//   const queryClient = useQueryClient();
 
-  return useQuery({
-    queryKey: ['refreshToken'],
-    queryFn: async () => {
-      const response = await axiosInstance.get(`${AUTH_API_URL}/refresh`, {
-        withCredentials: true,
-      });
-      console.log('REFRESH REQ', response);
-      return response.data;
-    },
-    enabled: false,
-    retry: false,
-    onSuccess: (data: TUserResponse) => {
-      if (data) {
-        console.log('data', data);
-        dispatch(setUser(data));
-        // dispatch(setItems(data.userCard));
-        queryClient.setQueryData(['user'], data);
-      }
-    },
-  });
-};
+//   return useQuery({
+//     queryKey: ['refreshToken'],
+//     queryFn: async () => {
+//       const response = await axiosInstance.get(`${AUTH_API_URL}/refresh`, {
+//         withCredentials: true,
+//       });
+//       console.log('REFRESH REQ', response);
+//       return response.data;
+//     },
+//     enabled: false,
+//     retry: false,
+//     onSuccess: (data: TUserResponse) => {
+//       if (data) {
+//         console.log('data', data);
+//         dispatch(setUser(data));
+//         // dispatch(setItems(data.userCard));
+//         queryClient.setQueryData(['user'], data);
+//       }
+//     },
+//   });
+// };

@@ -7,13 +7,7 @@ const persistConfig = {
   storage,
   whitelist: ['cartShopSlice'],
 };
-export const rootReducers = combineSlices({
-  // auth: authSlice,
-  // goods: goodsSlice,
-  // isVisible: visibleStatus,
-  // cartShopSlice: cartSlice,
-  // account: accountSlice,
-});
+export const rootReducers = combineSlices({});
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
 export const makeStore = () => {
