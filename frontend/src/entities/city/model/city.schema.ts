@@ -33,7 +33,7 @@ const productSchema = z.object({
   variants: z.array(variantSchema).optional(),
 });
 
-export const categoriesSchema = z.object({
+export const categorySchema = z.object({
   category: z.string(),
   categoryTitle: z.string(),
   cityId: z.number(),
@@ -41,8 +41,9 @@ export const categoriesSchema = z.object({
   products: z.array(productSchema),
 });
 
+export const categoriesSchema = z.array(categorySchema);
+
 export const citySchema = z.object({
-  // categories: z.array(categoriesSchema),
   city: z.string(),
   id: z.number(),
   isActive: z.boolean(),

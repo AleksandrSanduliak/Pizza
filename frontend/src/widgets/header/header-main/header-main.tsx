@@ -3,7 +3,7 @@
 import cn from 'clsx';
 import Link from 'next/link';
 
-import { CityInfo } from '@entities/city/city.schema';
+import { CityInfo } from '@entities/city/model/city.schema';
 import useUserMenu from '@entities/user-menu/useUserMenu';
 import ShoppingBag from '@features/shoppingBag/ShoppingBag';
 import useMediaQuery from '@shared/hooks/ui/useMediaQuery';

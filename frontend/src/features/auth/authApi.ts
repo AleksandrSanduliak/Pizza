@@ -1,10 +1,11 @@
 import { useQueryClient, useMutation, useQuery, Register } from '@tanstack/react-query';
-import { isAxiosError } from 'axios';
+import { AxiosResponse, isAxiosError } from 'axios';
 
+import { UserData } from '@entities/user/user.schema';
 import useUserMenu from '@entities/user-menu/useUserMenu';
 import { setUser, logout } from '@features/auth/authSlice';
 import { Login } from '@features/auth/login/login.model';
-import { AUTH_API_URL } from '@shared/api/api-list';
+import { AUTH_API_URL, REFRESH_API_URL } from '@shared/api/api-list';
 import { axiosInstance } from '@shared/api/axios';
 import { CONFIG } from '@shared/consts/config';
 import NotificationFacade from '@shared/funcs/facades/NotificationFacade';
@@ -94,16 +95,19 @@ export const useLogoutUser = () => {
   });
 };
 
-export const refreshRequest = async (cookies: string) => {
-  const response = await fetch(`${CONFIG.backendUrl}/api/v1/auth/refresh`, {
-    credentials: 'include',
-    method: 'GET',
-    headers: {
-      Cookie: cookies,
-    },
-  });
-  console.log('REFRESH REQ', response);
-  return response.json();
+export const refreshRequest = async (cookies: string): Promise<AxiosResponse<UserData>> => {
+  try {
+    const response = await axiosInstance.get(REFRESH_API_URL, {
+      headers: {
+        Cookie: cookies,
+      },
+    });
+    console.log('REFRESH REQ', response);
+    return response.data;
+  } catch (error) {
+    console.error('Error in refreshRequest:', error);
+    throw new Error('Ошибка запроса на обновление токенов');
+  }
 };
 
 // export const useRefreshToken = () => {

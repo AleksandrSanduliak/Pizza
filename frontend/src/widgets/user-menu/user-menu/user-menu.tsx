@@ -3,14 +3,15 @@ import cn from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useEffect, useMemo } from 'react';
 
 import useUserMenu from '@entities/user-menu/useUserMenu';
 import { useLogoutUser } from '@features/auth/authApi';
-import { selectIsAuth } from '@features/auth/authSlice';
+import { selectIsAuth, setUser } from '@features/auth/authSlice';
 import Login from '@features/auth/login/login';
 import RegisterForm from '@features/auth/register/register';
 import { itemVariants, parentVariants } from '@shared/animations/dropdownAnim';
-import { useAppSelector } from '@shared/store/hooks';
+import { useAppDispatch, useAppSelector } from '@shared/store/hooks';
 import { Button } from '@shared/ui/button/button';
 import {
   Dialog,
@@ -108,7 +109,7 @@ const AccountButtonsList = ({ isOpenMenu }: { isOpenMenu: boolean }) => {
   );
 };
 
-const UserCabinet = () => {
+export const UserCabinet = () => {
   const { isOpenMenu, accountWrapper, setIsOpenMenu } = useCabinetClick();
   const onClick = () => setIsOpenMenu((prev) => !prev);
 
@@ -122,7 +123,7 @@ const UserCabinet = () => {
   );
 };
 
-const AuthModal = () => {
+export const AuthModal = () => {
   const { state } = useUserMenu();
   console.log('state', state);
   return (
@@ -143,9 +144,17 @@ const AuthModal = () => {
   );
 };
 
-const UserMenu = () => {
+const UserMenu = ({ userData }) => {
+  // const dispatch = useAppDispatch();
+  // console.log('userData', userData);
+  // useEffect(() => {
+  //   if (userData) {
+  //     dispatch(setUser(userData));
+  //     console.log('User synced:', userData);
+  //   }
+  // }, []);
   const isAuth = useAppSelector(selectIsAuth);
-
+  console.log('isAuth', isAuth);
   return (
     <div className={styles.userMenu}>
       <Image
@@ -154,6 +163,7 @@ const UserMenu = () => {
         src={accoutImage}
         alt="Иконка Аккаунта"
       />
+      {/* {userData ? <UserCabinet /> : <AuthModal />} */}
       {isAuth ? <UserCabinet /> : <AuthModal />}
     </div>
   );

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { ReactNode, useState } from 'react';
 
-import { CitiesList, type CityList } from '@entities/city/client-api';
+import { type CityList } from '@entities/city/model/city-list-schema';
 import { setCookie } from '@shared/funcs/cookie2';
 import { CityData } from '@shared/interfaces/city';
 import { TUserCityName } from '@shared/types/appNavigation';
@@ -58,7 +58,7 @@ function ChangeCity({
 }: {
   currentCity: string;
   isOpenModal?: boolean;
-  cityList: CitiesList;
+  cityList: CityList;
   buttonSlot?: React.ReactNode;
   renderPropButton?: (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>) => ReactNode;
 }) {

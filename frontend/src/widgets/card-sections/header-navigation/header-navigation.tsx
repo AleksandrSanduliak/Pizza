@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import { Categories } from '@entities/city/city.schema';
+import { Categories } from '@entities/city/model/city.schema';
 import { useAppSelector } from '@shared/store/hooks';
 import ConvertStrSvgToComponent from '@shared/ui/ConvertStrSvgToComponent/ConvertStrSvgToComponent';
 import Logo from '@shared/ui/logo/Logo';

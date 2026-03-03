@@ -8,9 +8,13 @@ export const baseUrl = () => {
   return `${CONFIG.backendUrl}/api`;
 };
 
-export const AUTH_API_URL = `${baseUrl()}/v1/auth`;
-export const CITY_API_URL = `${baseUrl()}/v1/city`;
-export const CITY_LIST_API_URL = `${baseUrl()}/v1/city/cityList`;
-export const REFRESH_API_URL = `${baseUrl()}/v1/auth/refresh`;
-export const orderApiUrl = `${baseUrl()}/v1/order`;
-export const goodsApiUrl = `${baseUrl()}/v1/goods`;
+export const AUTH_API_URL: string = `${baseUrl()}/v1/auth`;
+export const REFRESH_API_URL: string = `${baseUrl()}/v1/auth/refresh`;
+export const CITY_API_URL: string = `${baseUrl()}/v1/city`;
+export const CITY_LIST_API_URL: string = `${baseUrl()}/v1/city/cityList`;
+export const CITY_INFO_API_URL = (location: string): string =>
+  `${baseUrl()}/v1/city/cityInfo/${location}`;
+export const CITY_GOODS_API_URL = (location: string): string =>
+  `${baseUrl()}/v1/city/cityCatalog/${location}`;
+export const orderApiUrl: string = `${baseUrl()}/v1/order`;
+export const goodsApiUrl: string = `${baseUrl()}/v1/goods`;

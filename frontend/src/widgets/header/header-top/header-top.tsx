@@ -1,8 +1,10 @@
 import cn from 'clsx';
+import { Suspense } from 'react';
 
-import { CityInfo } from '@entities/city/city.schema';
+import { CityInfo } from '@entities/city/model/city.schema';
 import HeaderChangeCity from '@widgets/header/header-change-city';
 import UserMenu from '@widgets/user-menu/user-menu/user-menu';
+import UserMenuServer from '@widgets/user-menu/user-menu/user-menu-server';
 
 import styles from './header-top.module.scss';
 
@@ -34,6 +36,9 @@ const HeaderTop = ({ data }: { data: CityInfo }) => {
         <div className={styles.headerTopInner}>
           <HeaderChangeCity currentCity={name} />
           <CafeInformation />
+          {/* <Suspense fallback={<div> ...loading user menu</div>}>
+            <UserMenuServer />
+          </Suspense> */}
           <UserMenu />
         </div>
       </div>

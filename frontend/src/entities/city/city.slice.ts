@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { City } from '@entities/city/city.schema';
+import { City } from '@entities/city/model/city.schema';
 import { rootReducers } from '@shared/store/store';
 
 const initialState: City | object = {
