@@ -7,7 +7,7 @@ import {
   toggleBasket,
 } from '@entities/user-menu/user-menu.slice';
 import { useAppDispatch, useAppSelector } from '@shared/store/hooks';
-import userMenu from '@widgets/user-menu/user-menu/user-menu';
+import userMenu from '@widgets/user-menu/user-menu/user-menu-inner';
 
 const useUserMenu = () => {
   const dispatch = useAppDispatch();

@@ -13,7 +13,7 @@ const validation = (response) => {
 };
 
 const request = async (): Promise<CityList | undefined> => {
-  const cityListResponse = await axiosInstance(CITY_LIST_API_URL, {
+  const cityListResponse = await axiosInstance.get(CITY_LIST_API_URL, {
     withCredentials: false,
   });
   console.log('cityListResponse', cityListResponse);
@@ -26,7 +26,7 @@ const request = async (): Promise<CityList | undefined> => {
 
 export const UseCityList = () => {
   return useQuery({
-    queryKey: [],
+    queryKey: ['citieslist'],
     queryFn: async (): Promise<CityList | undefined> => {
       return request();
     },

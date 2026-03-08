@@ -10,7 +10,7 @@ import {
   TIsRegisterClick,
   TIsShoppingBagClick,
 } from '@shared/types/useAccountTypes';
-import Account from '@widgets/user-menu/user-menu/user-menu';
+import Account from '@widgets/user-menu/user-menu/user-menu-inner';
 import useUserMenu from '@entities/user-menu/useUserMenu';
 
 import cl from './burger.module.scss';

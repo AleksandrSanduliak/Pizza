@@ -1,4 +1,4 @@
-const ROUTES = {
+export const ROUTES = {
   MAIN: '/',
   ORDERHISTORY: '/orderhistory',
   SETTINGS: '/settings',

@@ -53,4 +53,6 @@ export const citySchema = z.object({
 });
 
 export type CityInfo = z.infer<typeof citySchema>;
+export type Category = z.infer<typeof categorySchema>;
+export type Product = z.infer<typeof productSchema>;
 export type Categories = z.infer<typeof categoriesSchema>;

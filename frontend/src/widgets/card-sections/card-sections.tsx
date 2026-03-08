@@ -1,14 +1,12 @@
-'use client';
 import clsx from 'classnames';
 
+import { Categories, Category } from '@entities/city/model/city.schema';
 import CardItem from '@features/card-item/product-card/product-card';
-import withHandleVisibility from '@shared/hoc/withHandleVisibility';
-import { TFoodCategoryInfo } from '@shared/types/types';
-import HeaderNavigation from '@widgets/card-sections/header-navigation/header-navigation';
+import CategoriesList from '@widgets/card-sections/categories-list';
 
 import styles from './card-sections.module.scss';
 
-const Card = ({ categoryData }: { categoryData: TFoodCategoryInfo }) => {
+const Card = ({ categoryData }: { categoryData: Category }) => {
   const { category, categoryTitle, products } = categoryData;
   return (
     <div key={category} className={styles.card}>
@@ -21,11 +19,11 @@ const Card = ({ categoryData }: { categoryData: TFoodCategoryInfo }) => {
     </div>
   );
 };
-const EnchantedHeaderNavigation = withHandleVisibility(HeaderNavigation);
-const CardBlock = ({ data }) => {
+
+const CardBlock = ({ data }: { data: Categories }) => {
   return (
     <>
-      <EnchantedHeaderNavigation data={data} />
+      <CategoriesList data={data} />
       <section>
         <div className="cardBlock__container">
           <div className={styles.cards}>

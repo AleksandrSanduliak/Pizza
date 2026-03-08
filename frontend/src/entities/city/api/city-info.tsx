@@ -5,10 +5,11 @@ import { axiosInstance } from '@shared/api/axios';
 export const getCityInfo = async (location: string): Promise<CityInfo | null> => {
   try {
     console.log('start fetch');
+    console.log('start fetch location', location);
     const response = await axiosInstance.get(CITY_INFO_API_URL(location), {
       withCredentials: false,
     });
-    // console.log('response', response);
+    console.log('response', response);
     const data = citySchema.safeParse(response?.data);
     console.log('getcityInfo', data);
     if (!data.success) throw new Error('Информация о городе не получена');

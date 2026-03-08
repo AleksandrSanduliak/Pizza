@@ -1,6 +1,6 @@
 import { removeItem } from 'framer-motion';
 
-import { selectIsAuth } from '@features/auth/authSlice';
+import { selectIsAuth } from '@features/auth/auth.slice';
 import { useAppSelector, useAppDispatch } from '@shared/store/hooks';
 import Counter from '@shared/ui/counter/Counter';
 import crosshair from 'public/icons/crosshairs/cart-cross.svg';

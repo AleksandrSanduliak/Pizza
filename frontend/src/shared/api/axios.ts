@@ -14,30 +14,30 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   async (config) => {
-    if (!isServer) {
-      const accessToken = document.cookie
-        .split('; ')
-        .find((row) => row.startsWith('accessToken='))
-        ?.split('=')[1];
-      console.log('accessToken', accessToken);
-      if (accessToken) {
-        config.headers['accessToken'] = accessToken;
-      }
-      config.headers['Access-Control-Allow-Credentials'] = 'true';
-    } else {
-      try {
-        const { cookies } = await import('next/headers');
-        const cookiesString = await cookies();
-        console.log('cookiesString', cookiesString.getAll());
-        const accessToken = cookiesString.get('accessToken');
-        if (accessToken) {
-          config.headers['accessToken'] = accessToken.value;
-        }
-        config.headers['Access-Control-Allow-Credentials'] = 'true';
-      } catch (e) {
-        console.log(e);
-      }
-    }
+    // if (!isServer) {
+    //   const accessToken = document.cookie
+    //     .split('; ')
+    //     .find((row) => row.startsWith('accessToken='))
+    //     ?.split('=')[1];
+    //   console.log('accessToken', accessToken);
+    //   if (accessToken) {
+    //     config.headers['accessToken'] = accessToken;
+    //   }
+    //   config.headers['Access-Control-Allow-Credentials'] = 'true';
+    // } else {
+    //   try {
+    //     const { cookies } = await import('next/headers');
+    //     const cookiesString = await cookies();
+    //     console.log('cookiesString', cookiesString.getAll());
+    //     const accessToken = cookiesString.get('accessToken');
+    //     if (accessToken) {
+    //       config.headers['accessToken'] = accessToken.value;
+    //     }
+    //     config.headers['Access-Control-Allow-Credentials'] = 'true';
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // }
 
     return config;
   },

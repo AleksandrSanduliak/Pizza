@@ -3,7 +3,7 @@ import React from 'react';
 import {
   useDecrementCardItemMutation,
   useIncrementCardItemMutation,
-} from '@app/(order)/order/orderApi';
+} from '@app/(main-page)/[city]/(order)/order/orderApi';
 import { increment, decrement } from '@entities/basket/cartSlice';
 import { useAppDispatch, useAppSelector } from '@shared/store/hooks';
 

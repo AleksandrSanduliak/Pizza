@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useGetPromoMutation } from '@app/(order)/order/orderApi';
+import { useGetPromoMutation } from '@app/(main-page)/[city]/(order)/order/orderApi';
 import { useAppDispatch, useAppSelector } from '@shared/store/hooks';
 
 import cl from './promocode.module.scss';

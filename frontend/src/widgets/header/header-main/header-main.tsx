@@ -14,12 +14,11 @@ import BurgerContent from '@widgets/user-menu/burger-user-menu/BurgerContent';
 
 import styles from './header-main.module.scss';
 
-const HeaderLogo = ({ userLocation }: { userLocation: string }) => {
-  const href: string = (userLocation as string) ?? '/';
+const HeaderLogo = () => {
   return (
     <div className={styles.logoWrapper}>
       <Backward />
-      <Link href={href}>
+      <Link href="/">
         <Logo logoType="header" />
       </Link>
     </div>
@@ -39,7 +38,7 @@ const HeaderMain = ({ data }: { data: CityInfo }) => {
         <div className={styles.headerMiddle}>
           <div className="header__container">
             <div className={styles.headerMiddleInner}>
-              <HeaderLogo userLocation={data.city} />
+              <HeaderLogo />
               <ShoppingBag />
               {isMobile && <BurgerButton />}
             </div>

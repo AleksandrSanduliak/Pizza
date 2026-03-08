@@ -1,0 +1,46 @@
+.cabinet {
+  width: 17.813rem;
+  border-radius: 0.75rem;
+  border: 1px solid $linegray;
+  background: white;
+  box-shadow: 0 0.125rem 0.5rem 0 rgba(25, 25, 25, 0.1);
+}
+
+.text {
+  padding: 1rem 1.25rem;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.logout {
+  color: $gray-text;
+
+  border-top: 1px solid $linegray;
+}
+
+.bonus {
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  color: $primary;
+  transition: $fastColorTransition;
+
+  &:hover,
+  &:focus {
+    color: $black;
+  }
+
+  @media (max-width: 768.98px) {
+    border-top: 1px solid $linegray;
+    display: inline;
+  }
+}
+
+.bonus,
+.content {
+  border-bottom: 1px solid $linegray;
+
+  @media (max-width: 768.98px) {
+    border: 0;
+  }
+}

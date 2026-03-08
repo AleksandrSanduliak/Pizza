@@ -1,9 +1,12 @@
 import { useQueryClient, useMutation, useQuery, Register } from '@tanstack/react-query';
 import { AxiosResponse, isAxiosError } from 'axios';
+// import router from 'next/router';
+
+import { useRouter } from 'next/router';
 
 import { UserData } from '@entities/user/user.schema';
 import useUserMenu from '@entities/user-menu/useUserMenu';
-import { setUser, logout } from '@features/auth/authSlice';
+import { setUser, logout } from '@features/auth/auth.slice';
 import { Login } from '@features/auth/login/login.model';
 import { AUTH_API_URL, REFRESH_API_URL } from '@shared/api/api-list';
 import { axiosInstance } from '@shared/api/axios';
@@ -87,10 +90,12 @@ export const useLogoutUser = () => {
       queryClient.removeQueries({ queryKey: ['user'] });
       queryClient.setQueryData(['user'], undefined);
       dispatch(logout());
-      // queryClient.clear();
     },
     onError: (error) => {
       console.log('Logout error:', error);
+      NotificationFacade.toastError({
+        message: 'Произошла ошибка при выходе из профиля. Повторите попытку позже',
+      });
     },
   });
 };
@@ -98,9 +103,10 @@ export const useLogoutUser = () => {
 export const refreshRequest = async (cookies: string): Promise<AxiosResponse<UserData>> => {
   try {
     const response = await axiosInstance.get(REFRESH_API_URL, {
-      headers: {
-        Cookie: cookies,
-      },
+      withCredentials: true,
+      // headers: {
+      //   Cookie: cookies,
+      // },
     });
     console.log('REFRESH REQ', response);
     return response.data;

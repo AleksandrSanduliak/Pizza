@@ -1,9 +1,8 @@
 import '@shared/styles/shadcn.css';
 import '@shared/styles/App.scss';
-import React, { ReactNode, Suspense } from 'react';
+import React, { ReactNode } from 'react';
 
 import { AppProvider } from '@app/providers/AppProvider';
-import { getUserData } from '@entities/user/user.api';
 import { Toaster } from '@shared/ui/sonner';
 
 export default async function RootLayout({ children }: { children: ReactNode }) {

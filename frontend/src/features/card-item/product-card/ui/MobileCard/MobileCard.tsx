@@ -11,7 +11,7 @@ import cl from './MobileCard.module.scss';
 
 const CardItemFooter = () => {
   const { product } = useCardContext();
-  // , addToCart
+  console.log('product', product);
   return (
     <div className={cl.btnWrapper}>
       <Button
@@ -19,11 +19,8 @@ const CardItemFooter = () => {
         type="submit"
         // onClick={(e: React.MouseEvent<Element, MouseEvent>): void => addToCart(e, product)}
       >
-        <p className="subtitle">от {product?.price?.[1] ?? product?.price} ₽</p>
+        <p className="subtitle">от {product.price} ₽</p>
       </Button>
-      {product?.oldprice && (
-        <p className={cn('subtitle', 'priceOld', cl.price)}>{product?.oldprice} ₽</p>
-      )}
     </div>
   );
 };

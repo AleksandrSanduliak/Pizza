@@ -1,15 +1,8 @@
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
-
 import { getCityList } from '@entities/city/api/cities-list';
 import { getCityCategories } from '@entities/city/api/city-categories';
 import { CityItem } from '@entities/city/model/city-list-schema';
 import { Categories } from '@entities/city/model/city.schema';
-
-const CardSections = dynamic(() => import('@widgets/card-sections/card-sections'), {
-  loading: () => <div>...loading</div>,
-  ssr: true,
-});
+import CardSections from '@widgets/card-sections/card-sections';
 
 export default async function MainPage({ params }: { params: Promise<{ city: Categories }> }) {
   const { city } = await params;
@@ -20,9 +13,7 @@ export default async function MainPage({ params }: { params: Promise<{ city: Cat
   const categories = cityData ?? [];
   return (
     <>
-      <Suspense fallback={<div>...loading categories</div>}>
-        <CardSections data={categories} />
-      </Suspense>
+      <CardSections data={categories} />
     </>
   );
 }

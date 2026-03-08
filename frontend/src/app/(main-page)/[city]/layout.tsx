@@ -17,6 +17,7 @@ export default async function MainPageLayout({
 }) {
   console.log('params main page layout', await params);
   const { city } = await params;
+  console.log('city params', city);
   const cityData = await getCityInfo(city);
   console.log('cityData', cityData);
   return (

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { type UserData } from '@entities/user/user.schema';
 import { eraseCookie } from '@shared/funcs/cookie';
 import { setCookie } from '@shared/funcs/cookie2';
 import { rootReducers, RootState } from '@shared/store/store';
@@ -36,18 +37,18 @@ const authSlice = createSlice({
       return initialState;
     },
 
-    setUser: (state, action: PayloadAction<AuthState>) => {
+    setUser: (state, action: PayloadAction<UserData>) => {
       console.log(' action.payload', action.payload);
       if (!action.payload?.tokens?.accessToken) {
         state.isAuth = false;
         return;
       }
       const { email, name, bonuses } = action.payload;
-      const { accessToken } = action.payload?.tokens;
+      const { accessToken } = action.payload.tokens;
       state.email = email;
       state.name = name;
       state.tokens.accessToken = accessToken;
-
+      console.log('action pay', action.payload);
       setCookie({
         name: 'accessToken',
         value: accessToken as string,

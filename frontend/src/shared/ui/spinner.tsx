@@ -1,4 +1,4 @@
-import { Loader2Icon } from 'lucide-react';
+'use client';
 import Image from 'next/image';
 
 import { cn } from '@shared/utils/shadcn-utils';

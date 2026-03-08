@@ -2,10 +2,10 @@
 
 import { createContext, useContext } from 'react';
 
-import { TFoodItem } from '@shared/types/types';
+import { Product } from '@entities/city/model/city.schema';
 
 interface ICardContext {
-  product: TFoodItem;
+  product: Product;
 }
 
 export const CardContext = createContext<ICardContext>({} as ICardContext);
