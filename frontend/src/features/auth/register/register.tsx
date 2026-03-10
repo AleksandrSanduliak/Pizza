@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import useUserMenu from '@entities/user-menu/useUserMenu';
+import { toggleRegisterMenu } from '@entities/user-menu/user-menu.slice';
 import { useRegisterUser } from '@features/auth/authApi';
 import { Register, registerSchema } from '@features/auth/register/register.model';
 import { Button } from '@shared/ui/button/button';
@@ -43,8 +43,6 @@ const FormFields = () => {
 };
 
 const RegisterForm = () => {
-  const { actions } = useUserMenu();
-
   const form = useForm<Register>({
     resolver: zodResolver(registerSchema),
   });
@@ -70,7 +68,7 @@ const RegisterForm = () => {
               variant="primary"
               onClick={(e) => {
                 e.preventDefault();
-                actions.toggleRegister();
+                toggleRegisterMenu();
               }}>
               Назад
             </Button>

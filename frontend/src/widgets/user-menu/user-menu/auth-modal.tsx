@@ -1,7 +1,8 @@
 'use client';
-import useUserMenu from '@entities/user-menu/useUserMenu';
+import { userMenuSlice } from '@entities/user-menu/user-menu.slice';
 import { Login } from '@features/auth/login';
 import RegisterForm from '@features/auth/register/register';
+import { useAppSelector } from '@shared/store/hooks';
 import { Button } from '@shared/ui/button/button';
 import {
   Dialog,
@@ -15,7 +16,9 @@ import {
 import styles from './auth-modal.module.scss';
 
 export const AuthModal = () => {
-  const { state } = useUserMenu();
+  const isRegisterClicked = useAppSelector((state) =>
+    userMenuSlice.selectors.isRegisterClicked(state),
+  );
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -28,7 +31,7 @@ export const AuthModal = () => {
             Авторизируйтесь или зарегистрируйте новую учетную запись
           </DialogDescription>
         </DialogHeader>
-        {state.isRegisterClicked ? <RegisterForm /> : <Login />}
+        {isRegisterClicked ? <RegisterForm /> : <Login />}
       </DialogContent>
     </Dialog>
   );

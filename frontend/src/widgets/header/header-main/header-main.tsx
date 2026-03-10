@@ -4,13 +4,14 @@ import cn from 'clsx';
 import Link from 'next/link';
 
 import { CityInfo } from '@entities/city/model/city.schema';
-import useUserMenu from '@entities/user-menu/useUserMenu';
+import { userMenuSlice } from '@entities/user-menu/user-menu.slice';
 import ShoppingBag from '@features/shoppingBag/ShoppingBag';
 import useMediaQuery from '@shared/hooks/ui/useMediaQuery';
+import { useAppSelector } from '@shared/store/hooks';
 import Logo from '@shared/ui/logo/Logo';
 import Backward from '@widgets/header/backward/Backward';
-import BurgerButton from '@widgets/user-menu/burger-user-menu/BurgerButton/BurgerButton';
-import BurgerContent from '@widgets/user-menu/burger-user-menu/BurgerContent';
+import BurgerButton from '@widgets/user-menu/burger-user-menu/burger-button/burger-button';
+import BurgerContent from '@widgets/user-menu/burger-user-menu/burger-content';
 
 import styles from './header-main.module.scss';
 
@@ -27,13 +28,12 @@ const HeaderLogo = () => {
 
 const HeaderMain = ({ data }: { data: CityInfo }) => {
   const isMobile = useMediaQuery();
-  const { state } = useUserMenu();
-
+  const isBurgerClicked = useAppSelector((state) => userMenuSlice.selectors.isBurgerClicked(state));
   return (
     <header className={styles.headerNav}>
       <nav
         className={cn(styles.headerNavWrapper, {
-          [styles.headerOverflowScroll]: state.isBurgerClicked,
+          [styles.headerOverflowScroll]: isBurgerClicked,
         })}>
         <div className={styles.headerMiddle}>
           <div className="header__container">
@@ -44,7 +44,7 @@ const HeaderMain = ({ data }: { data: CityInfo }) => {
             </div>
           </div>
         </div>
-        {isMobile && state.isBurgerClicked && <BurgerContent />}
+        {isMobile && isBurgerClicked && <BurgerContent />}
       </nav>
     </header>
   );

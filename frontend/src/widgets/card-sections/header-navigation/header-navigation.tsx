@@ -6,9 +6,11 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 
 import { Categories } from '@entities/city/model/city.schema';
+import { userMenuSlice } from '@entities/user-menu/user-menu.slice';
 import { useAppSelector } from '@shared/store/hooks';
 import ConvertStrSvgToComponent from '@shared/ui/ConvertStrSvgToComponent/ConvertStrSvgToComponent';
 import Logo from '@shared/ui/logo/Logo';
+import { headerNavigationSlice } from '@widgets/card-sections/header-navigation/header-navigation.slice';
 
 import { categoriesData } from './categories';
 import styles from './header-navigation.module.scss';
@@ -26,15 +28,18 @@ const ANIMATION_CONFIG = {
 } as const;
 
 const NavigationLogo = () => {
-  const isVisible = useAppSelector((store) => store?.headerNavigation?.isVisible) ?? false;
-
+  const isVisible = useAppSelector((state) =>
+    headerNavigationSlice.selectors.isVisibleHeaderNav(state),
+  );
+  const isBurgerClicked = useAppSelector((state) => userMenuSlice.selectors.isBurgerClicked(state));
   return (
     <AnimatePresence>
-      {isVisible && ( // доступен если произошел скролл ниже header navigation, без logoLetters
-        <motion.div {...ANIMATION_CONFIG.logo}>
-          <Logo logoType="fixedHeader" isHidden={true} targetToHidden="logoLetters" />
-        </motion.div>
-      )}
+      {!isBurgerClicked &&
+        isVisible && ( // доступен если произошел скролл ниже header navigation, без logoLetters
+          <motion.div {...ANIMATION_CONFIG.logo}>
+            <Logo logoType="fixedHeader" isHidden={true} targetToHidden="logoLetters" />
+          </motion.div>
+        )}
     </AnimatePresence>
   );
 };
@@ -70,7 +75,6 @@ const NavigationList = ({ categories }: { categories: Categories }) => {
   const draggableElementRef = React.useRef<HTMLUListElement>(null);
   const categoriesList = categories.map((item) => item.category);
   const currentCategories = categoriesData.filter((item) => categoriesList.includes(item.path));
-  // console.log('categoriesList', categoriesList);
   console.log('currentCategories', currentCategories);
   return (
     <motion.ul
@@ -92,7 +96,11 @@ const NavigationList = ({ categories }: { categories: Categories }) => {
 };
 
 const HeaderNavigation = ({ data }) => {
-  const isVisible = useAppSelector((store) => store?.headerNavigation?.isVisible) ?? false;
+  const isVisible = useAppSelector((state) =>
+    headerNavigationSlice.selectors.isVisibleHeaderNav(state),
+  );
+  const isBurgerClicked = useAppSelector((state) => userMenuSlice.selectors.isBurgerClicked(state));
+
   console.log('isVisible', isVisible);
   console.log('categories', data);
   return (
@@ -101,7 +109,7 @@ const HeaderNavigation = ({ data }) => {
         <motion.div
           layoutRoot
           className={cn(styles.fixedHeaderWrapper, {
-            [`fixed-header & ${styles.fixedHeaderWrapper}`]: isVisible,
+            [`fixed-header & ${styles.fixedHeaderWrapper}`]: isVisible && !isBurgerClicked,
           })}>
           <motion.div className="headerNavigation__container">
             <NavigationList categories={data} />

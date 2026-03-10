@@ -2,9 +2,10 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Loader } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
+import router from 'next/router';
 import { JSX } from 'react';
 
-import useUserMenu from '@entities/user-menu/useUserMenu';
+import { toggleBurgerMenu } from '@entities/user-menu/user-menu.slice';
 import { useLogoutUser } from '@features/auth/authApi';
 import { itemVariants, parentVariants } from '@shared/animations/dropdownAnim';
 import { ROUTES } from '@shared/consts/routes';
@@ -25,7 +26,6 @@ interface AccoutList {
 
 const AccountButtonsList = ({ isOpenMenu }: { isOpenMenu: boolean }) => {
   const { mutate: logout, isPending } = useLogoutUser();
-  const { actions } = useUserMenu();
   const bonuses = useAppSelector((state) => state.auth.bonuses);
 
   const { city } = useParams();
@@ -41,7 +41,7 @@ const AccountButtonsList = ({ isOpenMenu }: { isOpenMenu: boolean }) => {
   const handleMenuClick = (url: string): void => {
     console.log('url', url);
     router.push(url);
-    actions.toggleBurger();
+    toggleBurgerMenu();
   };
 
   const accoutList: Array<AccoutList> = [

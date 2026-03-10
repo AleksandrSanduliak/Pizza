@@ -1,22 +1,17 @@
-import { useQueryClient, useMutation, useQuery, Register } from '@tanstack/react-query';
+import { useQueryClient, useMutation, Register } from '@tanstack/react-query';
 import { AxiosResponse, isAxiosError } from 'axios';
-// import router from 'next/router';
-
-import { useRouter } from 'next/router';
 
 import { UserData } from '@entities/user/user.schema';
-import useUserMenu from '@entities/user-menu/useUserMenu';
+import { toggleRegisterMenu } from '@entities/user-menu/user-menu.slice';
 import { setUser, logout } from '@features/auth/auth.slice';
 import { Login } from '@features/auth/login/login.model';
 import { AUTH_API_URL, REFRESH_API_URL } from '@shared/api/api-list';
 import { axiosInstance } from '@shared/api/axios';
-import { CONFIG } from '@shared/consts/config';
 import NotificationFacade from '@shared/funcs/facades/NotificationFacade';
 import { useAppDispatch } from '@shared/store/hooks';
 
 export const useRegisterUser = () => {
   const queryClient = useQueryClient();
-  const { actions } = useUserMenu();
   return useMutation({
     mutationFn: async (data: Register) => {
       const response = await axiosInstance.post(`${AUTH_API_URL}/register`, data);
@@ -27,7 +22,7 @@ export const useRegisterUser = () => {
         message: 'Вы успешно зарегистрировались, войдите в систему.',
       });
 
-      actions.toggleRegister();
+      toggleRegisterMenu();
       queryClient.invalidateQueries({ queryKey: ['user'] });
     },
     onError: (e) => {

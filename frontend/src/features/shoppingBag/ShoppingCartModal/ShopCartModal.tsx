@@ -1,16 +1,10 @@
 'use client';
 import cn from 'classnames';
-// import { toast } from 'react-toastify';
-
 import { toast } from 'sonner';
 
-import useUserMenu from '@entities/user-menu/useUserMenu';
 import ShoppingItem from '@features/shoppingItem/ShoppingItem1';
 import { useAppSelector } from '@shared/store/hooks';
-// import useUserMenu from '@entities/user-menu/useUserMenu';
 import emptyCard from 'public/icons/emptyCard.svg';
-
-// import AsideModal from '../../../shared/ui/modals/views/AsideModal/AsideModal';
 
 import cl from './shopcartmodal.module.scss';
 
@@ -95,7 +89,6 @@ const ModalContent = () => {
 };
 
 const ShopCartModal = () => {
-  const { onClickShoppingBag, isShoppingBagClick } = useUserMenu();
 
   // return (
   //   // isShoppingBagClick && (

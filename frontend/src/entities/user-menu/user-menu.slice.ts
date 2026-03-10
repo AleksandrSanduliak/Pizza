@@ -16,9 +16,15 @@ const initialState: UserMenuState = {
   isBasketClicked: false,
 };
 
-const userMenuSlice = createSlice({
+export const userMenuSlice = createSlice({
   name: 'userMenu',
   initialState,
+  selectors: {
+    isLoginClicked: (state) => state.isLoginClicked,
+    isRegisterClicked: (state) => state.isRegisterClicked,
+    isBurgerClicked: (state) => state.isBurgerClicked,
+    isBasketClicked: (state) => state.isBasketClicked,
+  },
   reducers: {
     toggleLoginMenu: (state) => {
       if (!state.isLoginClicked && state.isRegisterClicked) {
@@ -31,20 +37,12 @@ const userMenuSlice = createSlice({
       state.isRegisterClicked = !state.isRegisterClicked;
     },
     toggleBurgerMenu: (state) => {
+      console.log(' state.isBurgerClicked ', state.isBurgerClicked);
       state.isBurgerClicked = !state.isBurgerClicked;
     },
     toggleBasket: (state) => {
       state.isBasketClicked = !state.isBasketClicked;
     },
-    // setAuthMobileClick: (state) => {
-    //   state.isAccountClick = true;
-    //   state.isShoppingBagClick = false;
-    //   state.isBurgerClick = true;
-    // },
-    // setAuthDesktopClick: (state) => {
-    //   state.isAccountClick = true;
-    //   state.isShoppingBagClick = false;
-    // },
   },
 }).injectInto(rootReducers);
 

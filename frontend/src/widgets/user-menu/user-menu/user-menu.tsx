@@ -2,15 +2,19 @@
 import React from 'react';
 
 import { useUserData } from '@entities/user/use-user-data';
-import useUpdateAuthStore from '@widgets/user-menu/user-menu/use-update-auth-store';
+import useMediaQuery from '@shared/hooks/ui/useMediaQuery';
 import UserMenuInner from '@widgets/user-menu/user-menu/user-menu-inner';
 import UserMenuSkeleton from '@widgets/user-menu/user-menu/user-menu-skeleton';
 
 const UserMenu = () => {
-  const { data: userData, isPending, isFetching } = useUserData();
-  useUpdateAuthStore({ userData });
-  console.log('userData', userData);
+  const isMobile = useMediaQuery(768.98);
+  const { isPending, isFetching } = useUserData();
+  console.log('isMobile', isMobile);
+  console.log('isPending', isPending);
+
+  if (isMobile) return null;
   if (isPending || isFetching) return <UserMenuSkeleton />;
+
   return <UserMenuInner />;
 };
 

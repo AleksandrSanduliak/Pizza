@@ -1,14 +1,12 @@
 'use client';
 import cn from 'classnames';
 
-import useUserMenu from '@entities/user-menu/useUserMenu';
+import { toggleRegisterMenu } from '@entities/user-menu/user-menu.slice';
 import LoginForm from '@features/auth/login/login-form';
 
 import styles from './login.module.scss';
 
 const Login = () => {
-  const { actions } = useUserMenu();
-  console.log('actions', actions);
   return (
     <div className={styles.wrapper}>
       <div className={styles.inner}>
@@ -19,7 +17,7 @@ const Login = () => {
         </p>
         <p className={cn('normal', styles.register)}>
           Отсутствует аккаунт?&nbsp;
-          <span onClick={() => actions.toggleRegister()} className={styles.registration}>
+          <span onClick={() => toggleRegisterMenu()} className={styles.registration}>
             Зарегистрируйтесь
           </span>
         </p>

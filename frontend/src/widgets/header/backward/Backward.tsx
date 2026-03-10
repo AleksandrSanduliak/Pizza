@@ -1,11 +1,6 @@
 'use client';
-
-import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import { useUserLocationContext } from '@app/providers/LocationProvider';
-import useUserMenu from '@entities/user-menu/useUserMenu';
-import useMediaQuery from '@shared/hooks/ui/useMediaQuery';
 import orangeArrow from 'public/icons/orange-arrow.svg';
 
 import cl from './backward.module.scss';
@@ -53,7 +48,6 @@ const createBackwardStrategy = (
 const Backward = () => {
   // const [isShow, setIsShow] = React.useState<boolean>(false);
 
-  // const { isAccountClick, isRegisterClick, onClickAuth } = useUserMenu();
   // const isMobile = useMediaQuery();
   // const router = useRouter();
 

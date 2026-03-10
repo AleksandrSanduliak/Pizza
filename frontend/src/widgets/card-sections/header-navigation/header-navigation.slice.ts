@@ -1,28 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { toggleBurgerMenu } from '@entities/user-menu/user-menu.slice';
 import { rootReducers } from '@shared/store/store';
 
 // import { setAuthMobile } from '../../../entities/user-menu/user-menu.slice';
 
-type TInitialState = {
+type HeaderNavigation = {
   isVisible: boolean;
 };
 
-const initialState: TInitialState = { isVisible: false };
+const initialState: HeaderNavigation = { isVisible: false };
 
-const headerNavigationSlice = createSlice({
+export const headerNavigationSlice = createSlice({
   name: 'headerNavigation',
   initialState,
+  selectors: {
+    isVisibleHeaderNav: (store) => store.isVisible,
+  },
   reducers: {
     visibleStatus: (state, action) => {
       state.isVisible = action.payload;
     },
   },
   extraReducers: (builder) => {
-    // builder.addCase(setAuthMobile, (state) => {
-    //   // console.log('state extra', current(state));
-    //   state.isVisible = true;
-    // });
+    builder.addCase(toggleBurgerMenu, (state, action) => {
+      console.log('state, action', state, action);
+      state.isVisible = false;
+    });
   },
 }).injectInto(rootReducers);
 

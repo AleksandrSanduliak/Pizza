@@ -38,10 +38,8 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   async login(@Body() req: Request, @Res({ passthrough: true }) res: Response) {
-    // console.log('req', req);
     const user = await this.authService.login({ data: req });
     res.cookie('refreshToken', user.tokens.refreshToken, cookieSettings);
-    // console.log('user', user);
     return user;
   }
   @HttpCode(HttpStatus.OK)

@@ -2,19 +2,15 @@
 
 import { JSX } from 'react';
 
+import { userMenuSlice } from '@entities/user-menu/user-menu.slice';
 import Login from '@features/auth/login/login';
 import RegisterForm from '@features/auth/register/register';
 import useOverflowBody from '@shared/hooks/ui/useOverflowBody';
-import {
-  TIsAccountClick,
-  TIsRegisterClick,
-  TIsShoppingBagClick,
-} from '@shared/types/useAccountTypes';
+import { useAppSelector } from '@shared/store/hooks';
 import Account from '@widgets/user-menu/user-menu/user-menu-inner';
-import useUserMenu from '@entities/user-menu/useUserMenu';
 
+import BurgerNav from './burger-nav';
 import cl from './burger.module.scss';
-import BurgerNav from './BurgerNav';
 
 const BurgerAccount = () => {
   return (
@@ -46,12 +42,6 @@ const BurgerLogin = () => {
   );
 };
 
-export type TBurgerStrategyArgs = {
-  isAccountClick: TIsAccountClick;
-  isRegisterClick: TIsRegisterClick;
-  isShoppingBagClick: TIsShoppingBagClick;
-};
-
 type TBurgerStrategyReturnType = JSX.Element | null;
 export type TBurgerStrategy = {
   account: () => TBurgerStrategyReturnType;
@@ -61,9 +51,9 @@ export type TBurgerStrategy = {
 };
 
 const createBurgerStrategy = (
-  isAccountClick: TIsAccountClick,
-  isRegisterClick: TIsRegisterClick,
-  isShoppingBagClick: TIsShoppingBagClick,
+  isAccountClick: boolean,
+  isRegisterClick: boolean,
+  isShoppingBagClick: boolean,
 ) => {
   const burgerStrategies: TBurgerStrategy = {
     account: () =>
@@ -79,13 +69,14 @@ const createBurgerStrategy = (
 };
 
 const BurgetContent = () => {
-  const { isAccountClick, isRegisterClick, isBurgerClick, isShoppingBagClick } = useUserMenu();
-  useOverflowBody(isBurgerClick);
-  const burgerStrategies = createBurgerStrategy(
-    isAccountClick,
-    isRegisterClick,
-    isShoppingBagClick,
+  const isBurgerClicked = useAppSelector((state) => userMenuSlice.selectors.isBurgerClicked(state));
+  const isLoginClicked = useAppSelector((state) => userMenuSlice.selectors.isLoginClicked(state));
+  const isRegisterClicked = useAppSelector((state) =>
+    userMenuSlice.selectors.isRegisterClicked(state),
   );
+  const isBasketClicked = useAppSelector((state) => userMenuSlice.selectors.isBasketClicked(state));
+  useOverflowBody(isBurgerClicked);
+  const burgerStrategies = createBurgerStrategy(isLoginClicked, isRegisterClicked, isBasketClicked);
 
   return <div className={cl.burgerWrapper}>{burgerStrategies}</div>;
 };
