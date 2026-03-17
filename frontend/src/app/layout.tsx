@@ -10,7 +10,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     <html lang="en">
       <body>
         <AppProvider>
-          <div id="root">{children}</div>
+          <div id="root ">{children}</div>
           <div id="modal-root" />
           <div id="fullscreen-loader-root" />
           <div id="dropdown-root" />

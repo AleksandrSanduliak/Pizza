@@ -1,5 +1,3 @@
-import console from 'console';
-
 import { ReactNode, Suspense } from 'react';
 
 import { getCityList } from '@entities/city/api/cities-list';
@@ -23,11 +21,13 @@ export default async function MainPageLayout({
   return (
     <>
       <div className="wrapper">
-        <Suspense fallback={<div>...loading header</div>}>
-          <Header data={cityData} />
-        </Suspense>
-        <main className="main">{children}</main>
-        <Footer />
+        {/* <Suspense fallback={<div>...loading header</div>}>
+          <Header cityName={cityData.name as string} />
+        </Suspense> */}
+        <main className="main ">
+          <div className="mainpage_container"> {children}</div>
+        </main>
+        {/* <Footer /> */}
       </div>
     </>
   );

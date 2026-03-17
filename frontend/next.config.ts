@@ -34,6 +34,21 @@ const nextConfig: NextConfig = {
     ],
   },
   reactStrictMode: true,
+  // turbopack: {
+  //   // Enable polling for file changes in Docker
+  //   // watchOptions: {
+  //   //   pollIntervalMs: 1000, // Poll every second
+  //   // },
+  //   // // Resolve aliases if needed
+  //   // resolveAlias: {
+  //   //   '@': path.join(__dirname, 'src'),
+  //   //   '@shared': path.join(__dirname, 'src/shared'),
+  //   //   // ... other aliases
+  //   // },
+  // },
+
+  // output: 'standalone',
+  // outputFileTracingRoot: path.join(__dirname, '../../'),
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.watchOptions = {

@@ -13,20 +13,15 @@ interface INavigationList extends TNavigationItem {
 }
 export const NAVIGATION_LIST: INavigationList[] = [
   {
+    name: 'globalcatalog',
+    to: ROUTES.CATEGORIES,
+    label: 'Глобальный каталог товаров',
+    icon: <ProductionQuantityLimitsIcon />,
+  },
+  {
     name: 'citycatalog',
-    to: ROUTES.CITYCATALOG,
+    to: ROUTES.CITIESCATEGORIES,
     label: 'Каталоги городов',
     icon: <ProductionQuantityLimitsIcon />,
-    // childrens: [
-    //   {
-    //     name: 'globalproducts',
-    //     to: 'globalproducts',
-    //     label: 'Глобальные продукты',
-    //     icon: <MenuBookIcon />,
-    //   },
-    // ],
   },
-  // { name: 'profile', to: 'profile', label: 'Profile', icon: <PersonIcon /> },
-  // { name: 'categories', to: 'citycatalog/categories', label: 'categories', icon: <PersonIcon /> },
-  // { name: 'settings', to: 'settings', label: 'Settings', icon: <SettingsIcon /> },
 ];

@@ -1,0 +1,39 @@
+.shoppingbag {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  position: relative;
+  margin-left: 1.5rem;
+  @media (max-width: 768.98px) {
+    position: fixed;
+    z-index: 22;
+    bottom: 2rem;
+    right: 2rem;
+    margin: 0;
+  }
+  @media (max-width: 425.98px) {
+    z-index: 22;
+    bottom: 1.25rem;
+  }
+  img {
+    margin-right: 0.5rem;
+    @media (max-width: 768.98px) {
+      margin-right: 0;
+    }
+  }
+}
+.summary {
+  @media (max-width: 768.98px) {
+    @include flex-all-center;
+    position: absolute;
+    top: -0.7rem;
+    right: 0;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 0.781rem;
+    border: 0.063rem solid $primary;
+    background-color: white;
+    color: $primary;
+  }
+}

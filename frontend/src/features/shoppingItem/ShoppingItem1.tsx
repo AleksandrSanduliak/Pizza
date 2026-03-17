@@ -1,3 +1,5 @@
+'use client';
+
 import { removeItem } from 'framer-motion';
 
 import { selectIsAuth } from '@features/auth/auth.slice';

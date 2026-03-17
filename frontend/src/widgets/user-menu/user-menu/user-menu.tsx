@@ -7,15 +7,13 @@ import UserMenuInner from '@widgets/user-menu/user-menu/user-menu-inner';
 import UserMenuSkeleton from '@widgets/user-menu/user-menu/user-menu-skeleton';
 
 const UserMenu = () => {
-  const isMobile = useMediaQuery(768.98);
+  const isMobile = useMediaQuery(768);
   const { isPending, isFetching } = useUserData();
   console.log('isMobile', isMobile);
   console.log('isPending', isPending);
 
-  if (isMobile) return null;
-  if (isPending || isFetching) return <UserMenuSkeleton />;
-
-  return <UserMenuInner />;
+  const isLoading = isPending || isFetching;
+  return isLoading ? <UserMenuSkeleton /> : <UserMenuInner />;
 };
 
 export default UserMenu;

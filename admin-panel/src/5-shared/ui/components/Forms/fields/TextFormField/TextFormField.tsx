@@ -1,6 +1,6 @@
-import { TextField } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
-import { FormFieldView } from '../../../../../../4-entities/ProductForm/model/fields';
+import { FormFieldView } from '@entities/ProductForm/model/fields';
 
 const TextFormField = ({ name, label, ...fieldProps }: FormFieldView) => {
   const { control, register } = useFormContext();
@@ -13,10 +13,12 @@ const TextFormField = ({ name, label, ...fieldProps }: FormFieldView) => {
     <Controller
       control={control}
       name={name}
-      render={({ field }) => {
+      render={({ field, fieldState: { error } }) => {
         return (
           <TextField
             {...register(name)}
+            helperText={error ? error.message : null}
+            error={!!error}
             label={label}
             id={name}
             variant='outlined'

@@ -1,17 +1,17 @@
+'use client';
 import cn from 'clsx';
+import { ShoppingCart } from 'lucide-react';
 
-import { useAppSelector } from '@shared/store/hooks';
 import { Button } from '@shared/ui/button/button';
 
 import cl from './ShoppingBagButton.module.scss';
 
 const ShoppingBagButton = () => {
-  const totalCount = useAppSelector((state) => state.reducer.cartShopSlice.totalCount);
   return (
     <Button className={cl.shoppingBagButton} type="submit">
-      <img loading="lazy" src="/icons/buttons/shoppingBag.svg" alt="Иконка Корзины" />
+      <ShoppingCart color="white" strokeWidth="3px" />
       <p className={cn('normal', cl.summary)}>
-        <span>{totalCount}</span>
+        <span>0</span>
       </p>
     </Button>
   );

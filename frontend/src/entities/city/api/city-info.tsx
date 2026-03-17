@@ -10,12 +10,11 @@ export const getCityInfo = async (location: string): Promise<CityInfo | null> =>
       withCredentials: false,
     });
     console.log('response', response);
-    const data = citySchema.safeParse(response?.data);
+    const data = citySchema.safeParse(response.data);
     console.log('getcityInfo', data);
     if (!data.success) throw new Error('Информация о городе не получена');
     console.log('data', data);
-    console.log('goods1 getCityInfo', response.data);
-    return response.data;
+    return data.data;
   } catch (error) {
     console.log('error', error);
     throw error;

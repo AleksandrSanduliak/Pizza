@@ -4,7 +4,6 @@ import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 
-const CatalogPage = lazy(() => import('@pages/CityCatalog/CityCatalog'));
 const CategoriesPage = lazy(() => import('@pages/Categories/ui/Categories'));
 const GlobalCategoryPage = lazy(() => import('@/2-pages/GlobalCategory/global-category'));
 const ProductPage = lazy(() => import('@pages/Product/Product'));
@@ -17,8 +16,7 @@ export const router = createBrowserRouter([
     path: ROUTES.MAIN,
     element: <App />,
     children: [
-      // catalog
-      { path: ROUTES.CITYCATALOG, element: <CatalogPage /> },
+      // global catalog
       { path: ROUTES.CATEGORIES, element: <CategoriesPage /> },
       {
         path: ROUTES.CATEGORY,
@@ -28,7 +26,7 @@ export const router = createBrowserRouter([
         path: ROUTES.PRODUCT,
         element: <ProductPage />,
       },
-      // city
+      // city local catalog
       { path: ROUTES.CITIESCATEGORIES, element: <CititesCategoriesPage /> },
       {
         path: ROUTES.CITY,
@@ -41,4 +39,3 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
-

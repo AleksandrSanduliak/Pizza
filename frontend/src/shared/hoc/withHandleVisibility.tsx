@@ -3,7 +3,7 @@
 import { RefObject, useEffect, useRef } from 'react';
 
 import { useAppDispatch } from '@shared/store/hooks';
-import { visibleStatus } from '@widgets/card-sections/header-navigation/header-navigation.slice';
+import { visibleStatus } from '@widgets/card-sections/card-sections-navigation/card-sections-navigation.slice';
 
 const useElementVisibility = (
   ref: RefObject<HTMLElement | null>,

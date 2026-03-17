@@ -3,7 +3,13 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class CityService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService) {
+    // console.log('=== ДИАГНОСТИКА CityService ===');
+    // // console.log('1. this.prisma:', this.prismaService);
+    // console.log('2. this.prisma?.productCategory:', this.prismaService?.city);
+    // // console.log('3. Методы prisma:', Object.keys(this.prismaService || {}));
+    // console.log('=========================================');
+  }
   async cityList() {
     console.log('123');
     return await this.prismaService.city.findMany({

@@ -1,9 +1,8 @@
 'use client';
 
 import { CardContext } from '@entities/card-item/model/context';
-import { Category, Product, Product } from '@entities/city/model/city.schema';
+import { Product } from '@entities/city/model/city.schema';
 import useMediaQuery from '@shared/hooks/ui/useMediaQuery';
-import { TFoodItem } from '@shared/types/types';
 
 // import useAddToCartRedux from './lib/addToCart/useAddToCartRedux';
 import DesktopCard from './ui/DesktopCard/DesktopCard';

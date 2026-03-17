@@ -1,23 +1,34 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { UseCityList } from '@entities/city/api/cities-list';
-import ChangeCity from '@features/change-city/change-city';
-import ChangeCityButton from '@features/change-city/change-city-button';
+import ChangeCityButton from '@features/change-city/ui/change-city-button';
+import ChangeCityModal from '@features/change-city/ui/change-city-modal';
+import CityList from '@features/change-city/ui/city-list';
+import FetchCityLoader from '@features/change-city/ui/loaders/fetch-city-loader';
 
-const HeaderChangeCity = ({ currentCity }: { currentCity: string }) => {
-  const { data: cityList } = UseCityList();
-  return (
-    <div>
-      <ChangeCity
-        cityList={cityList}
-        currentCity={currentCity}
-        renderPropButton={(setIsOpen) => (
-          <ChangeCityButton currentCity={currentCity} setIsOpen={setIsOpen} />
-        )}
-      />
-    </div>
-  );
+const HeaderCityList = ({ cityName }: { cityName: string }) => {
+  const { data, isPending } = UseCityList();
+  if (isPending) return <FetchCityLoader />;
+  return <CityList currentCity={(cityName as string) ?? ''} data={data} />;
 };
 
+function HeaderChangeCity({
+  cityName,
+  isOpenModal = false,
+}: {
+  cityName: string;
+  isOpenModal?: boolean;
+}) {
+  const [isOpen, setIsOpen] = useState<boolean>(isOpenModal);
+
+  return (
+    <ChangeCityModal
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      buttonSlot={<ChangeCityButton cityName={cityName} setIsOpen={setIsOpen} />}
+      listSlot={<HeaderCityList cityName={cityName} />}
+    />
+  );
+}
 export default HeaderChangeCity;

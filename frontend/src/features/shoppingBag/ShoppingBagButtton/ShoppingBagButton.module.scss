@@ -1,10 +1,16 @@
 .shoppingBagButton {
   padding: 0.5rem 1rem;
+  background-color: $primary;
+  color: $white;
 
   @media (max-width: 768.98px) {
-    width: 3.5rem;
-    height: 3.5rem;
+    position: fixed;
+    min-width: 3.5rem;
+    min-height: 3.5rem;
     border-radius: 1.75rem;
     padding: 0;
+    right: 0.25rem;
+    bottom: 1.5rem;
+    z-index: 999;
   }
 }

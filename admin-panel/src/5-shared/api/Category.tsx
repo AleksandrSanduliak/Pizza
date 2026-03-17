@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import apiUrl from '../consts/api-consts';
 import { Category, CategoryTitles } from '../interface/category-interface';
+import { CategoryForm } from '@/2-pages/Categories/ui/create-category-form';
 
 export function useGetGlobalCategoriesQuery() {
   return useQuery({
@@ -36,7 +37,7 @@ export function useGetGlobalCategoryQuery({
 export function useCreateCategoryMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: CategoryTitles) => {
+    mutationFn: async (data: CategoryForm) => {
       return axios.post(apiUrl.createCategory, data);
     },
     onSuccess: () => {

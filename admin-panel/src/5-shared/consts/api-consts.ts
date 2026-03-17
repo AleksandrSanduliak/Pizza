@@ -3,20 +3,20 @@ console.log('baseUrl', baseUrl);
 const createUrl = (url: string) => `${baseUrl}${url}`;
 
 const apiUrl = {
-  getGlobalProducts: createUrl('/api/v1/admin-panel/getGlobalProducts'),
-  getGlobalProduct: createUrl('/api/v1/admin-panel/getGlobalProduct'),
-  getGlobalCategories: createUrl('/api/v1/admin-panel/getGlobalCategories'),
-  createCategory: createUrl('/api/v1/admin-panel/createCategory'),
-  createGlobalProduct: createUrl('/api/v1/admin-panel/createGlobalProduct'),
-  updateGlobalProduct: createUrl('/api/v1/admin-panel/updateGlobalProduct'),
-  deleteGlobalProduct: createUrl('/api/v1/admin-panel/deleteGlobalProduct'),
+  getGlobalProducts: createUrl('/api/v1/global-product/getGlobalProducts'),
+  getGlobalProduct: createUrl('/api/v1/global-product/getGlobalProduct'),
+  getGlobalCategories: createUrl('/api/v1/global-product/getGlobalCategories'),
+  createCategory: createUrl('/api/v1/global-product/createGlobalCategory'),
+  createGlobalProduct: createUrl('/api/v1/global-product/createGlobalProduct'),
+  updateGlobalProduct: createUrl('/api/v1/global-product/updateGlobalProduct'),
+  deleteGlobalProduct: createUrl('/api/v1/global-product/deleteGlobalProduct'),
   getCategory: createUrl('/api/v1/admin-panel/getCategory'),
-  getCitiesList: createUrl('/api/v1/admin-panel/getCitiesList'),
-  createCity: createUrl('/api/v1/admin-panel/createCity'),
-  getCity: createUrl('/api/v1/admin-panel/getCity'),
-  createLocalCategory: createUrl('/api/v1/admin-panel/createLocalCategory'),
-  createLocalProduct: createUrl('/api/v1/admin-panel/createLocalProduct'),
-  deleteLocalProduct: createUrl('/api/v1/admin-panel/deleteLocalProduct'),
+  getCitiesList: createUrl('/api/v1/local-product/getCitiesList'),
+  createCity: createUrl('/api/v1/local-product/createCity'),
+  getCity: createUrl('/api/v1/local-product/getCity'),
+  createLocalCategory: createUrl('/api/v1/local-product/createLocalCategory'),
+  createLocalProduct: createUrl('/api/v1/local-product/createLocalProduct'),
+  deleteLocalProduct: createUrl('/api/v1/local-product/deleteLocalProduct'),
 };
 
 export default apiUrl;

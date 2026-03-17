@@ -1,19 +1,17 @@
-import dynamic from 'next/dynamic';
-
-import SelectCityModal from '@features/change-city/select-city-modal';
-
-const Logo = dynamic(() => import('@shared/ui/logo/logo-component'), {
-  loading: () => <div className="text-center py-4">Загрузка логотипа...</div>,
-  ssr: true,
-});
+import { getCityList } from '@entities/city/api/cities-list';
+import ChangeCityModal from '@features/change-city/ui/change-city-modal';
+import CityList from '@features/change-city/ui/city-list';
+import Logo from '@shared/ui/logo/Logo';
 
 export default async function SelectCityPage() {
+  const response = await getCityList();
   return (
     <div className="selectcity__container w-[100%]">
       <div className="pt-6">
         <Logo />
       </div>
-      <SelectCityModal />
+
+      <ChangeCityModal isOpen={true} listSlot={<CityList data={response} currentCity={null} />} />
     </div>
   );
 }
