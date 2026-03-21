@@ -1,9 +1,10 @@
-import { useGetGlobalProduct } from '@pages/Product/api/api';
+import { useGetGlobalProduct } from '@/2-pages/global-catalog/product/api/api';
 
 import { Button } from '@mui/material';
-import { SubmitHandler } from 'react-hook-form';
 import { useCreateLocalProduct } from '../../api/api';
-import LocalProductModal from './LocalProductModal';
+
+import CityForm from '@/2-pages/CitiesCategories/ui/LocalProduct/CityForm';
+import LocalProductModal from '@/2-pages/CitiesCategories/ui/LocalProduct/local-product-modal';
 
 interface CreateLocalProductModal {
   isOpenModal: boolean;
@@ -40,12 +41,11 @@ const CreateLocalProductModal = ({
       }),
     };
   };
-  const onSubmit: SubmitHandler = (data) => {
-    console.log('data', data);
 
-    // const updateData = { ...defaultValues(data), category: data.category };
+  const onSubmit = (data) => {
+    console.log('data', data);
     const updateData = defaultValues(data);
-    mutationFn(updateData);
+    // mutationFn(updateData);
   };
 
   console.log('productData create', productData);
@@ -53,12 +53,16 @@ const CreateLocalProductModal = ({
     <LocalProductModal
       isOpenModal={isOpenModal}
       closeModal={onClose}
-      productData={productData}
-      onSubmit={onSubmit}
-      buttonSlot={
-        <Button sx={{ width: 'min-content' }} type='submit'>
-          Создать локальный продукт
-        </Button>
+      children={
+        <CityForm
+          data={productData}
+          onSubmit={onSubmit}
+          buttonSlot={
+            <Button sx={{ width: 'min-content' }} type='submit'>
+              Создать локальный продукт
+            </Button>
+          }
+        />
       }
     />
   );

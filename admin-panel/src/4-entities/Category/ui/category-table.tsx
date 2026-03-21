@@ -96,6 +96,7 @@ const CategoryTable = ({ products, category }: CategoryTable) => {
     console.log('id', id);
     navigate(String(id));
   }, []);
+
   const deleteProduct = React.useCallback(({ id, category }: { id: number; category: string }) => {
     console.log('delete product');
     mutationFn({ id, category });

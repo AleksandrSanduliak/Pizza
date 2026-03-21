@@ -5,15 +5,15 @@ export type MainProductItem = {
   desc: string;
   imageUrl: string;
   category: string;
-}
+};
 
 type NutritionFacts = {
-  id: number,
-  fats: number,
-  proteins: number,
-  carbs: number,
-  calories: number,
-  weight: number
+  id: number;
+  fats: number;
+  proteins: number;
+  carbs: number;
+  calories: number;
+  weight: number;
 };
 
 type ProductVariant = {
@@ -21,14 +21,13 @@ type ProductVariant = {
   sizeName: string;
   size: string;
   desc: string;
-  nutritionFacts: NutritionFacts
+  nutritionFacts: NutritionFacts;
   variationId: string;
-}
-
-export interface GlobalProduct extends MainProductItem {
-  variants?: ProductVariant[]
 };
 
+export interface GlobalProduct extends MainProductItem {
+  variants?: ProductVariant[];
+}
 
 interface LocalProductVariant extends ProductVariant {
   price: number;
@@ -36,5 +35,4 @@ interface LocalProductVariant extends ProductVariant {
 
 export interface LocalProduct extends MainProductItem, LocalProductVariant {
   order: number;
-
 }

@@ -6,6 +6,7 @@ import ProductForm from './ProductForm';
 
 const Products = () => {
   const { id, category } = useParams();
+  console.log(' id, category', id, category);
   if (!id || !category) {
     return `не обнаружен id или категория`;
   }
@@ -21,7 +22,7 @@ const Products = () => {
   return (
     <Box>
       <Box sx={{ mt: 4 }}>
-        <ProductForm data={productData} categoryName={category} />
+        <ProductForm data={productData} categoryName={category} />{' '}
       </Box>
     </Box>
   );

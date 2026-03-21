@@ -14,7 +14,7 @@ interface INavigationList extends TNavigationItem {
 export const NAVIGATION_LIST: INavigationList[] = [
   {
     name: 'globalcatalog',
-    to: ROUTES.CATEGORIES,
+    to: ROUTES.GLOBAL_CATEGORIES,
     label: 'Глобальный каталог товаров',
     icon: <ProductionQuantityLimitsIcon />,
   },

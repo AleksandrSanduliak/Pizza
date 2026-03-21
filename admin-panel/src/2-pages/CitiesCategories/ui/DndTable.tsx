@@ -18,7 +18,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Box } from '@mui/material';
 import { useState } from 'react';
 import { useDeleteLocalProductMutation } from '../api/api';
-import EditLocalProductModal from './LocalProduct/EditLocalProductModal';
+import EditLocalProductModal from '@/2-pages/CitiesCategories/ui/LocalProduct/edit-local-product-modal';
 
 export function SortableItem({ item, city, category, cityId, handleDeleteItem }) {
   // console.log('item', item);

@@ -7,6 +7,7 @@ import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import TextFormField from '@/5-shared/ui/components/Forms/fields/TextFormField/TextFormField';
 import { capitalizeFirstLetter } from '@/5-shared/utils/uppercase-first-letter';
+
 const CreateCategoryFormSchema = z.object({
   category: z
     .string()

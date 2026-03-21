@@ -13,6 +13,7 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from '@app/routes';
 import AppTheme from './5-shared/ui/components/theme/AppTheme';
 import { ThemeProvider } from './5-shared/ui/components/theme/ThemeSwitcher/useTheme';
+import { ToasterProvider } from '@/5-shared/ui/components/toast';
 
 const queryClient = new QueryClient();
 createRoot(document.getElementById('root')!).render(
@@ -21,7 +22,9 @@ createRoot(document.getElementById('root')!).render(
       <ThemeProvider>
         <AppTheme>
           <CssBaseline />
-          <RouterProvider router={router} />
+          <ToasterProvider>
+            <RouterProvider router={router} />
+          </ToasterProvider>
         </AppTheme>
       </ThemeProvider>
     </QueryClientProvider>

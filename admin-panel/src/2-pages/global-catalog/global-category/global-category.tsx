@@ -9,10 +9,10 @@ const GlobalCategory = () => {
   if (!params || !params.category) {
     return <Box>Не найдена категория</Box>;
   }
-  const { category } = params;
-  const { data } = useGetGlobalCategoryQuery({ category: category });
-  console.log('data', data);
-  return <Category data={data} category={category} />;
+  const { category: categoryName } = params;
+  const { data: categoryData } = useGetGlobalCategoryQuery({ category: categoryName });
+  console.log('data', categoryData);
+  return <Category data={categoryData} category={categoryName} />;
 };
 
 export default GlobalCategory;

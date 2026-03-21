@@ -1,8 +1,16 @@
 import PrimaryModal from '@shared/ui/components/Modal/PrimaryModal/PrimaryModal';
 import { Box } from '@mui/material';
-import CityForm from './CityForm';
+import { ReactNode } from 'react';
 
-const LocalProductModal = ({ isOpenModal, closeModal, onSubmit, productData, buttonSlot }) => {
+const LocalProductModal = ({
+  isOpenModal,
+  closeModal,
+  children,
+}: {
+  isOpenModal: boolean;
+  closeModal: () => void;
+  children: ReactNode;
+}) => {
   return (
     <PrimaryModal
       styles={{
@@ -15,9 +23,7 @@ const LocalProductModal = ({ isOpenModal, closeModal, onSubmit, productData, but
       isOpenModal={isOpenModal}
       closeModal={closeModal}
     >
-      <Box sx={{ mt: 6 }}>
-        <CityForm productData={productData} onSubmit={onSubmit} buttonSlot={buttonSlot} />
-      </Box>
+      <Box sx={{ mt: 6 }}>{children}</Box>
     </PrimaryModal>
   );
 };

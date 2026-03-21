@@ -8,9 +8,9 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { LocalProductService } from 'src/admin-panel/local-product.service';
+import { LocalProductService } from 'src/catalog/local-catalogs.service';
 
-@Controller('api/v1/local-product')
+@Controller('api/v1/local-catalogs')
 export class LocalProductController {
   constructor(private readonly localProductService: LocalProductService) {}
 
@@ -34,7 +34,7 @@ export class LocalProductController {
   }
   @Get('getCity/:city')
   getCity(@Param('city') city: string) {
-    return this.localProductService.getCity(city);
+    return this.localProductService.getCityData(city);
   }
 
   @Post('createCity')

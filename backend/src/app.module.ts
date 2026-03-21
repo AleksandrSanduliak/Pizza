@@ -4,7 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { CityModule } from './city/city.module';
 import { configuration } from './config/configuration';
-import { CatalogModule } from './admin-panel/catalog.module';
+import { CatalogModule } from './catalog/catalog.module';
 
 @Module({
   imports: [

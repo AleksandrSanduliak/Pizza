@@ -17,13 +17,7 @@ interface CategoriesContent {
   emptyDataSlot?: ReactNode | Promise<ReactNode> | undefined;
 }
 
-const CategoriesContent = ({
-  data,
-  isLoading,
-  isError,
-  error,
-  emptyDataSlot,
-}: CategoriesContent) => {
+const CategoriesList = ({ data, isLoading, isError, error, emptyDataSlot }: CategoriesContent) => {
   console.log('isLoading', isLoading);
   const { categories = [], totalCount = 0 } = data || {};
   const hasData = Array.isArray(categories) && categories.length > 0;
@@ -35,9 +29,10 @@ const CategoriesContent = ({
       <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 2 }}>
         {Array.from({ length: skeletonLength }).map(
           (
-            item // TODO: пробросить ключи и вытащить xtotalcount
+            _,
+            index // TODO: пробросить ключи и вытащить xtotalcount
           ) => (
-            <Box sx={{ width: 175 }}>
+            <Box key={`${index}_categories_list_skeleton`} sx={{ width: 175 }}>
               <CartItemSkeleton />
             </Box>
           )
@@ -68,7 +63,7 @@ const CategoriesContent = ({
     <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 2 }}>
       {categories.map((category) => {
         return (
-          <Box key={category.categoryTitle} sx={{ width: 175 }}>
+          <Box key={category.category} sx={{ width: 175 }}>
             <CategoryCardItem
               title={category.categoryTitle}
               categoryName={category.category}
@@ -81,4 +76,4 @@ const CategoriesContent = ({
   );
 };
 
-export default CategoriesContent;
+export default CategoriesList;

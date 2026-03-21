@@ -3,10 +3,11 @@ import {
   LocalProductFormFields,
   LocalVariantItemFormFields,
   NutritionFactsFormFields,
-  VariantItemFormFields,
 } from '@entities/ProductForm/ui/common/FormFields';
 import VariantFields from '@entities/ProductForm/ui/common/VariantFields';
 import { Box, Typography } from '@mui/material';
+import { ReactNode } from 'react';
+import { FieldValues } from 'react-hook-form';
 
 const DynamicRenderField = ({ field, props, fieldIndex }) => {
   return (
@@ -66,9 +67,17 @@ const DynamicRenderField = ({ field, props, fieldIndex }) => {
   );
 };
 
-const CityForm = ({ productData, onSubmit, buttonSlot }) => {
-  if (!productData) {
-    return;
+const CityForm = <T extends FieldValues>({
+  data,
+  onSubmit,
+  buttonSlot,
+}: {
+  data: T;
+  onSubmit?: (data: T) => void;
+  buttonSlot: ReactNode;
+}) => {
+  if (!data) {
+    return <div>...loading</div>;
   }
 
   return (
@@ -91,7 +100,7 @@ const CityForm = ({ productData, onSubmit, buttonSlot }) => {
           }}
         />
       }
-      defaultValues={productData}
+      defaultValues={data}
       onSubmit={onSubmit}
       dynamicFieldsRenderProp={({ field, props, fieldIndex }) => (
         <DynamicRenderField field={field} props={props} fieldIndex={fieldIndex} />

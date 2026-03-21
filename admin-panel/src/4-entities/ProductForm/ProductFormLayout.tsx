@@ -1,4 +1,5 @@
 import { Box, Stack } from '@mui/material';
+
 import {
   ArrayPath,
   DefaultValues,
@@ -23,28 +24,24 @@ type UseFieldsProps<T extends FieldValues> = Omit<
   'fields'
 >;
 
-interface ProductFormLayout<TSubmitHandlerFields extends FieldValues> {
-  onSubmit: SubmitHandler<TSubmitHandlerFields>;
+interface ProductFormLayout<T extends FieldValues, K = DefaultValues<T> | undefined> {
+  onSubmit: SubmitHandler<T>;
   globalFieldsSlot: React.ReactNode;
   buttonSlot: React.ReactNode;
-  fieldArrayName?: ArrayPath<TSubmitHandlerFields>;
-  defaultValues?: DefaultValues<TSubmitHandlerFields> | undefined;
-  dynamicFieldsHeaderRenderProp?: ({
-    props,
-  }: {
-    props: UseFieldsProps<TSubmitHandlerFields>;
-  }) => React.ReactNode;
+  fieldArrayName?: ArrayPath<T>;
+  defaultValues?: K;
+  dynamicFieldsHeaderRenderProp?: ({ props }: { props: UseFieldsProps<T> }) => React.ReactNode;
   dynamicFieldsRenderProp: ({
     field,
     props,
     fieldIndex,
   }: {
-    field: FieldsType<TSubmitHandlerFields>;
-    props: UseFieldsProps<TSubmitHandlerFields>;
+    field: FieldsType<T>;
+    props: UseFieldsProps<T>;
     fieldIndex: number;
   }) => React.ReactNode;
 }
-const ProductFormLayout = <T extends FieldValues>({
+const ProductFormLayout = <T extends FieldValues, K extends DefaultValues<T> | undefined>({
   onSubmit,
   globalFieldsSlot,
   buttonSlot,
@@ -52,8 +49,8 @@ const ProductFormLayout = <T extends FieldValues>({
   defaultValues,
   dynamicFieldsHeaderRenderProp,
   dynamicFieldsRenderProp,
-}: ProductFormLayout<T>) => {
-  const methods = useForm<T>({ defaultValues: defaultValues as DefaultValues<T> | undefined });
+}: ProductFormLayout<T, K>) => {
+  const methods = useForm<T>({ defaultValues: defaultValues });
   const { handleSubmit, control } = methods;
   const { fields, ...useFieldsMethods } = useFieldArray({
     name: fieldArrayName,

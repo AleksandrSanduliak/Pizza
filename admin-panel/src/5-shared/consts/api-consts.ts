@@ -10,13 +10,13 @@ const apiUrl = {
   createGlobalProduct: createUrl('/api/v1/global-product/createGlobalProduct'),
   updateGlobalProduct: createUrl('/api/v1/global-product/updateGlobalProduct'),
   deleteGlobalProduct: createUrl('/api/v1/global-product/deleteGlobalProduct'),
-  getCategory: createUrl('/api/v1/admin-panel/getCategory'),
-  getCitiesList: createUrl('/api/v1/local-product/getCitiesList'),
-  createCity: createUrl('/api/v1/local-product/createCity'),
-  getCity: createUrl('/api/v1/local-product/getCity'),
-  createLocalCategory: createUrl('/api/v1/local-product/createLocalCategory'),
-  createLocalProduct: createUrl('/api/v1/local-product/createLocalProduct'),
-  deleteLocalProduct: createUrl('/api/v1/local-product/deleteLocalProduct'),
+  getCategory: createUrl('/api/v1/global-product/getGlobalCategory'),
+  getCitiesList: createUrl('/api/v1/local-catalogs/getCitiesList'),
+  createCity: createUrl('/api/v1/local-catalogs/createCity'),
+  getCity: createUrl('/api/v1/local-catalogs/getCity'),
+  createLocalCategory: createUrl('/api/v1/local-catalogs/createLocalCategory'),
+  createLocalProduct: createUrl('/api/v1/local-catalogs/createLocalProduct'),
+  deleteLocalProduct: createUrl('/api/v1/local-catalogs/deleteLocalProduct'),
 };
 
 export default apiUrl;

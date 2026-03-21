@@ -5,22 +5,22 @@ import {
   ConflictException,
   Injectable,
 } from '@nestjs/common';
-import { GetGlobalProductDTO } from 'src/admin-panel/dto/get-global-product.dto';
+import { GetGlobalProductDTO } from 'src/catalog/dto/get-global-product.dto';
 // import { PrismaAdapter } from 'src/prisma/prisma.adapter';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { getGlobalCategorySchema } from 'src/catalog/schemas/get-global-category';
 @Injectable()
 export class GlobalProductService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getCategory(category: string) {
-    const findedCategory = await this.prisma.globalProduct.findMany({
-      where: {
-        category: category,
-      },
-    });
-    if (!findedCategory)
+    const findUnique = await this.prisma.productCategory.findUnique(
+      getGlobalCategorySchema(category),
+    );
+
+    if (!findUnique)
       throw new BadRequestException('Не найдена запрашиваемая категория');
-    return findedCategory;
+    return findUnique;
   }
   async getGlobalProducs() {
     const getGlobalProducs = await this.prisma.globalProduct.findMany({
@@ -90,9 +90,9 @@ export class GlobalProductService {
       where: {
         category: category,
       },
-      include: {
-        products: {},
-      },
+      // include: {
+      //   products: {},
+      // },
     });
     return findUnique;
   }

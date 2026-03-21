@@ -18,7 +18,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { useCreateLocalCategoryMutation, useGetCityQuery } from '../api/api';
 import DndTable from './DndTable';
-import CreateLocalProductModal from './LocalProduct/CreateLocalProductModal';
+import CreateLocalProductModal from '@/2-pages/CitiesCategories/ui/LocalProduct/create-local-product-modal';
 
 const CatalogItem = ({ category, city, cityId }) => {
   console.log('category ', category);

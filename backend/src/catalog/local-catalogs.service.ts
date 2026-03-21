@@ -3,6 +3,10 @@ import {
   ConflictException,
   Injectable,
 } from '@nestjs/common';
+import { City, Prisma } from '@prisma/generated/prisma/client';
+import { mapCityCategoriesData } from 'src/catalog/utils/map-city-categories';
+import { CityService } from 'src/prisma/catalog/local/city.service';
+// import { CityService } from 'src/city/city.service';
 
 import { PrismaAdapter } from 'src/prisma/prisma.adapter';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -12,78 +16,36 @@ export class LocalProductService {
   constructor(
     private prisma: PrismaService,
     private prismaAdapter: PrismaAdapter,
+    private readonly cityService: CityService,
   ) {}
 
   async getCitiesList() {
-    const getCitiesList = await this.prisma.city.findMany();
+    const getCitiesList = await this.cityService.getCitiesList();
+    console.log('getCitiesList', getCitiesList);
     return getCitiesList;
   }
-  async getCity(city: string) {
-    const getCity = await this.prisma.city.findUnique({
-      where: {
-        city: city,
-      },
-      include: {
-        restaurants: true,
-        categories: {
-          include: {
-            products: {
-              include: {
-                globalProduct: true,
-                localProductItems: {
-                  include: {
-                    globalProductVariant: true,
-                  },
-                },
-              },
-            },
-            productCategory: true,
-          },
-        },
-      },
-    });
 
-    const mapData = {
+  async getCityData(city: string): Promise<City> {
+    const getCity: City = await this.prisma.city.findUnique(
+      getCitySchema(city),
+    );
+    const categories =
+      getCity.categories?.length !== 0
+        ? mapCityCategoriesData(getCity.categories)
+        : [];
+    const formattingData = {
       ...getCity,
-      categories:
-        getCity?.categories?.length > 0
-          ? getCity.categories.map((category) => {
-              // console.log('category', category)
-              return {
-                id: category.id,
-
-                cityId: category.cityId,
-                category: category.productCategory.category,
-                categoryTitle: category.productCategory.categoryTitle,
-                products: category.products.map((product) => {
-                  return {
-                    id: product.id,
-                    order: Number(product.order),
-                    category: product.globalProduct.category,
-                    title: product.globalProduct.title,
-                    desc: product.globalProduct.desc,
-                    imageUrl: product.globalProduct.imageUrl,
-                    caption: product.globalProduct.caption,
-                    variants: product.localProductItems.map((localProduct) => {
-                      return {
-                        ...localProduct,
-                        ...localProduct.globalProductVariant,
-                      };
-                    }),
-                  };
-                }),
-              };
-            })
-          : [],
+      categories,
     };
     console.log('getCity', getCity);
-    console.log('mapData', mapData);
-    return mapData;
+    console.log('mapData', formattingData);
+    return formattingData;
   }
-  async createCity(data) {
-    // console.log('data', data.data);
+  async createCity(data: { data: Prisma.CityCreateInput }) {
     const validateData = { ...data.data, city: data.data.city.toLowerCase() };
-    const createCity = await this.prisma.city.create({ data: validateData });
+    const createCity = await this.cityService.createCity({
+      data: validateData,
+    });
     return createCity;
   }
 

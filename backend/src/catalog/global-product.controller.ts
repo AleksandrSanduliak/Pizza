@@ -12,7 +12,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { CreateGlobalCategoyDTO } from 'src/admin-panel/dto/global-product/create-category.dto';
+import { CreateGlobalCategoyDTO } from 'src/catalog/dto/global-product/create-category.dto';
 
 @Controller('api/v1/global-product')
 export class GlobalProductController {
@@ -57,14 +57,11 @@ export class GlobalProductController {
   async getGlobalCategories(@Res() res: Response) {
     const { totalCount, globalCategories } =
       await this.globalProductService.getGlobalCategories();
-    // console.log('totalCount, globalCategories', totalCount, globalCategories)
-    // res.header('X-Total-Count', totalCount);
-    // headers('X-Total-Count', totalCount)
     res.header('Access-Control-Expose-Headers', 'X-Total-Count');
     res.setHeader('X-Total-Count', totalCount.toString());
     return res.json(globalCategories);
   }
-  @Get('getCategory/:category')
+  @Get('getGlobalCategory/:category')
   getCategory(@Param('category') category: string) {
     return this.globalProductService.getCategory(category);
   }
